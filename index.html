@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-<title>北师大旧版英语 · 单词勇者岛 V7 本机离线跟读版</title>
+<title>北师大旧版英语 · 单词勇者岛 V8 跟读诊断修复版</title>
 <meta name="theme-color" content="#526dff">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -121,6 +121,7 @@ button{cursor:pointer;border:0}
 .review-list{display:grid;gap:8px;max-height:420px;overflow:auto}.wrong{display:grid;grid-template-columns:1fr 1fr auto;align-items:center;gap:8px;background:#f8faff;padding:11px 13px;border-radius:14px}.wrong b{font-size:17px}.wrong small{color:var(--muted)}
 .empty{padding:30px;text-align:center;color:var(--muted)}
 .footer-note{color:var(--muted);font-size:12px;line-height:1.6;margin-top:12px}
+.app-version{text-align:center;color:#94a0b2;font-size:12px;font-weight:800;letter-spacing:.2px;padding:20px 8px 4px;user-select:none}
 .toast{position:fixed;left:50%;bottom:25px;transform:translateX(-50%) translateY(20px);background:#26364f;color:#fff;border-radius:99px;padding:10px 16px;opacity:0;pointer-events:none;transition:.25s;z-index:99;font-weight:800}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 @media(max-width:800px){.grid{grid-template-columns:1fr}.book-grid{grid-template-columns:repeat(2,1fr)}.units{grid-template-columns:1fr 1fr}.pills{display:none}}
@@ -242,12 +243,10 @@ button{touch-action:manipulation}
   .voice-actions button{flex:1}
 }
 
-
-/* ===== V7 本机离线语音识别 ===== */
-.local-speech-panel{margin-top:10px;padding:11px 12px;border-radius:13px;background:linear-gradient(135deg,#f0fff9,#f4f8ff);border:1px solid #cfe9df;font-size:12px;line-height:1.65;color:#53677a}
-.local-speech-panel b{color:#1b6e50}.local-speech-panel.warn{background:#fff7e8;border-color:#f2d8a4;color:#876124}.local-speech-panel.bad{background:#fff1f2;border-color:#f3c4c9;color:#a13e49}
-.local-speech-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:9px}.local-speech-actions button{padding:9px 12px;border-radius:11px;background:#2db787;color:#fff;font-weight:900;font-size:12px}.local-speech-actions button.secondary{background:#eef3ff;color:#5069c3}
-.recog-debug{display:none;margin-top:8px;padding:8px 10px;border-radius:11px;background:#f5f7fb;color:#68778b;font:12px/1.55 ui-monospace,SFMono-Regular,Consolas,monospace;text-align:left;word-break:break-word}.recog-debug.show{display:block}
+/* ===== V8 跟读识别诊断：只处理 STT，不改 V6 Google TTS ===== */
+.speech-diag{grid-column:1/-1;display:none;margin-top:2px;padding:9px 11px;border-radius:11px;background:#f5f7fb;color:#68778b;font:12px/1.55 ui-monospace,SFMono-Regular,Consolas,monospace;word-break:break-word}
+.speech-diag.show{display:block}
+.speech-diag.good{background:#effcf6;color:#177250}.speech-diag.bad{background:#fff2f3;color:#a8434c}
 
 </style>
 </head>
@@ -297,16 +296,10 @@ button{touch-action:manipulation}
       </div>
       <div class="mic-actions">
         <button class="mic-action" onclick="prepareMicrophone()">🎙️ 启用/测试麦克风</button>
+        <button class="mic-action secondary" onclick="testSpeechRecognitionV8()">🧪 测试跟读识别</button>
         <button id="installGameBtn" class="mic-action secondary" onclick="installGame()" style="display:none">📲 安装到桌面</button>
       </div>
-      <div id="localSpeechPanel" class="local-speech-panel" style="grid-column:1/-1">
-        <b>🧠 英语跟读识别引擎：</b><span id="localSpeechState">正在检查本机 en-US 识别能力…</span>
-        <div class="local-speech-actions">
-          <button onclick="setupLocalSpeech(true)">⬇️ 安装/检查本机英语识别</button>
-          <button class="secondary" onclick="testSpeechRecognition()">🧪 测试语音识别</button>
-        </div>
-        <div id="recognitionDebug" class="recog-debug"></div>
-      </div>
+      <div id="speechDiag" class="speech-diag"></div>
     </div>
 
     <div class="card voice-setup">
@@ -429,6 +422,7 @@ button{touch-action:manipulation}
     <div class="map-head"><button class="back" onclick="show(previousScreen)">←</button><div class="map-title"><h2>📕 我的错词本</h2><small>答错自动加入；复习答对会降低错误次数</small></div><button class="pill" onclick="clearWrong()">清空</button></div>
     <div class="card"><div id="reviewList" class="review-list"></div><button id="reviewBtn" class="bigbtn green" onclick="startWrongReview()">开始错词特训</button></div>
   </section>
+  <div class="app-version">单词勇者岛 · V8</div>
 </div>
 <div class="toast" id="toast"></div>
 <div id="installHint" class="install-hint">
@@ -617,118 +611,97 @@ function initAmericanVoices(){
  }
 }
 
-
-// ===== V7 本机离线语音识别管理 =====
-let localRecognitionReady=false;
-let localRecognitionStatus="unknown";
-let lastRecognitionError="";
-
-function SRClass(){ return window.SpeechRecognition||window.webkitSpeechRecognition||null; }
-function localSpeechCapable(){
- const SR=SRClass();
- return !!(SR && typeof SR.available==="function" && typeof SR.install==="function");
+// ===== V8 跟读识别：与 V6 Google TTS 完全分离 =====
+function speechRecognitionClass(){
+ return window.SpeechRecognition||window.webkitSpeechRecognition||null;
 }
-function updateLocalSpeechUI(status,detail=""){
- localRecognitionStatus=status;
- const panel=document.getElementById("localSpeechPanel");
- const stateEl=document.getElementById("localSpeechState");
- if(!panel||!stateEl)return;
- panel.className="local-speech-panel";
- if(status==="available"){
-   stateEl.innerHTML=`✅ <b>本机 en-US 模型已就绪</b>${detail?` · ${detail}`:""}<br>跟读会优先在手机本机完成识别，不依赖远程识别服务。`;
- }else if(status==="downloadable"){
-   panel.classList.add("warn");stateEl.innerHTML=`⬇️ 本机支持 en-US，但语言模型尚未安装。${detail}`;
- }else if(status==="downloading"){
-   panel.classList.add("warn");stateEl.innerHTML="⏳ en-US 本机识别模型正在下载，请稍候…";
- }else if(status==="unsupported"){
-   panel.classList.add("warn");stateEl.innerHTML=`当前 Chrome 没有开放本机识别接口，将使用联网识别。${detail}`;
- }else{
-   panel.classList.add("bad");stateEl.innerHTML=`本机 en-US 识别暂不可用。${detail}`;
- }
+function sleepMs(ms){return new Promise(resolve=>setTimeout(resolve,ms))}
+function setSpeechDiag(text,kind=""){
+ const e=document.getElementById("speechDiag");if(!e)return;
+ e.textContent=text;e.className="speech-diag show"+(kind?" "+kind:"");
 }
-function showRecognitionDebug(text){
- const e=document.getElementById("recognitionDebug"); if(!e)return;
- e.textContent=text;e.classList.add("show");
+function speechRecognitionErrorInfo(err){
+ const code=String(err?.error||err?.name||"unknown");
+ const message=String(err?.message||"");
+ const map={
+   "no-speech":"没有检测到清晰语音，请靠近麦克风再读一次。",
+   "aborted":"本次识别被中止，请重新点击麦克风。",
+   "audio-capture":"语音识别没有拿到麦克风音频。",
+   "network":"浏览器的语音识别服务网络不可用。注意：Google 美式发音 TTS 仍可正常使用，这是另一套功能。",
+   "not-allowed":"浏览器未允许语音识别使用麦克风。",
+   "service-not-allowed":"当前浏览器/系统不允许使用 Web Speech 识别服务。",
+   "language-not-supported":"当前识别服务不支持 en-US。",
+   "bad-grammar":"语音识别语法配置错误。"
+ };
+ return {code,message,text:map[code]||"语音识别没有成功。"};
 }
-async function queryLocalSpeech(){
- const SR=SRClass();
- if(!SR){updateLocalSpeechUI("unsupported","浏览器没有 SpeechRecognition。");return "unsupported"}
- if(!localSpeechCapable()){updateLocalSpeechUI("unsupported","可更新 Chrome 后再试。");return "unsupported"}
+async function ensureMicForRecognition(){
+ if(!window.isSecureContext)return false;
  try{
-   const opts={langs:["en-US"],processLocally:true,quality:"command"};
-   const st=await SR.available(opts);
-   localRecognitionReady=st==="available";
-   updateLocalSpeechUI(st,st==="downloadable"?'点击“安装/检查本机英语识别”下载即可。':"");
-   return st;
- }catch(e){updateLocalSpeechUI("error",`检查失败：${e?.name||"unknown"}`);return "error"}
-}
-async function setupLocalSpeech(userTriggered=false){
- const SR=SRClass();
- if(!SR){updateLocalSpeechUI("unsupported","当前浏览器不支持语音识别。");return false}
- if(!localSpeechCapable()){
-   updateLocalSpeechUI("unsupported","当前 Chrome 版本没有开放本机识别安装接口。");
-   if(userTriggered)toast("当前 Chrome 暂不支持网页安装本机识别模型");
-   return false;
- }
- try{
-   const opts={langs:["en-US"],processLocally:true,quality:"command"};
-   let st=await SR.available(opts);updateLocalSpeechUI(st);
-   if(st==="available"){localRecognitionReady=true;if(userTriggered)toast("🧠 本机英语识别已经就绪");return true}
-   if(st==="downloading"){if(userTriggered)toast("语言模型正在下载，请稍后再点");return false}
-   if(st==="downloadable"){
-     updateLocalSpeechUI("downloading");
-     const ok=await SR.install(opts);
-     if(!ok){localRecognitionReady=false;updateLocalSpeechUI("error","语言模型安装失败。请确认网络后重试。");return false}
-     st=await SR.available(opts);localRecognitionReady=st==="available";updateLocalSpeechUI(st);
-     if(userTriggered)toast(localRecognitionReady?"✅ 本机英语识别安装完成":"安装完成但模型尚未就绪");
-     return localRecognitionReady;
-   }
-   updateLocalSpeechUI("error","此设备不提供 en-US 本机识别模型。");return false;
- }catch(e){localRecognitionReady=false;updateLocalSpeechUI("error",`安装/检查失败：${e?.name||"unknown"}`);return false}
-}
-function configureRecognition(recognition,targetWord=""){
- recognition.lang="en-US";recognition.interimResults=false;recognition.maxAlternatives=8;recognition.continuous=false;
- if(localRecognitionReady && "processLocally" in recognition){try{recognition.processLocally=true}catch(e){}}
- try{
-   if(targetWord && window.SpeechRecognitionPhrase && recognition.phrases && typeof recognition.phrases.push==="function"){
-     recognition.phrases.push(new SpeechRecognitionPhrase(targetWord,10));
+   if(navigator.permissions?.query){
+     const p=await navigator.permissions.query({name:"microphone"});
+     if(p.state==="granted"){
+       setMicUI("ready","已允许","麦克风权限已经打开，可以直接进行跟读识别。");
+       return true;
+     }
+     if(p.state==="denied"){
+       await refreshMicStatus();return false;
+     }
    }
  }catch(e){}
- return recognition;
+ const ok=await requestMicrophoneAccess(true);
+ // Android 上刚关闭 getUserMedia 后立刻启动 SpeechRecognition 可能抢占同一麦克风，稍等片刻再启动。
+ if(ok)await sleepMs(350);
+ return ok;
 }
-function recognitionErrorText(err){
- const code=err?.error||"unknown",msg=err?.message||"";lastRecognitionError=code;
- const map={
-   "no-speech":"没有检测到清晰语音。请靠近麦克风，再读一次。",
-   "aborted":"识别被中止，请再试一次。",
-   "audio-capture":"浏览器没有取得麦克风音频。",
-   "network":"语音识别服务网络连接失败。建议先安装本机 en-US 识别模型。",
-   "not-allowed":"麦克风权限被拒绝。",
-   "service-not-allowed":"当前语音识别服务不可用/不允许使用。",
-   "language-not-supported":"当前识别引擎不支持 en-US。",
-   "phrases-not-supported":"当前识别引擎不支持单词提示功能。"
- };
- return {code,text:map[code]||"语音识别失败，请再试一次。",message:msg};
+function makeRecognitionV8(){
+ const SR=speechRecognitionClass();if(!SR)return null;
+ const r=new SR();
+ r.lang="en-US";
+ r.interimResults=false;
+ r.maxAlternatives=10;
+ r.continuous=false;
+ return r;
 }
-async function testSpeechRecognition(){
- const ok=await requestMicrophoneAccess(true);if(!ok){toast("请先允许麦克风");return}
- await setupLocalSpeech(false);
- const SR=SRClass();if(!SR){toast("浏览器不支持语音识别");return}
- let r=configureRecognition(new SR(),"hello");
- showRecognitionDebug(`测试开始 | 本机识别=${localRecognitionReady?"是":"否"} | 请读：hello`);
- r.onstart=()=>showRecognitionDebug(`正在监听… | 本机识别=${localRecognitionReady?"是":"否"} | 请说 hello`);
+async function testSpeechRecognitionV8(){
+ const SR=speechRecognitionClass();
+ if(!SR){
+   setSpeechDiag("❌ 当前浏览器没有 SpeechRecognition / webkitSpeechRecognition 接口。","bad");
+   toast("当前浏览器不支持网页语音识别");return;
+ }
+ const micOk=await ensureMicForRecognition();
+ if(!micOk){setSpeechDiag("❌ 麦克风权限未就绪。","bad");toast("请先允许麦克风");return}
+ if("speechSynthesis" in window)speechSynthesis.cancel();
+ try{if(repeatRecognition)repeatRecognition.abort()}catch(e){}
+ await sleepMs(120);
+ const r=makeRecognitionV8();
+ repeatRecognition=r;
+ let gotResult=false;
+ setSpeechDiag("准备测试 | lang=en-US | 请说：hello");
+ r.onstart=()=>setSpeechDiag("🎙️ 已启动识别 | lang=en-US | 请说：hello");
+ r.onaudiostart=()=>setSpeechDiag("🎙️ 已取得麦克风音频 | 请说：hello");
+ r.onspeechstart=()=>setSpeechDiag("🗣️ 已检测到人声 | 正在识别 hello");
  r.onresult=e=>{
-   const got=e.results?.[0]?.[0]?.transcript||"";
-   showRecognitionDebug(`✅ 识别成功 | transcript="${got}" | 本机识别=${localRecognitionReady?"是":"否"}`);playSfx("repeatGood");
+   gotResult=true;
+   const alts=[];
+   if(e.results?.[0])for(let i=0;i<e.results[0].length;i++)alts.push(e.results[0][i].transcript);
+   setSpeechDiag(`✅ 识别成功 | transcript=${alts.join(" / ")||"(空)"}`,"good");
+   playSfx("repeatGood");
  };
  r.onerror=e=>{
-   const x=recognitionErrorText(e);
-   showRecognitionDebug(`❌ 错误代码：${x.code}${x.message?` | ${x.message}`:""} | 本机识别=${localRecognitionReady?"是":"否"}`);
+   const x=speechRecognitionErrorInfo(e);
+   setSpeechDiag(`❌ 错误代码=${x.code}${x.message?` | ${x.message}`:""} | ${x.text}`,"bad");
    toast(x.text);
  };
- try{r.start()}catch(e){showRecognitionDebug(`启动异常：${e?.name||e}`)}
+ r.onend=()=>{
+   if(!gotResult && !document.getElementById("speechDiag")?.classList.contains("bad"))
+     setSpeechDiag("识别已结束，但没有返回结果。请再测试一次并截图这行状态。","bad");
+ };
+ try{r.start()}catch(e){
+   const x=speechRecognitionErrorInfo(e);
+   setSpeechDiag(`❌ 启动异常=${x.code}${x.message?` | ${x.message}`:""}`,"bad");
+ }
 }
-window.addEventListener("load",()=>setTimeout(()=>queryLocalSpeech(),500));
 
 // ===== PWA + 麦克风权限管理 =====
 let deferredInstallPrompt=null;
@@ -1131,7 +1104,7 @@ function renderRepeatChallenge(){
 function speakRepeatChallenge(){const q=repeatGame.questions[repeatGame.i];if(q)speak(q.en)}
 async function startRepeatChallengeMic(){
  const q=repeatGame.questions[repeatGame.i];if(!q||repeatGame.attempted)return;
- const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+ const SR=speechRecognitionClass();
  const status=document.getElementById("repeatChallengeStatus"),mic=document.getElementById("repeatChallengeMic");
  if(!SR){
    repeatGame.attempted=true;
@@ -1144,19 +1117,19 @@ async function startRepeatChallengeMic(){
    document.getElementById("repeatChallengeNext").style.display="block";
    return;
  }
- const micOk=await requestMicrophoneAccess(true);
+ const micOk=await ensureMicForRecognition();
  if(!micOk){
    status.innerHTML="需要允许本网站使用麦克风。<br><small>请返回首页点“启用/测试麦克风”，或在 Chrome 的网站权限中把麦克风设为允许。</small>";
    status.className="repeat-challenge-status bad";
    return;
  }
- await setupLocalSpeech(false);
  if("speechSynthesis" in window)speechSynthesis.cancel();
  try{if(repeatRecognition)repeatRecognition.abort()}catch(e){}
- repeatRecognition=configureRecognition(new SR(),q.en);
- repeatRecognition.onstart=()=>{mic.classList.add("listening");mic.textContent="🎤";status.textContent=`正在听，请读出这个单词…${localRecognitionReady?"（本机识别）":""}`;status.className="repeat-challenge-status"};
- repeatRecognition.onaudiostart=()=>{status.textContent=`麦克风已连接，正在听…${localRecognitionReady?"（本机识别）":""}`};
- repeatRecognition.onspeechstart=()=>{status.textContent=`已听到你的声音，正在识别…${localRecognitionReady?"（本机识别）":""}`};
+ await sleepMs(120);
+ repeatRecognition=makeRecognitionV8();
+ repeatRecognition.onstart=()=>{mic.classList.add("listening");mic.textContent="🎤";status.textContent="正在听，请读出这个单词…";status.className="repeat-challenge-status"};
+ repeatRecognition.onaudiostart=()=>{status.textContent="麦克风已连接，正在听…"};
+ repeatRecognition.onspeechstart=()=>{status.textContent="已听到你的声音，正在识别…"};
  repeatRecognition.onresult=e=>{
    let best="",bestScore=0;
    for(let i=0;i<e.results[0].length;i++){
@@ -1180,14 +1153,17 @@ async function startRepeatChallengeMic(){
    document.getElementById("repeatChallengeNext").style.display="block";
  };
  repeatRecognition.onerror=e=>{
-   const x=recognitionErrorText(e);
-   status.innerHTML=`${x.text}<br><small>错误代码：${x.code}${localRecognitionReady?" · 本机识别":" · 联网识别"}</small>`;
+   const x=speechRecognitionErrorInfo(e);
+   status.innerHTML=`${x.text}<br><small>错误代码：${x.code}</small>`;
    status.className="repeat-challenge-status bad";
-   showRecognitionDebug(`跟读错误：${x.code}${x.message?` | ${x.message}`:""} | target=${q.en} | local=${localRecognitionReady}`);
-   if(x.code==="network"&&!localRecognitionReady)updateLocalSpeechUI("downloadable","联网识别失败，建议安装本机 en-US 识别模型。");
+   setSpeechDiag(`跟读错误 | target=${q.en} | code=${x.code}${x.message?` | ${x.message}`:""}`,"bad");
  };
  repeatRecognition.onend=()=>{mic.classList.remove("listening");if(!repeatGame.attempted)mic.textContent="🎙️"};
- try{repeatRecognition.start()}catch(e){}
+ try{repeatRecognition.start()}catch(e){
+   const x=speechRecognitionErrorInfo(e);
+   status.innerHTML=`识别启动失败<br><small>错误：${x.code}</small>`;status.className="repeat-challenge-status bad";
+   setSpeechDiag(`跟读启动异常 | target=${q.en} | ${x.code}${x.message?` | ${x.message}`:""}`,"bad");
+ }
 }
 function nextRepeatChallenge(){if(!repeatGame.attempted && (window.SpeechRecognition||window.webkitSpeechRecognition))return;repeatGame.i++;renderRepeatChallenge()}
 function finishRepeatChallenge(){
@@ -1415,32 +1391,33 @@ function speechSimilarity(a,b){
 }
 async function startRepeat(){
  const q=game.questions[game.i]; if(!q)return;
- const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+ const SR=speechRecognitionClass();
  if(!SR){
    toast("当前浏览器不支持语音识别，建议使用最新版 Chrome 或 Edge");
    document.getElementById("repeatStatus").textContent="此浏览器暂不支持麦克风评分，但可以继续听标准发音跟读";
    document.getElementById("repeatStatus").className="repeat-status bad";
    return;
  }
- const micOk=await requestMicrophoneAccess(true);
+ const micOk=await ensureMicForRecognition();
  if(!micOk){
    document.getElementById("repeatStatus").textContent="麦克风尚未授权：请回首页点“启用/测试麦克风”";
    document.getElementById("repeatStatus").className="repeat-status bad";
    return;
  }
- await setupLocalSpeech(false);
  if("speechSynthesis" in window)speechSynthesis.cancel();
  try{ if(repeatRecognition)repeatRecognition.abort(); }catch(e){}
+ await sleepMs(120);
  const status=document.getElementById("repeatStatus"),btn=document.getElementById("repeatMicBtn");
- repeatRecognition=configureRecognition(new SR(),q.en);
+ repeatRecognition=makeRecognitionV8();
  repeatRecognition.onstart=()=>{btn.classList.add("listening");btn.textContent="🎤 正在听…";status.textContent="请读出上面的英文单词";status.className="repeat-status"};
+ repeatRecognition.onaudiostart=()=>{status.textContent="麦克风已连接，正在听…"};
+ repeatRecognition.onspeechstart=()=>{status.textContent="已听到你的声音，正在识别…"};
  repeatRecognition.onresult=e=>{
    const alternatives=[];
    for(let i=0;i<e.results[0].length;i++)alternatives.push(e.results[0][i].transcript);
    const target=normalizeSpeech(q.en);
    let best="",bestScore=0;
    alternatives.forEach(t=>{const s=speechSimilarity(t,target);if(s>bestScore){bestScore=s;best=t}});
-   // 短单词要求更严格；较长单词/短语允许轻微识别偏差
    const pass=bestScore>=0.82 || (target.length>=6 && bestScore>=0.75);
    if(pass){
      status.textContent=`🌟 跟读成功！识别到：“${best}”`;
@@ -1451,12 +1428,16 @@ async function startRepeat(){
    }
  };
  repeatRecognition.onerror=e=>{
-   const x=recognitionErrorText(e);
+   const x=speechRecognitionErrorInfo(e);
    status.textContent=`${x.text}（${x.code}）`;status.className="repeat-status bad";
-   showRecognitionDebug(`普通跟读错误：${x.code}${x.message?` | ${x.message}`:""} | target=${q.en} | local=${localRecognitionReady}`);
+   setSpeechDiag(`普通跟读错误 | target=${q.en} | code=${x.code}${x.message?` | ${x.message}`:""}`,"bad");
  };
  repeatRecognition.onend=()=>{btn.classList.remove("listening");btn.textContent="🎙️ 再读一次"};
- try{repeatRecognition.start()}catch(e){status.textContent="麦克风正在启动，请稍后再点一次";status.className="repeat-status bad"}
+ try{repeatRecognition.start()}catch(e){
+   const x=speechRecognitionErrorInfo(e);
+   status.textContent=`识别启动失败（${x.code}）`;status.className="repeat-status bad";
+   setSpeechDiag(`普通跟读启动异常 | target=${q.en} | ${x.code}${x.message?` | ${x.message}`:""}`,"bad");
+ }
 }
 
 let audioCtx=null;

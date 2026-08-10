@@ -1,4 +1,4 @@
-const CACHE="word-hero-island-pwa-v12-ios-android-voice";
+const CACHE="word-hero-island-pwa-v13-ios-system-voice";
 const APP_SHELL=[
   "./",
   "./index.html",

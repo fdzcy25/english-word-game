@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-<title>北师大旧版英语 · 单词勇者岛 V12 iOS+Android双平台美式音色版</title>
+<title>北师大旧版英语 · 单词勇者岛 V13 iPhone系统音色优先版</title>
 <meta name="theme-color" content="#526dff">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -248,7 +248,7 @@ button{touch-action:manipulation}
 .voice-diag summary{cursor:pointer;font-weight:850;color:#52657d}
 .voice-diag #voiceDiagText{margin-top:8px;white-space:pre-wrap;word-break:break-word}
 
-/* ===== V12 iOS / Android 双平台音色选择 ===== */
+/* ===== V13 iPhone系统音色优先 + Android Google优先 ===== */
 .voice-device-details{margin-top:10px;border:1px solid #e1e8f2;border-radius:15px;background:#fbfcff;overflow:hidden}
 .voice-device-details summary{cursor:pointer;padding:10px 12px;font-weight:900;color:#52657d;list-style:none}
 .voice-device-details summary::-webkit-details-marker{display:none}
@@ -473,7 +473,7 @@ button{touch-action:manipulation}
     <div class="map-head"><button class="back" onclick="show(previousScreen)">←</button><div class="map-title"><h2>📕 我的错词本</h2><small>答错自动加入；复习答对会降低错误次数</small></div><button class="pill" onclick="clearWrong()">清空</button></div>
     <div class="card"><div id="reviewList" class="review-list"></div><button id="reviewBtn" class="bigbtn green" onclick="startWrongReview()">开始错词特训</button></div>
   </section>
-  <div class="app-version">单词勇者岛 · V12</div>
+  <div class="app-version">单词勇者岛 · V13</div>
 </div>
 <div class="toast" id="toast"></div>
 <div id="installHint" class="install-hint">
@@ -487,8 +487,9 @@ button{touch-action:manipulation}
 // 后续可继续把每册 Word List 全量导入，不需要改游戏逻辑。
 
 
-// ===== V12 iOS / Android 双平台美式英语音色管理 =====
-const VOICE_SETTINGS_KEY="wordHeroAmericanVoiceSettingsV12";
+// ===== V13 iPhone系统音色优先 + Android Google优先 =====
+const VOICE_SETTINGS_KEY="wordHeroAmericanVoiceSettingsV13";
+const V12_VOICE_SETTINGS_KEY="wordHeroAmericanVoiceSettingsV12";
 const OLD_VOICE_SETTINGS_KEY="wordHeroAmericanVoiceSettings";
 let americanVoices=[];
 let voiceSettings={choice:"auto",rate:0.84};
@@ -519,22 +520,34 @@ function deviceLabel(){
 }
 function defaultVoicePreference(){
  const f=deviceFamily();
- return f==="ios"?"apple":f==="android"?"google":"auto";
+ return f==="ios"?"ios-system":f==="android"?"google":"auto";
 }
 function loadVoiceSettings(){
  let saved={};
  try{saved=JSON.parse(localStorage.getItem(VOICE_SETTINGS_KEY)||"{}")}catch(e){}
  if(!saved || !Object.keys(saved).length){
+   // V13 首次运行：优先迁移 V12 的语速和“明确手选”的真实 voice。
+   // iPhone 上旧的 apple 策略会转换成 ios-system，确保默认跟随系统声音。
+   try{
+     const v12=JSON.parse(localStorage.getItem(V12_VOICE_SETTINGS_KEY)||"{}");
+     if(v12&&v12.rate)saved.rate=v12.rate;
+     if(v12&&typeof v12.choice==="string"){
+       if(v12.choice.startsWith("voice:")||v12.choice.startsWith("uri:"))saved.choice=v12.choice;
+       else if(deviceFamily()==="ios"&&v12.choice==="apple")saved.choice="ios-system";
+       else if(deviceFamily()==="android"&&v12.choice==="google")saved.choice="google";
+     }
+   }catch(e){}
+ }
+ if(!saved || !Object.keys(saved).length){
    try{
      const old=JSON.parse(localStorage.getItem(OLD_VOICE_SETTINGS_KEY)||"{}");
      if(old&&old.rate)saved.rate=old.rate;
-     // 只迁移用户明确选择的真实音色；平台优先策略在 V12 按设备重新决定。
      if(old&&typeof old.choice==="string"&&(old.choice.startsWith("uri:")||old.choice.startsWith("voice:")))saved.choice=old.choice;
    }catch(e){}
  }
  voiceSettings.choice=String(saved.choice||defaultVoicePreference());
- if(deviceFamily()==="ios"&&voiceSettings.choice==="google")voiceSettings.choice="apple";
- if(deviceFamily()==="android"&&voiceSettings.choice==="apple")voiceSettings.choice="google";
+ if(deviceFamily()==="ios"&&(voiceSettings.choice==="google"||voiceSettings.choice==="apple"))voiceSettings.choice="ios-system";
+ if(deviceFamily()==="android"&&(voiceSettings.choice==="apple"||voiceSettings.choice==="ios-system"))voiceSettings.choice="google";
  voiceSettings.rate=Number(saved.rate)||0.84;
 }
 function saveVoiceSettings(){
@@ -607,6 +620,8 @@ function resolvePreferredVoice(){
  const voices=sortedAmericanVoices();
  if(!voices.length)return null;
  const choice=voiceSettings.choice||defaultVoicePreference();
+ // iPhone“跟随系统”模式故意不指定 utterance.voice，让 Safari/iOS 自己选择系统 en-US 声音。
+ if(deviceFamily()==="ios"&&choice==="ios-system")return null;
  const exact=voiceFromChoice(choice,voices);
  if(exact)return exact;
  if(choice==="google"){
@@ -641,9 +656,9 @@ function applyPlatformVoiceUI(){
  const icon=document.getElementById("voicePlatformIcon"),title=document.getElementById("voicePlatformTitle"),desc=document.getElementById("voicePlatformDesc"),summary=document.getElementById("voiceDeviceSummary");
  if(f==="ios"){
    if(icon)icon.textContent="🍎";
-   if(title)title.textContent="Apple 美式英语发音";
-   if(desc)desc.textContent="iPhone/iPad 优先使用 Safari 当前公开的 Apple English (United States) / en-US 音色；设备新增或下载后被 Safari 公开的音色会自动加入列表。";
-   if(summary)summary.textContent="🍎 iPhone / iPad 当前可选的美式音色";
+   if(title)title.textContent="iPhone 系统美式音色优先";
+   if(desc)desc.textContent="默认“跟随 iPhone 系统美式音色”：网页只请求 en-US，不强制指定 voice，更适合配合系统里已选的优化/高音质美式声音。下方仍保留 Safari 实际公开的 en-US 音色供手动选择。";
+   if(summary)summary.textContent="🍎 Safari 当前公开的 en-US 音色（可手动选择）";
  }else if(f==="android"){
    if(icon)icon.textContent="🇺🇸";
    if(title)title.textContent="Google 美式英语发音优先";
@@ -661,16 +676,24 @@ let voiceScanInfo={scans:0,total:0,us:0,google:0,apple:0,reason:"启动",lastAll
 function updateVoiceDiag(){
  const box=document.getElementById("voiceDiagText");if(!box)return;
  const sample=voiceScanInfo.lastAll.slice(0,16).map(v=>`• ${v.name||"(无名称)"} | ${v.lang||"?"} | ${voiceProvider(v)}${v.localService?" | local":""}`).join("\n");
- box.textContent=`设备：${deviceLabel()}\n扫描次数：${voiceScanInfo.scans} · 浏览器全部音色：${voiceScanInfo.total} · 美式 en-US：${voiceScanInfo.us} · Google en-US：${voiceScanInfo.google} · Apple en-US：${voiceScanInfo.apple}\n最近触发：${voiceScanInfo.reason}${sample?"\n\n浏览器当前公开的音色（最多显示16个）：\n"+sample:"\n\n当前 getVoices() 返回空列表。"}`;
+ const strategy=(deviceFamily()==="ios"&&voiceSettings.choice==="ios-system")?"跟随 iPhone 系统（不指定 voice）":voiceSettings.choice;
+ box.textContent=`设备：${deviceLabel()}\n当前策略：${strategy}\n扫描次数：${voiceScanInfo.scans} · 浏览器全部音色：${voiceScanInfo.total} · 美式 en-US：${voiceScanInfo.us} · Google en-US：${voiceScanInfo.google} · Apple en-US：${voiceScanInfo.apple}\n最近触发：${voiceScanInfo.reason}${sample?"\n\n浏览器当前公开的音色（最多显示16个）：\n"+sample:"\n\n当前 getVoices() 返回空列表。"}`;
 }
 function updateVoiceStatus(){
  const box=document.getElementById("voiceCurrent"),warn=document.getElementById("voiceWarning");
  if(!box||!warn)return;
- const chosen=resolvePreferredVoice();
  const f=deviceFamily();
+ const systemFollow=(f==="ios"&&voiceSettings.choice==="ios-system");
+ if(systemFollow){
+   box.innerHTML=`当前实际使用：<b>🍎 跟随 iPhone 系统美式音色</b><br>网页设置：en-US · 不强制指定 voice · 语速：${Number(voiceSettings.rate).toFixed(2)}×`;
+   warn.textContent="此模式把具体声音交给 Safari/iOS 决定，适合配合 iPhone 系统中已选择的优化/高音质美式声音。网页无法读取或验证最终是否调用了某个未向 Safari 公开的下载音色。";
+   warn.className="voice-warning show";
+   updateVoiceDiag();renderVoiceDeviceList();return;
+ }
+ const chosen=resolvePreferredVoice();
  if(chosen){
    const provider=voiceProvider(chosen);
-   const preferredHit=(f==="ios"&&isAppleVoice(chosen))||(f==="android"&&isGoogleVoice(chosen));
+   const preferredHit=(f==="android"&&isGoogleVoice(chosen));
    const hitTag=preferredHit?` · ✅ ${preferredProviderName()} 优先命中`:"";
    box.innerHTML=`当前实际使用：<b>🇺🇸 ${voiceLabel(chosen)}</b><br>来源：${provider}${hitTag} · 语言：${chosen.lang||"en-US"} · 语速：${Number(voiceSettings.rate).toFixed(2)}×`;
    if(f==="android"&&voiceSettings.choice==="google"&&!isGoogleVoice(chosen)){
@@ -681,7 +704,7 @@ function updateVoiceStatus(){
    }
  }else{
    box.innerHTML=`当前实际使用：<b>浏览器 en-US 默认音色</b><br>语速：${Number(voiceSettings.rate).toFixed(2)}×`;
-   warn.textContent=f==="ios"?"Safari 当前没有向网页公开可手动选择的 en-US 音色；仍会请求系统 en-US 默认发音，并在页面重新可见或刷新时继续扫描。":"浏览器当前没有公开可选择的 en-US 音色；仍会请求系统 en-US 默认发音，并继续等待音色列表。";
+   warn.textContent="浏览器当前没有公开可选择的 en-US 音色；仍会请求系统 en-US 默认发音，并继续等待音色列表。";
    warn.className="voice-warning show";
  }
  updateVoiceDiag();
@@ -689,7 +712,7 @@ function updateVoiceStatus(){
 }
 function strategyOptionsHTML(){
  const f=deviceFamily();
- const first=f==="ios"?'<option value="apple">🍎 Apple 美式音色优先</option>':f==="android"?'<option value="google">🇺🇸 Google 美式音色优先</option>':'';
+ const first=f==="ios"?'<option value="ios-system">🍎 跟随 iPhone 系统美式音色（推荐）</option>':f==="android"?'<option value="google">🇺🇸 Google 美式音色优先</option>':'';
  return `${first}<option value="auto">✨ 自动选择最佳美式音色</option><option value="female">👩 美式女声优先</option><option value="male">👨 美式男声优先</option>`;
 }
 function rebuildVoiceSelect(){
@@ -727,16 +750,30 @@ function rebuildVoiceSelect(){
 function renderVoiceDeviceList(){
  const box=document.getElementById("voiceDeviceList");if(!box)return;
  const voices=sortedAmericanVoices();
- if(!voices.length){
-   box.innerHTML=`<div class="voice-empty">当前浏览器还没有公开可手动选择的 en-US 音色。点击“刷新设备音色”后会继续扫描；即使这里为空，标准发音仍会请求系统 en-US 默认声音。</div>`;
-   return;
- }
  box.innerHTML="";
+ const f=deviceFamily();
+ if(f==="ios"){
+   const row=document.createElement("div");
+   const active=voiceSettings.choice==="ios-system";
+   row.className="voice-device-row"+(active?" active":"");
+   const meta=document.createElement("div");meta.className="voice-device-meta";
+   const b=document.createElement("b");b.textContent=(active?"✓ ":"")+"跟随 iPhone 系统美式音色";
+   const small=document.createElement("small");small.textContent="en-US · 不指定网页 voice · 推荐用于系统已选优化/高音质声音";
+   meta.append(b,small);
+   const btn=document.createElement("button");btn.className="voice-device-test";btn.textContent=active?"▶ 当前/试听":"▶ 使用并试听";
+   btn.onclick=()=>selectAndPreviewVoice("ios-system");
+   row.append(meta,btn);box.appendChild(row);
+ }
+ if(!voices.length){
+   const empty=document.createElement("div");empty.className="voice-empty";
+   empty.textContent=f==="ios"?"Safari 当前没有额外公开可手动指定的 en-US 音色。上面的“跟随 iPhone 系统”仍可正常使用，并会把具体声音交给 iOS 决定。":"当前浏览器还没有公开可手动选择的 en-US 音色。点击“刷新设备音色”后会继续扫描；即使这里为空，标准发音仍会请求系统 en-US 默认声音。";
+   box.appendChild(empty);return;
+ }
  const selected=resolvePreferredVoice();
  voices.forEach(v=>{
    const row=document.createElement("div");
    const choice=voiceChoiceValue(v);
-   const active=selected&&voiceIdentity(selected)===voiceIdentity(v);
+   const active=voiceSettings.choice!=="ios-system"&&selected&&voiceIdentity(selected)===voiceIdentity(v);
    row.className="voice-device-row"+(active?" active":"");
    const meta=document.createElement("div");meta.className="voice-device-meta";
    const b=document.createElement("b");b.textContent=(active?"✓ ":"")+voiceLabel(v);
@@ -1472,7 +1509,8 @@ function speak(text){
  const u=new SpeechSynthesisUtterance(text);
  const selected=resolvePreferredVoice();
  u.lang="en-US";
- if(selected)u.voice=selected;
+ // iPhone 的 ios-system 模式故意不写 u.voice，让 Safari/iOS 跟随系统美式声音。
+ if(!(deviceFamily()==="ios"&&voiceSettings.choice==="ios-system")&&selected)u.voice=selected;
  u.rate=Number(voiceSettings.rate)||0.84;
  u.pitch=1.0;
  u.volume=1;

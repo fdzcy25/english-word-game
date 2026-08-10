@@ -1,8 +1,10 @@
-const CACHE="word-hero-island-pwa-v8-stt-diagnostic-footer";
+const CACHE="word-hero-island-pwa-v9-record-review";
 const APP_SHELL=[
   "./",
   "./index.html",
   "./manifest.webmanifest",
+  "./v9.css",
+  "./v9-pronunciation.js",
   "./icons/icon-192.png",
   "./icons/icon-512.png"
 ];

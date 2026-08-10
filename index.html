@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-<title>北师大旧版英语 · 单词勇者岛</title>
+<title>北师大旧版英语 · 单词勇者岛 V6 Google美式优先版</title>
 <meta name="theme-color" content="#526dff">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="单词勇者岛">
-<meta name="description" content="北师大版小学英语旧版三至六年级背单词、跟读、闯关冒险游戏">
+<meta name="description" content="北师大版小学英语旧版三至六年级背单词、跟读、闯关冒险游戏，支持可选美式英语音色">
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="icon" type="image/png" sizes="192x192" href="./icons/icon-192.png">
 <link rel="apple-touch-icon" href="./icons/icon-192.png">
@@ -201,6 +201,47 @@ button{touch-action:manipulation}
   .mic-actions button{flex:1}
 }
 
+
+/* ===== V5 美式发音设置 ===== */
+.voice-setup{
+  margin-top:16px;background:linear-gradient(135deg,#f9fbff,#fffaf0);
+  border:1px solid #dfe8f5
+}
+.voice-head{display:flex;align-items:center;gap:12px;margin-bottom:13px}
+.voice-icon{
+  width:54px;height:54px;border-radius:17px;display:grid;place-items:center;
+  font-size:29px;background:linear-gradient(135deg,#5277ff,#64c1ff);color:#fff;
+  box-shadow:0 8px 20px #5277ff2f
+}
+.voice-head h3{margin:0 0 3px;font-size:17px}
+.voice-head p{margin:0;color:#748399;font-size:12px;line-height:1.5}
+.voice-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:10px}
+.voice-field label{display:block;font-size:12px;font-weight:900;color:#617087;margin:0 0 6px}
+.voice-field select{
+  width:100%;min-height:45px;border:2px solid #dfe7f2;border-radius:13px;
+  background:#fff;color:#26364f;padding:8px 10px;font-weight:850;outline:none
+}
+.voice-field select:focus{border-color:#6f8dff}
+.voice-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:11px}
+.voice-actions button{
+  padding:10px 13px;border-radius:12px;font-weight:900;background:#536fff;color:#fff
+}
+.voice-actions button.secondary{background:#edf3ff;color:#4c67c4}
+.voice-current{
+  margin-top:10px;padding:9px 11px;border-radius:12px;background:#eef8ff;
+  color:#42627d;font-size:12px;line-height:1.55
+}
+.voice-current b{color:#214d75}
+.voice-warning{
+  margin-top:8px;padding:8px 10px;border-radius:11px;background:#fff4df;
+  color:#93630a;font-size:11px;line-height:1.55;display:none
+}
+.voice-warning.show{display:block}
+@media(max-width:640px){
+  .voice-grid{grid-template-columns:1fr}
+  .voice-actions button{flex:1}
+}
+
 </style>
 </head>
 <body>
@@ -251,6 +292,44 @@ button{touch-action:manipulation}
         <button class="mic-action" onclick="prepareMicrophone()">🎙️ 启用/测试麦克风</button>
         <button id="installGameBtn" class="mic-action secondary" onclick="installGame()" style="display:none">📲 安装到桌面</button>
       </div>
+    </div>
+
+    <div class="card voice-setup">
+      <div class="voice-head">
+        <div class="voice-icon">🇺🇸</div>
+        <div>
+          <h3>Google 美式英语发音优先</h3>
+          <p>优先寻找 Google 提供的 English (United States) / en-US 音色；找不到时自动回退到其他高质量美式音色。</p>
+        </div>
+      </div>
+      <div class="voice-grid">
+        <div class="voice-field">
+          <label for="voiceSelect">🎧 发音音色</label>
+          <select id="voiceSelect" onchange="saveVoiceChoice()">
+            <option value="google">🇺🇸 Google 美式音色优先</option>
+            <option value="auto">✨ 自动选择最佳美式音色</option>
+            <option value="female">👩 美式女声优先</option>
+            <option value="male">👨 美式男声优先</option>
+          </select>
+        </div>
+        <div class="voice-field">
+          <label for="voiceRate">⏱️ 发音语速</label>
+          <select id="voiceRate" onchange="saveVoiceChoice()">
+            <option value="0.72">很慢 · 0.72×</option>
+            <option value="0.78">较慢 · 0.78×</option>
+            <option value="0.84" selected>推荐 · 0.84×</option>
+            <option value="0.90">自然偏慢 · 0.90×</option>
+            <option value="0.96">接近自然 · 0.96×</option>
+            <option value="1.00">正常语速 · 1.00×</option>
+          </select>
+        </div>
+      </div>
+      <div class="voice-actions">
+        <button onclick="previewVoice()">▶️ 试听当前美式发音</button>
+        <button class="secondary" onclick="refreshVoiceList(true)">🔄 刷新手机音色</button>
+      </div>
+      <div id="voiceCurrent" class="voice-current">正在读取手机可用的美式英语音色…</div>
+      <div id="voiceWarning" class="voice-warning"></div>
     </div>
 
     <div class="card daily-card">
@@ -346,6 +425,182 @@ button{touch-action:manipulation}
 <script>
 // 第一版词库：按北师大版（三年级起点）旧版单元结构整理的核心词。
 // 后续可继续把每册 Word List 全量导入，不需要改游戏逻辑。
+
+
+// ===== V5 美式英语音色管理 =====
+const VOICE_SETTINGS_KEY="wordHeroAmericanVoiceSettings";
+let americanVoices=[];
+let voiceSettings={choice:"google",rate:0.84};
+
+const FEMALE_VOICE_HINTS=[
+ "samantha","ava","allison","susan","zira","jenny","aria","emma","joanna",
+ "kendra","kimberly","salli","ivy","michelle","olivia","victoria","karen",
+ "female","woman","girl"
+];
+const MALE_VOICE_HINTS=[
+ "alex","fred","tom","guy","davis","andrew","matthew","justin","joey",
+ "kevin","brian","eric","male","man","boy"
+];
+
+function loadVoiceSettings(){
+ try{
+   const saved=JSON.parse(localStorage.getItem(VOICE_SETTINGS_KEY)||"{}");
+   voiceSettings.choice=saved.choice||"google";
+   voiceSettings.rate=Number(saved.rate)||0.84;
+ }catch(e){}
+}
+function saveVoiceSettings(){
+ localStorage.setItem(VOICE_SETTINGS_KEY,JSON.stringify(voiceSettings));
+}
+function normLang(lang){return String(lang||"").replace("_","-").toLowerCase()}
+function isAmericanVoice(v){return normLang(v.lang)==="en-us"}
+
+function guessVoiceGender(v){
+ const n=String(v?.name||"").toLowerCase();
+ if(FEMALE_VOICE_HINTS.some(x=>n.includes(x)))return "female";
+ if(MALE_VOICE_HINTS.some(x=>n.includes(x)))return "male";
+ return "unknown";
+}
+function isGoogleVoice(v){
+ const n=String(v?.name||"").toLowerCase();
+ const uri=String(v?.voiceURI||"").toLowerCase();
+ return /google|speech services by google|google tts/.test(n+" "+uri);
+}
+function voiceProvider(v){
+ const n=(String(v?.name||"")+" "+String(v?.voiceURI||"")).toLowerCase();
+ if(/google|speech services by google|google tts/.test(n))return "Google";
+ if(/microsoft/.test(n))return "Microsoft";
+ if(/apple|siri/.test(n))return "Apple";
+ if(/samsung/.test(n))return "Samsung";
+ return "系统/其他";
+}
+function voiceQualityScore(v){
+ const n=String(v?.name||"").toLowerCase();
+ let s=0;
+ if(isAmericanVoice(v))s+=100;
+ if(isGoogleVoice(v))s+=120;
+ if(/natural|neural|premium|enhanced|studio/.test(n))s+=50;
+ if(/microsoft|siri|apple/.test(n))s+=20;
+ if(v.localService)s+=6;
+ if(v.default)s+=4;
+ return s;
+}
+function sortedAmericanVoices(){
+ return [...americanVoices].sort((a,b)=>voiceQualityScore(b)-voiceQualityScore(a)||a.name.localeCompare(b.name));
+}
+function resolvePreferredVoice(){
+ const voices=sortedAmericanVoices();
+ if(!voices.length)return null;
+ const choice=voiceSettings.choice||"google";
+ if(choice.startsWith("uri:")){
+   const uri=choice.slice(4);
+   const exact=voices.find(v=>v.voiceURI===uri);
+   if(exact)return exact;
+ }
+ if(choice==="google"){
+   const g=voices.filter(isGoogleVoice);
+   if(g.length)return g[0];
+ }
+ if(choice==="female"){
+   const f=voices.filter(v=>guessVoiceGender(v)==="female");
+   if(f.length)return f[0];
+ }
+ if(choice==="male"){
+   const m=voices.filter(v=>guessVoiceGender(v)==="male");
+   if(m.length)return m[0];
+ }
+ return voices[0];
+}
+function voiceLabel(v){
+ const g=guessVoiceGender(v);
+ const gender=g==="female"?" · 女声":g==="male"?" · 男声":"";
+ const quality=/natural|neural|premium|enhanced|studio/i.test(v.name)?" · 高品质":"";
+ return `${v.name}${gender}${quality}`;
+}
+function updateVoiceStatus(){
+ const box=document.getElementById("voiceCurrent"),warn=document.getElementById("voiceWarning");
+ if(!box||!warn)return;
+ const chosen=resolvePreferredVoice();
+ if(chosen){
+   const provider=voiceProvider(chosen);
+   const googleTag=isGoogleVoice(chosen)?" · ✅ Google 优先命中":"";
+   box.innerHTML=`当前实际使用：<b>🇺🇸 ${voiceLabel(chosen)}</b><br>来源：${provider}${googleTag} · 语言：${chosen.lang} · 语速：${Number(voiceSettings.rate).toFixed(2)}×`;
+   if(voiceSettings.choice==="google" && !isGoogleVoice(chosen)){
+     warn.textContent="当前设备没有向网页公开 Google en-US 音色，因此已自动回退到其他可用的美式英语音色。";
+     warn.className="voice-warning show";
+   }else{
+     warn.className="voice-warning";
+     warn.textContent="";
+   }
+ }else{
+   box.innerHTML=`当前实际使用：<b>浏览器 en-US 默认音色</b><br>语速：${Number(voiceSettings.rate).toFixed(2)}×`;
+   warn.textContent="这台设备暂时没有向网页公开可选择的 en-US 音色。游戏仍会强制请求 en-US 发音，但无法手动指定男/女声。可尝试刷新音色或更新手机的 Google 语音服务。";
+   warn.className="voice-warning show";
+ }
+}
+function rebuildVoiceSelect(){
+ const sel=document.getElementById("voiceSelect"),rate=document.getElementById("voiceRate");
+ if(!sel)return;
+ const previous=voiceSettings.choice||"google";
+ sel.innerHTML=`
+   <option value="google">🇺🇸 Google 美式音色优先</option>
+   <option value="auto">✨ 自动选择最佳美式音色</option>
+   <option value="female">👩 美式女声优先</option>
+   <option value="male">👨 美式男声优先</option>`;
+ const voices=sortedAmericanVoices();
+ if(voices.length){
+   const group=document.createElement("optgroup");
+   group.label=`当前设备的 🇺🇸 en-US 音色（${voices.length}）`;
+   voices.forEach(v=>{
+     const op=document.createElement("option");
+     op.value="uri:"+v.voiceURI;
+     op.textContent=voiceLabel(v);
+     group.appendChild(op);
+   });
+   sel.appendChild(group);
+ }
+ const exists=[...sel.options].some(o=>o.value===previous);
+ sel.value=exists?previous:"google";
+ voiceSettings.choice=sel.value;
+ if(rate){
+   const values=[...rate.options].map(o=>Number(o.value));
+   const nearest=values.reduce((a,b)=>Math.abs(b-voiceSettings.rate)<Math.abs(a-voiceSettings.rate)?b:a,0.84);
+   rate.value=nearest.toFixed(2);
+   voiceSettings.rate=Number(rate.value);
+ }
+ saveVoiceSettings();
+ updateVoiceStatus();
+}
+function refreshVoiceList(showToast=false){
+ if(!("speechSynthesis" in window)){
+   if(showToast)toast("当前浏览器不支持语音朗读");
+   return;
+ }
+ const all=speechSynthesis.getVoices()||[];
+ americanVoices=all.filter(isAmericanVoice);
+ rebuildVoiceSelect();
+ if(showToast)toast(americanVoices.length?`找到 ${americanVoices.length} 个美式音色`:"暂未读取到可选 en-US 音色");
+}
+function saveVoiceChoice(){
+ const sel=document.getElementById("voiceSelect"),rate=document.getElementById("voiceRate");
+ if(sel)voiceSettings.choice=sel.value;
+ if(rate)voiceSettings.rate=Number(rate.value)||0.84;
+ saveVoiceSettings();updateVoiceStatus();
+}
+function previewVoice(){
+ saveVoiceChoice();
+ speak("Hello! Great job! Let's learn English together.");
+}
+function initAmericanVoices(){
+ loadVoiceSettings();
+ refreshVoiceList(false);
+ if("speechSynthesis" in window){
+   speechSynthesis.onvoiceschanged=()=>refreshVoiceList(false);
+   setTimeout(()=>refreshVoiceList(false),250);
+   setTimeout(()=>refreshVoiceList(false),900);
+   setTimeout(()=>refreshVoiceList(false),1800);
+ }
+}
 
 // ===== PWA + 麦克风权限管理 =====
 let deferredInstallPrompt=null;
@@ -528,6 +783,7 @@ let state=getState();
 
 function init(){
   ensureAdventureState();
+  initAmericanVoices();
   renderBooks(); touchDay(); updateTop();
 }
 function ensureAdventureState(){
@@ -994,8 +1250,14 @@ function speakCurrent(){const q=game.questions[game.i];if(q)speak(q.en)}
 function speak(text){
  if(!("speechSynthesis" in window))return toast("当前浏览器不支持语音朗读");
  speechSynthesis.cancel();
- const u=new SpeechSynthesisUtterance(text);u.lang="en-US";u.rate=.78;u.pitch=1.02;u.volume=1;
- speechSynthesis.speak(u)
+ const u=new SpeechSynthesisUtterance(text);
+ const selected=resolvePreferredVoice();
+ u.lang="en-US";
+ if(selected)u.voice=selected;
+ u.rate=Number(voiceSettings.rate)||0.84;
+ u.pitch=1.0;
+ u.volume=1;
+ speechSynthesis.speak(u);
 }
 
 function showRepeatPanel(q){

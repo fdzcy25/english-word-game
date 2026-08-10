@@ -1,0 +1,26 @@
+{
+  "name": "北师大旧版英语 · 单词勇者岛",
+  "short_name": "单词勇者岛",
+  "description": "北师大版小学英语旧版三至六年级背单词、跟读、闯关冒险游戏",
+  "lang": "zh-CN",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#eaf8ff",
+  "theme_color": "#526dff",
+  "icons": [
+    {
+      "src": "./icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

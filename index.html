@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-<title>北师大旧版英语 · 单词勇者岛 V10 录音回放纠音版</title>
+<title>北师大旧版英语 · 单词勇者岛 V11 Google音色恢复诊断版</title>
 <meta name="theme-color" content="#526dff">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -243,7 +243,12 @@ button{touch-action:manipulation}
 }
 
 
-/* ===== V10 跟读录音 / 纠音 ===== */
+/* ===== V11 音色诊断：不改变 V6 TTS，只增强枚举与延迟恢复 ===== */
+.voice-diag{margin-top:10px;border-radius:14px;background:#f7f9fc;color:#66768a;padding:9px 12px;font-size:12px;line-height:1.55}
+.voice-diag summary{cursor:pointer;font-weight:850;color:#52657d}
+.voice-diag #voiceDiagText{margin-top:8px;white-space:pre-wrap;word-break:break-word}
+
+/* ===== V11 跟读录音 / 纠音（沿用 V10 已验证录音回放） ===== */
 .record-stop{display:none;width:100%;border:none;border-radius:18px;padding:14px 16px;font:inherit;font-weight:900;background:linear-gradient(135deg,#ff5252,#ff7b6f);color:#fff;box-shadow:0 9px 22px #ff52522b;cursor:pointer}
 .record-stop.show{display:block}.record-stop:disabled{opacity:.65}
 .record-review{display:none;margin-top:14px;padding:15px;border-radius:20px;background:#f5f9ff;border:1px solid #dce8f7;text-align:left}
@@ -338,10 +343,14 @@ button{touch-action:manipulation}
       </div>
       <div class="voice-actions">
         <button onclick="previewVoice()">▶️ 试听当前美式发音</button>
-        <button class="secondary" onclick="refreshVoiceList(true)">🔄 刷新手机音色</button>
+        <button class="secondary" onclick="scanVoicesBurst(true,'手动刷新')">🔄 刷新手机音色</button>
       </div>
       <div id="voiceCurrent" class="voice-current">正在读取手机可用的美式英语音色…</div>
       <div id="voiceWarning" class="voice-warning"></div>
+      <details class="voice-diag">
+        <summary>🔎 音色检测详情</summary>
+        <div id="voiceDiagText">正在扫描浏览器公开的语音列表…</div>
+      </details>
     </div>
 
     <div class="card daily-card">
@@ -450,7 +459,7 @@ button{touch-action:manipulation}
     <div class="map-head"><button class="back" onclick="show(previousScreen)">←</button><div class="map-title"><h2>📕 我的错词本</h2><small>答错自动加入；复习答对会降低错误次数</small></div><button class="pill" onclick="clearWrong()">清空</button></div>
     <div class="card"><div id="reviewList" class="review-list"></div><button id="reviewBtn" class="bigbtn green" onclick="startWrongReview()">开始错词特训</button></div>
   </section>
-  <div class="app-version">单词勇者岛 · V10</div>
+  <div class="app-version">单词勇者岛 · V11</div>
 </div>
 <div class="toast" id="toast"></div>
 <div id="installHint" class="install-hint">
@@ -489,8 +498,14 @@ function loadVoiceSettings(){
 function saveVoiceSettings(){
  localStorage.setItem(VOICE_SETTINGS_KEY,JSON.stringify(voiceSettings));
 }
-function normLang(lang){return String(lang||"").replace("_","-").toLowerCase()}
-function isAmericanVoice(v){return normLang(v.lang)==="en-us"}
+function normLang(lang){return String(lang||"").replace(/_/g,"-").toLowerCase()}
+function voiceIdentity(v){return `${v?.name||""}|${v?.voiceURI||""}|${v?.lang||""}`}
+function isAmericanVoice(v){
+ const lang=normLang(v?.lang);
+ if(lang==="en-us" || lang.startsWith("en-us-"))return true;
+ const raw=(String(v?.name||"")+" "+String(v?.voiceURI||"")).toLowerCase();
+ return /(?:^|[^a-z])en[-_ ]?us(?:[^a-z]|$)|english\s*\(?\s*(?:united states|usa|u\.s\.)\s*\)?/.test(raw);
+}
 
 function guessVoiceGender(v){
  const n=String(v?.name||"").toLowerCase();
@@ -554,6 +569,15 @@ function voiceLabel(v){
  const quality=/natural|neural|premium|enhanced|studio/i.test(v.name)?" · 高品质":"";
  return `${v.name}${gender}${quality}`;
 }
+
+let voiceScanInfo={scans:0,total:0,us:0,google:0,reason:"启动",lastAll:[]};
+function updateVoiceDiag(){
+ const box=document.getElementById("voiceDiagText");if(!box)return;
+ const google=voiceScanInfo.lastAll.filter(isGoogleVoice);
+ const us=voiceScanInfo.lastAll.filter(isAmericanVoice);
+ const sample=voiceScanInfo.lastAll.slice(0,12).map(v=>`• ${v.name||"(无名称)"} | ${v.lang||"?"}${isGoogleVoice(v)?" | Google":""}`).join("\n");
+ box.textContent=`扫描次数：${voiceScanInfo.scans} · 浏览器全部音色：${voiceScanInfo.total} · 美式 en-US：${voiceScanInfo.us} · Google：${voiceScanInfo.google}\n最近触发：${voiceScanInfo.reason}${sample?"\n\n浏览器当前公开的音色（最多显示12个）：\n"+sample:"\n\n当前 getVoices() 返回空列表。"}`;
+}
 function updateVoiceStatus(){
  const box=document.getElementById("voiceCurrent"),warn=document.getElementById("voiceWarning");
  if(!box||!warn)return;
@@ -563,7 +587,7 @@ function updateVoiceStatus(){
    const googleTag=isGoogleVoice(chosen)?" · ✅ Google 优先命中":"";
    box.innerHTML=`当前实际使用：<b>🇺🇸 ${voiceLabel(chosen)}</b><br>来源：${provider}${googleTag} · 语言：${chosen.lang} · 语速：${Number(voiceSettings.rate).toFixed(2)}×`;
    if(voiceSettings.choice==="google" && !isGoogleVoice(chosen)){
-     warn.textContent="当前设备没有向网页公开 Google en-US 音色，因此已自动回退到其他可用的美式英语音色。";
+     warn.textContent="当前这一轮扫描还没有发现 Google en-US；页面会继续在用户操作、回到页面和 voiceschanged 事件中自动重新扫描。";
      warn.className="voice-warning show";
    }else{
      warn.className="voice-warning";
@@ -571,9 +595,10 @@ function updateVoiceStatus(){
    }
  }else{
    box.innerHTML=`当前实际使用：<b>浏览器 en-US 默认音色</b><br>语速：${Number(voiceSettings.rate).toFixed(2)}×`;
-   warn.textContent="这台设备暂时没有向网页公开可选择的 en-US 音色。游戏仍会强制请求 en-US 发音，但无法手动指定男/女声。可尝试刷新音色或更新手机的 Google 语音服务。";
+   warn.textContent="浏览器这一刻没有公开可选择的 en-US 音色。V11 不会把一次空扫描当成最终结果，会持续等待 Android/Chrome 补回音色列表。";
    warn.className="voice-warning show";
  }
+ updateVoiceDiag();
 }
 function rebuildVoiceSelect(){
  const sel=document.getElementById("voiceSelect"),rate=document.getElementById("voiceRate");
@@ -608,15 +633,47 @@ function rebuildVoiceSelect(){
  saveVoiceSettings();
  updateVoiceStatus();
 }
-function refreshVoiceList(showToast=false){
+function refreshVoiceList(showToast=false,reason="刷新"){
  if(!("speechSynthesis" in window)){
    if(showToast)toast("当前浏览器不支持语音朗读");
-   return;
+   return [];
  }
- const all=speechSynthesis.getVoices()||[];
- americanVoices=all.filter(isAmericanVoice);
+ let all=[];try{all=speechSynthesis.getVoices()||[]}catch(e){}
+ voiceScanInfo.scans++;
+ voiceScanInfo.total=all.length;
+ voiceScanInfo.reason=reason;
+ if(all.length){
+   // 只有浏览器真正返回非空列表时才替换快照，避免 Android 偶发空返回把刚找到的 Google 音色清掉。
+   voiceScanInfo.lastAll=all;
+   const next=[];const seen=new Set();
+   all.filter(isAmericanVoice).forEach(v=>{const k=voiceIdentity(v);if(!seen.has(k)){seen.add(k);next.push(v)}});
+   americanVoices=next;
+ }
+ voiceScanInfo.us=voiceScanInfo.lastAll.filter(isAmericanVoice).length;
+ voiceScanInfo.google=voiceScanInfo.lastAll.filter(v=>isAmericanVoice(v)&&isGoogleVoice(v)).length;
  rebuildVoiceSelect();
- if(showToast)toast(americanVoices.length?`找到 ${americanVoices.length} 个美式音色`:"暂未读取到可选 en-US 音色");
+ if(showToast){
+   if(voiceScanInfo.google)toast(`已找到 ${voiceScanInfo.google} 个 Google 美式音色`);
+   else if(voiceScanInfo.us)toast(`找到 ${voiceScanInfo.us} 个美式音色，暂未发现 Google`);
+   else toast("本轮仍未读取到 en-US，正在继续等待系统音色列表");
+ }
+ return all;
+}
+let voiceBurstSerial=0;
+function scanVoicesBurst(showToast=false,reason="连续扫描"){
+ if(!("speechSynthesis" in window))return refreshVoiceList(showToast,reason);
+ const serial=++voiceBurstSerial;
+ const delays=[0,80,220,500,950,1600,2600,4200];
+ if(showToast)toast("正在重新扫描手机音色…");
+ delays.forEach((ms,i)=>setTimeout(()=>{
+   if(serial!==voiceBurstSerial)return;
+   refreshVoiceList(false,`${reason} ${i+1}/${delays.length}`);
+   if(i===delays.length-1&&showToast){
+     if(voiceScanInfo.google)toast(`✅ 找到 Google 美式音色（${voiceScanInfo.google} 个）`);
+     else if(voiceScanInfo.us)toast(`找到 ${voiceScanInfo.us} 个 en-US，但还没有 Google`);
+     else toast("扫描结束：浏览器仍未公开 en-US 音色");
+   }
+ },ms));
 }
 function saveVoiceChoice(){
  const sel=document.getElementById("voiceSelect"),rate=document.getElementById("voiceRate");
@@ -626,17 +683,25 @@ function saveVoiceChoice(){
 }
 function previewVoice(){
  saveVoiceChoice();
+ refreshVoiceList(false,"点击试听前");
  speak("Hello! Great job! Let's learn English together.");
+ // Android Chrome 有时要在第一次真实 TTS 用户手势之后才补回 voice 列表。
+ setTimeout(()=>scanVoicesBurst(false,"试听后恢复"),120);
 }
 function initAmericanVoices(){
  loadVoiceSettings();
- refreshVoiceList(false);
+ refreshVoiceList(false,"页面初始化");
+ scanVoicesBurst(false,"页面启动");
  if("speechSynthesis" in window){
-   speechSynthesis.onvoiceschanged=()=>refreshVoiceList(false);
-   setTimeout(()=>refreshVoiceList(false),250);
-   setTimeout(()=>refreshVoiceList(false),900);
-   setTimeout(()=>refreshVoiceList(false),1800);
+   const changed=()=>scanVoicesBurst(false,"voiceschanged");
+   try{speechSynthesis.onvoiceschanged=changed}catch(e){}
+   try{speechSynthesis.addEventListener?.("voiceschanged",changed)}catch(e){}
  }
+ window.addEventListener("pageshow",()=>scanVoicesBurst(false,"pageshow"));
+ window.addEventListener("focus",()=>scanVoicesBurst(false,"窗口重新获得焦点"));
+ document.addEventListener("visibilitychange",()=>{if(!document.hidden)scanVoicesBurst(false,"页面重新可见")});
+ // 第一次真实触摸也重新扫描一次，但不播放任何静音/测试音，避免再次干扰 V6 的 TTS。
+ document.addEventListener("pointerdown",()=>scanVoicesBurst(false,"首次用户触摸"),{once:true,capture:true});
 }
 
 // ===== PWA + 麦克风权限管理 =====
@@ -1286,6 +1351,8 @@ function goNextUnit(book,unitIdx){
 function speakCurrent(){const q=game.questions[game.i];if(q)speak(q.en)}
 function speak(text){
  if(!("speechSynthesis" in window))return toast("当前浏览器不支持语音朗读");
+ // 每一次真正点击发音前，都在同一个用户手势里重新读取一次，避免启动阶段的空列表一直沿用。
+ refreshVoiceList(false,"发音前即时扫描");
  speechSynthesis.cancel();
  const u=new SpeechSynthesisUtterance(text);
  const selected=resolvePreferredVoice();
@@ -1294,6 +1361,9 @@ function speak(text){
  u.rate=Number(voiceSettings.rate)||0.84;
  u.pitch=1.0;
  u.volume=1;
+ u.onstart=()=>refreshVoiceList(false,"TTS开始播放");
+ u.onend=()=>scanVoicesBurst(false,"TTS播放结束");
+ u.onerror=()=>setTimeout(()=>scanVoicesBurst(false,"TTS异常后"),80);
  speechSynthesis.speak(u);
 }
 
@@ -1392,7 +1462,7 @@ function playSfx(type){
 }
 function toast(s){const t=document.getElementById("toast");t.textContent=s;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),1800)}
 
-// ===== V10 跟读录音 + 显式停止 + 回放 + 自动纠音 =====
+// ===== V11 跟读录音 + 显式停止 + 回放（沿用 V10 录音模块） =====
 // 注意：V10 不重写 V6 的 TTS / Google 音色逻辑；下面代码只负责麦克风录音和跟读评分。
 const V10_IPA={"accident":"ˈæksədənt","activity":"æktˈɪvəti","afternoon":"ˌæftɚnˈun","animal":"ˈænəməl","apple":"ˈæpəl","art room":"ˈɑrt rˈum","astronaut":"ˈæstrənˌɑt","aunt":"ˈænt","baby":"bˈeɪbi","bad":"bˈæd","badminton":"bˈædmˌɪntən","bag":"bˈæɡ","ball":"bˈɔl","banana":"bənˈænə","bank":"bˈæŋk","basketball":"bˈæskətbˌɔl","bathroom":"bˈæθrˌum","beach":"bˈitʃ","bean":"bˈin","bed":"bˈɛd","bedroom":"bˈɛdrˌum","behind":"bɪhˈaɪnd","better":"bˈɛtɚ","between":"bɪtwˈin","birthday":"bˈɝθdˌeɪ","black":"blˈæk","blue":"blˈu","book":"bˈʊk","bookcase":"bˈʊkkˌeɪs","boy":"bˈɔɪ","break":"brˈeɪk","breakfast":"brˈɛkfəst","brother":"brˈʌðɚ","brown":"brˈaʊn","bus stop":"bˈʌs stˈɑp","buy":"bˈaɪ","cabbage":"kˈæbədʒ","cake":"kˈeɪk","camera":"kˈæmɚə","can":"kˈæn","candle":"kˈændəl","car":"kˈɑr","careful":"kˈɛrfəl","carrot":"kˈærət","catch":"kˈætʃ","centimeter":"sˈɛntəmˌitɚ","chair":"tʃˈɛr","cheap":"tʃˈip","chicken":"tʃˈɪkən","city":"sˈɪti","classroom":"klˈæsrˌum","clock":"klˈɑk","clothes":"klˈoʊðz","cloud":"klˈaʊd","cloudy":"klˈaʊdi","coat":"kˈoʊt","cold":"kˈoʊld","color":"kˈʌlɚ","come":"kˈʌm","computer":"kəmpjˈutɚ","concert":"kˈɑnsɚt","corn":"kˈɔrn","dance":"dˈæns","dancer":"dˈænsɚ","date":"dˈeɪt","desk":"dˈɛsk","different":"dˈɪfɚənt","dinner":"dˈɪnɚ","doctor":"dˈɑktɚ","doll":"dˈɑl","door":"dˈɔr","draw":"drˈɔ","dress":"drˈɛs","drink":"drˈɪŋk","drum":"drˈʌm","early":"ˈɝli","earth":"ˈɝθ","eight":"ˈeɪt","evening":"ˈivnɪŋ","expensive":"ɪkspˈɛnsɪv","fall":"fˈɔl","family":"fˈæməli","farmer":"fˈɑrmɚ","fast":"fˈæst","father":"fˈɑðɚ","favorite":"fˈeɪvɚɪt","February":"fˈɛbjəwˌɛri","first":"fˈɝst","five":"fˈaɪv","fix":"fˈɪks","floor":"flˈɔr","food":"fˈud","football":"fˈʊtbˌɔl","forty":"fˈɔrti","four":"fˈɔr","fox":"fˈɑks","fresh":"frˈɛʃ","Friday":"frˈaɪdi","friend":"frˈɛnd","fruit":"frˈut","future":"fjˈutʃɚ","get up":"ɡˈɛt ˈʌp","gift":"ɡˈɪft","girl":"ɡˈɝl","go":"ɡˈoʊ","go to bed":"ɡˈoʊ tˈu bˈɛd","goat":"ɡˈoʊt","good":"ɡˈʊd","goodbye":"ɡˌʊdbˈaɪ","grandfather":"ɡrˈændfˌɑðɚ","grandmother":"ɡrˈændmˌʌðɚ","green":"ɡrˈin","guitar":"ɡɪtˈɑr","happen":"hˈæpən","he":"hˈi","headache":"hˈɛdˌeɪk","heavy":"hˈɛvi","height":"hˈaɪt","hello":"həlˈoʊ","hi":"hˈaɪ","high":"hˈaɪ","homework":"hˈoʊmwˌɝk","horse":"hˈɔrs","hospital":"hˈɑspˌɪtəl","hot":"hˈɑt","hotel":"hoʊtˈɛl","house":"hˈaʊs","how much":"hˈaʊ mˈʌtʃ","hungry":"hˈʌŋɡri","hurry":"hˈɝi","hurt":"hˈɝt","I":"ˈaɪ","ill":"ˈɪl","in front of":"ɪn frˈʌnt ˈʌv","is":"ˈɪz","January":"dʒˈænjuˌɛri","jeans":"dʒˈinz","job":"dʒˈɑb","juice":"dʒˈus","jump":"dʒˈʌmp","kilogram":"kˈɪləɡrˌæm","kitchen":"kˈɪtʃən","know":"nˈoʊ","large":"lˈɑrdʒ","late":"lˈeɪt","learn":"lˈɝn","left":"lˈɛft","lemon":"lˈɛmən","library":"lˈaɪbrɛrˌi","life":"lˈaɪf","light":"lˈaɪt","like":"lˈaɪk","lion":"lˈaɪən","listen":"lˈɪsən","litter":"lˈɪtɚ","living room":"lˈɪvɪŋ rˈum","long":"lˈɔŋ","lose":"lˈuz","lunch":"lˈʌntʃ","March":"mˈɑrtʃ","Mars":"mˈɑrz","matter":"mˈætɚ","measure":"mˈɛʒɚ","medicine":"mˈɛdəsən","medium":"mˈidiəm","menu":"mˈɛnju","Monday":"mˈʌndi","money":"mˈʌni","monkey":"mˈʌŋki","month":"mˈʌnθ","moon":"mˈun","morning":"mˈɔrnɪŋ","mother":"mˈʌðɚ","mountain":"mˈaʊntən","move":"mˈuv","music":"mjˈuzɪk","music room":"mjˈuzɪk rˈum","my":"mˈaɪ","name":"nˈeɪm","near":"nˈɪr","new":"nˈu","next to":"nˈɛkst tˈu","night":"nˈaɪt","nine":"nˈaɪn","no":"nˈoʊ","noodles":"nˈudəlz","nurse":"nˈɝs","o'clock":"əklˈɑk","office":"ˈɔfɪs","on":"ˈɑn","one":"wˈʌn","onion":"ˈʌnjən","orange":"ˈɔrəndʒ","panda":"pˈændə","park":"pˈɑrk","parking":"pˈɑrkɪŋ","party":"pˈɑrti","peach":"pˈitʃ","pear":"pˈɛr","pen":"pˈɛn","pencil":"pˈɛnsəl","photo":"fˈoʊtˌoʊ","piano":"piˈænoʊ","picture":"pˈɪktʃɚ","pilot":"pˈaɪlət","pink":"pˈɪŋk","place":"plˈeɪs","plane":"plˈeɪn","planet":"plˈænət","play":"plˈeɪ","playground":"plˈeɪɡrˌaʊnd","police station":"pəlˈis stˈeɪʃən","policeman":"pəlˈismən","position":"pəzˈɪʃən","possible":"pˈɑsəbəl","post office":"pˈoʊst ˈɔfɪs","potato":"pətˈeɪtˌoʊ","prize":"prˈaɪz","purple":"pˈɝpəl","rabbit":"rˈæbət","rain":"rˈeɪn","rainy":"rˈeɪni","read":"riːd","ready":"rˈɛdi","red":"rˈɛd","rest":"rˈɛst","restaurant":"rˈɛstɚˌɑnt","rice":"rˈaɪs","ride":"rˈaɪd","right":"rˈaɪt","robot":"rˈoʊbˌɑt","room":"rˈum","ruler":"rˈulɚ","run":"rˈʌn","running":"rˈʌnɪŋ","Saturday":"sˈætɚdi","school":"skˈul","second":"sˈɛkənd","sell":"sˈɛl","seven":"sˈɛvən","she":"ʃˈi","sheep":"ʃˈip","shirt":"ʃˈɝt","shoes":"ʃˈuz","shop":"ʃˈɑp","shopping":"ʃˈɑpɪŋ","short":"ʃˈɔrt","shorts":"ʃˈɔrts","show":"ʃˈoʊ","sign":"sˈaɪn","sing":"sˈɪŋ","singer":"sˈɪŋɚ","sister":"sˈɪstɚ","six":"sˈɪks","size":"sˈaɪz","skirt":"skˈɝt","sleep":"slˈip","slow":"slˈoʊ","small":"smˈɔl","snow":"snˈoʊ","snowy":"snˈoʊi","socks":"sˈɑks","sofa":"sˈoʊfə","song":"sˈɔŋ","soup":"sˈup","sour":"sˈaʊɚ","space":"spˈeɪs","spaceship":"spˈeɪsʃˌɪp","sport":"spˈɔrt","star":"stˈɑr","stomach":"stˈʌmək","store":"stˈɔr","street":"strˈit","student":"stˈudənt","study":"stˈʌdi","suddenly":"sˈʌdənli","sun":"sˈʌn","Sunday":"sˈʌndˌeɪ","sunny":"sˈʌni","supermarket":"sˈupɚmˌɑrkɪt","sweater":"swˈɛtɚ","sweet":"swˈit","swim":"swˈɪm","swimming":"swˈɪmɪŋ","table":"tˈeɪbəl","talent":"tˈælənt","tall":"tˈɔl","taste":"tˈeɪst","teacher":"tˈitʃɚ","team":"tˈim","tell":"tˈɛl","ten":"tˈɛn","tennis":"tˈɛnəs","than":"ðˈæn","that":"ðˈæt","thirsty":"θˈɝsti","thirty":"θˈɝdˌi","this":"ðˈɪs","three":"θrˈi","throw":"θrˈoʊ","Thursday":"θˈɝzdˌeɪ","tiger":"tˈaɪɡɚ","time":"tˈaɪm","today":"tədˈeɪ","together":"təɡˈɛðɚ","tomato":"təmˈeɪtˌoʊ","tomorrow":"təmˈɑrˌoʊ","touch":"tˈʌtʃ","train":"trˈeɪn","train station":"trˈeɪn stˈeɪʃən","travel":"trˈævəl","trip":"trˈɪp","trousers":"trˈaʊzɚz","Tuesday":"tˈuzdi","twenty":"twˈɛnti","two":"tˈu","uncle":"ˈʌŋkəl","under":"ˈʌndɚ","vacation":"veɪkˈeɪʃən","vegetable":"vˈɛdʒtəbəl","vet":"vˈɛt","violin":"vaɪəlˈɪn","visit":"vˈɪzɪt","walk":"wˈɔk","watch":"wˈɑtʃ","watch TV":"wˈɑtʃ tˈivˈi","water":"wˈɔtɚ","watermelon":"wˈɔtɚmˌɛlən","weather":"wˈɛðɚ","Wednesday":"wˈɛnzdi","week":"wˈik","weight":"wˈeɪt","what":"wˈʌt","white":"wˈaɪt","who":"hˈu","will":"wˈɪl","win":"wˈɪn","wind":"wˈaɪnd","window":"wˈɪndoʊ","windy":"wˈɪndi","winner":"wˈɪnɚ","world":"wˈɝld","write":"rˈaɪt","year":"jˈɪr","yellow":"jˈɛloʊ","yes":"jˈɛs","yesterday":"jˈɛstɚdˌeɪ","you":"jˈu","your":"jˈɔr","live":"lɪv","close":"kloʊz","use":"juz","present":"ˈprɛzənt","toothache":"ˈtuθeɪk"};
 let v10Capture=null;

@@ -1,0 +1,14 @@
+单词勇者岛 V12 更新说明
+
+1. 新增 iOS / iPadOS 自动识别：iPhone/iPad 默认显示“Apple 美式英语发音”。
+2. iOS 优先选择 Safari 当前公开的 Apple English (United States) / en-US 音色。
+3. Android 保持 Google en-US 优先策略。
+4. 新增“当前设备可选的美式音色”列表：每个实际 en-US 音色都可直接选择并试听。
+5. 选中的真实音色及语速保存在本机；重新打开游戏继续使用。
+6. 首页试听、学习朗读、答题喇叭、跟读标准发音统一调用同一选中音色。
+7. 音色检测详情新增设备类型、Google en-US 数量、Apple en-US 数量。
+8. 保留 V11 的多次延迟扫描，空列表不会清掉已经发现的音色。
+9. 保留 V10/V11 已验证的麦克风录音、停止和录音回放功能。
+10. PWA 缓存升级为 V12，避免继续使用旧版页面。
+
+说明：网页只能使用浏览器实际公开给 Web Speech API 的系统音色；如果某个 iOS/Android 音色没有被 Safari/Chrome 公开，GitHub Pages 网页无法强制指定该隐藏音色。

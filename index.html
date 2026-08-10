@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-<title>北师大旧版英语 · 单词勇者岛 V11 Google音色恢复诊断版</title>
+<title>北师大旧版英语 · 单词勇者岛 V12 iOS+Android双平台美式音色版</title>
 <meta name="theme-color" content="#526dff">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -248,6 +248,19 @@ button{touch-action:manipulation}
 .voice-diag summary{cursor:pointer;font-weight:850;color:#52657d}
 .voice-diag #voiceDiagText{margin-top:8px;white-space:pre-wrap;word-break:break-word}
 
+/* ===== V12 iOS / Android 双平台音色选择 ===== */
+.voice-device-details{margin-top:10px;border:1px solid #e1e8f2;border-radius:15px;background:#fbfcff;overflow:hidden}
+.voice-device-details summary{cursor:pointer;padding:10px 12px;font-weight:900;color:#52657d;list-style:none}
+.voice-device-details summary::-webkit-details-marker{display:none}
+.voice-device-list{display:grid;gap:7px;padding:0 10px 10px}
+.voice-device-row{display:grid;grid-template-columns:1fr auto;gap:9px;align-items:center;padding:9px 10px;border:1px solid #e3eaf4;border-radius:12px;background:#fff}
+.voice-device-row.active{border-color:#6f8dff;background:#f1f5ff;box-shadow:0 4px 12px #587cff16}
+.voice-device-meta{min-width:0}.voice-device-meta b{display:block;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.voice-device-meta small{display:block;color:#79889c;font-size:11px;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.voice-device-test{border-radius:10px;padding:8px 10px;background:#edf3ff;color:#4968d0;font-size:12px;font-weight:900;white-space:nowrap}
+.voice-device-row.active .voice-device-test{background:#526fff;color:#fff}
+.voice-empty{padding:10px;color:#7a8899;font-size:12px;line-height:1.6}
+@media(max-width:540px){.voice-device-row{grid-template-columns:minmax(0,1fr) auto}.voice-device-test{padding:8px 9px}}
+
 /* ===== V11 跟读录音 / 纠音（沿用 V10 已验证录音回放） ===== */
 .record-stop{display:none;width:100%;border:none;border-radius:18px;padding:14px 16px;font:inherit;font-weight:900;background:linear-gradient(135deg,#ff5252,#ff7b6f);color:#fff;box-shadow:0 9px 22px #ff52522b;cursor:pointer}
 .record-stop.show{display:block}.record-stop:disabled{opacity:.65}
@@ -313,20 +326,17 @@ button{touch-action:manipulation}
 
     <div class="card voice-setup">
       <div class="voice-head">
-        <div class="voice-icon">🇺🇸</div>
+        <div id="voicePlatformIcon" class="voice-icon">🇺🇸</div>
         <div>
-          <h3>Google 美式英语发音优先</h3>
-          <p>优先寻找 Google 提供的 English (United States) / en-US 音色；找不到时自动回退到其他高质量美式音色。</p>
+          <h3 id="voicePlatformTitle">美式英语发音</h3>
+          <p id="voicePlatformDesc">正在识别当前设备，并读取浏览器公开的 English (United States) / en-US 音色。</p>
         </div>
       </div>
       <div class="voice-grid">
         <div class="voice-field">
           <label for="voiceSelect">🎧 发音音色</label>
           <select id="voiceSelect" onchange="saveVoiceChoice()">
-            <option value="google">🇺🇸 Google 美式音色优先</option>
             <option value="auto">✨ 自动选择最佳美式音色</option>
-            <option value="female">👩 美式女声优先</option>
-            <option value="male">👨 美式男声优先</option>
           </select>
         </div>
         <div class="voice-field">
@@ -343,10 +353,14 @@ button{touch-action:manipulation}
       </div>
       <div class="voice-actions">
         <button onclick="previewVoice()">▶️ 试听当前美式发音</button>
-        <button class="secondary" onclick="scanVoicesBurst(true,'手动刷新')">🔄 刷新手机音色</button>
+        <button class="secondary" onclick="scanVoicesBurst(true,'手动刷新')">🔄 刷新设备音色</button>
       </div>
-      <div id="voiceCurrent" class="voice-current">正在读取手机可用的美式英语音色…</div>
+      <div id="voiceCurrent" class="voice-current">正在读取设备可用的美式英语音色…</div>
       <div id="voiceWarning" class="voice-warning"></div>
+      <details id="voiceDeviceDetails" class="voice-device-details">
+        <summary id="voiceDeviceSummary">🎙️ 当前设备可选的美式音色</summary>
+        <div id="voiceDeviceList" class="voice-device-list"><div class="voice-empty">正在读取…</div></div>
+      </details>
       <details class="voice-diag">
         <summary>🔎 音色检测详情</summary>
         <div id="voiceDiagText">正在扫描浏览器公开的语音列表…</div>
@@ -459,7 +473,7 @@ button{touch-action:manipulation}
     <div class="map-head"><button class="back" onclick="show(previousScreen)">←</button><div class="map-title"><h2>📕 我的错词本</h2><small>答错自动加入；复习答对会降低错误次数</small></div><button class="pill" onclick="clearWrong()">清空</button></div>
     <div class="card"><div id="reviewList" class="review-list"></div><button id="reviewBtn" class="bigbtn green" onclick="startWrongReview()">开始错词特训</button></div>
   </section>
-  <div class="app-version">单词勇者岛 · V11</div>
+  <div class="app-version">单词勇者岛 · V12</div>
 </div>
 <div class="toast" id="toast"></div>
 <div id="installHint" class="install-hint">
@@ -473,40 +487,81 @@ button{touch-action:manipulation}
 // 后续可继续把每册 Word List 全量导入，不需要改游戏逻辑。
 
 
-// ===== V5 美式英语音色管理 =====
-const VOICE_SETTINGS_KEY="wordHeroAmericanVoiceSettings";
+// ===== V12 iOS / Android 双平台美式英语音色管理 =====
+const VOICE_SETTINGS_KEY="wordHeroAmericanVoiceSettingsV12";
+const OLD_VOICE_SETTINGS_KEY="wordHeroAmericanVoiceSettings";
 let americanVoices=[];
-let voiceSettings={choice:"google",rate:0.84};
+let voiceSettings={choice:"auto",rate:0.84};
 
 const FEMALE_VOICE_HINTS=[
  "samantha","ava","allison","susan","zira","jenny","aria","emma","joanna",
  "kendra","kimberly","salli","ivy","michelle","olivia","victoria","karen",
- "female","woman","girl"
+ "serena","moira","fiona","female","woman","girl"
 ];
 const MALE_VOICE_HINTS=[
  "alex","fred","tom","guy","davis","andrew","matthew","justin","joey",
- "kevin","brian","eric","male","man","boy"
+ "kevin","brian","eric","aaron","daniel","male","man","boy"
 ];
 
+function deviceFamily(){
+ const ua=String(navigator.userAgent||"");
+ const platform=String(navigator.platform||"");
+ const ios=/iPad|iPhone|iPod/i.test(ua)||(platform==="MacIntel"&&Number(navigator.maxTouchPoints)>1);
+ if(ios)return "ios";
+ if(/Android/i.test(ua))return "android";
+ return "other";
+}
+function deviceLabel(){
+ const f=deviceFamily();
+ if(f==="ios")return "iPhone / iPad (iOS/iPadOS)";
+ if(f==="android")return "Android";
+ return "其他设备";
+}
+function defaultVoicePreference(){
+ const f=deviceFamily();
+ return f==="ios"?"apple":f==="android"?"google":"auto";
+}
 function loadVoiceSettings(){
- try{
-   const saved=JSON.parse(localStorage.getItem(VOICE_SETTINGS_KEY)||"{}");
-   voiceSettings.choice=saved.choice||"google";
-   voiceSettings.rate=Number(saved.rate)||0.84;
- }catch(e){}
+ let saved={};
+ try{saved=JSON.parse(localStorage.getItem(VOICE_SETTINGS_KEY)||"{}")}catch(e){}
+ if(!saved || !Object.keys(saved).length){
+   try{
+     const old=JSON.parse(localStorage.getItem(OLD_VOICE_SETTINGS_KEY)||"{}");
+     if(old&&old.rate)saved.rate=old.rate;
+     // 只迁移用户明确选择的真实音色；平台优先策略在 V12 按设备重新决定。
+     if(old&&typeof old.choice==="string"&&(old.choice.startsWith("uri:")||old.choice.startsWith("voice:")))saved.choice=old.choice;
+   }catch(e){}
+ }
+ voiceSettings.choice=String(saved.choice||defaultVoicePreference());
+ if(deviceFamily()==="ios"&&voiceSettings.choice==="google")voiceSettings.choice="apple";
+ if(deviceFamily()==="android"&&voiceSettings.choice==="apple")voiceSettings.choice="google";
+ voiceSettings.rate=Number(saved.rate)||0.84;
 }
 function saveVoiceSettings(){
  localStorage.setItem(VOICE_SETTINGS_KEY,JSON.stringify(voiceSettings));
 }
 function normLang(lang){return String(lang||"").replace(/_/g,"-").toLowerCase()}
 function voiceIdentity(v){return `${v?.name||""}|${v?.voiceURI||""}|${v?.lang||""}`}
+function voiceChoiceValue(v){return "voice:"+encodeURIComponent(voiceIdentity(v))}
+function voiceFromChoice(choice,voices=americanVoices){
+ if(!choice)return null;
+ if(choice.startsWith("voice:")){
+   let id="";try{id=decodeURIComponent(choice.slice(6))}catch(e){}
+   return voices.find(v=>voiceIdentity(v)===id)||null;
+ }
+ // 兼容 V6-V11 的 uri: 保存格式。
+ if(choice.startsWith("uri:")){
+   const uri=choice.slice(4);
+   return voices.find(v=>String(v.voiceURI||"")===uri)||null;
+ }
+ return null;
+}
 function isAmericanVoice(v){
  const lang=normLang(v?.lang);
  if(lang==="en-us" || lang.startsWith("en-us-"))return true;
  const raw=(String(v?.name||"")+" "+String(v?.voiceURI||"")).toLowerCase();
  return /(?:^|[^a-z])en[-_ ]?us(?:[^a-z]|$)|english\s*\(?\s*(?:united states|usa|u\.s\.)\s*\)?/.test(raw);
 }
-
 function guessVoiceGender(v){
  const n=String(v?.name||"").toLowerCase();
  if(FEMALE_VOICE_HINTS.some(x=>n.includes(x)))return "female";
@@ -514,136 +569,192 @@ function guessVoiceGender(v){
  return "unknown";
 }
 function isGoogleVoice(v){
- const n=String(v?.name||"").toLowerCase();
- const uri=String(v?.voiceURI||"").toLowerCase();
- return /google|speech services by google|google tts/.test(n+" "+uri);
+ const raw=(String(v?.name||"")+" "+String(v?.voiceURI||"")).toLowerCase();
+ return /google|speech services by google|google tts/.test(raw);
+}
+function isAppleVoice(v){
+ if(deviceFamily()==="ios")return isAmericanVoice(v);
+ const raw=(String(v?.name||"")+" "+String(v?.voiceURI||"")).toLowerCase();
+ return /apple|com\.apple|siri/.test(raw);
 }
 function voiceProvider(v){
- const n=(String(v?.name||"")+" "+String(v?.voiceURI||"")).toLowerCase();
- if(/google|speech services by google|google tts/.test(n))return "Google";
- if(/microsoft/.test(n))return "Microsoft";
- if(/apple|siri/.test(n))return "Apple";
- if(/samsung/.test(n))return "Samsung";
+ const raw=(String(v?.name||"")+" "+String(v?.voiceURI||"")).toLowerCase();
+ if(deviceFamily()==="ios")return "Apple";
+ if(/google|speech services by google|google tts/.test(raw))return "Google";
+ if(/apple|com\.apple|siri/.test(raw))return "Apple";
+ if(/microsoft/.test(raw))return "Microsoft";
+ if(/samsung/.test(raw))return "Samsung";
  return "系统/其他";
 }
 function voiceQualityScore(v){
  const n=String(v?.name||"").toLowerCase();
+ const uri=String(v?.voiceURI||"").toLowerCase();
+ const f=deviceFamily();
  let s=0;
  if(isAmericanVoice(v))s+=100;
- if(isGoogleVoice(v))s+=120;
- if(/natural|neural|premium|enhanced|studio/.test(n))s+=50;
- if(/microsoft|siri|apple/.test(n))s+=20;
- if(v.localService)s+=6;
- if(v.default)s+=4;
+ if(f==="android"&&isGoogleVoice(v))s+=150;
+ if(f==="ios"&&isAppleVoice(v))s+=130;
+ if(/natural|neural|premium|enhanced|studio|siri/.test(n+" "+uri))s+=55;
+ if(/compact/.test(uri))s-=8;
+ if(v.localService)s+=8;
+ if(v.default)s+=5;
  return s;
 }
 function sortedAmericanVoices(){
- return [...americanVoices].sort((a,b)=>voiceQualityScore(b)-voiceQualityScore(a)||a.name.localeCompare(b.name));
+ return [...americanVoices].sort((a,b)=>voiceQualityScore(b)-voiceQualityScore(a)||String(a.name).localeCompare(String(b.name)));
 }
 function resolvePreferredVoice(){
  const voices=sortedAmericanVoices();
  if(!voices.length)return null;
- const choice=voiceSettings.choice||"google";
- if(choice.startsWith("uri:")){
-   const uri=choice.slice(4);
-   const exact=voices.find(v=>v.voiceURI===uri);
-   if(exact)return exact;
- }
+ const choice=voiceSettings.choice||defaultVoicePreference();
+ const exact=voiceFromChoice(choice,voices);
+ if(exact)return exact;
  if(choice==="google"){
-   const g=voices.filter(isGoogleVoice);
-   if(g.length)return g[0];
+   const g=voices.filter(isGoogleVoice); if(g.length)return g[0];
+ }
+ if(choice==="apple"){
+   const a=voices.filter(isAppleVoice); if(a.length)return a[0];
  }
  if(choice==="female"){
-   const f=voices.filter(v=>guessVoiceGender(v)==="female");
-   if(f.length)return f[0];
+   const f=voices.filter(v=>guessVoiceGender(v)==="female"); if(f.length)return f[0];
  }
  if(choice==="male"){
-   const m=voices.filter(v=>guessVoiceGender(v)==="male");
-   if(m.length)return m[0];
+   const m=voices.filter(v=>guessVoiceGender(v)==="male"); if(m.length)return m[0];
  }
  return voices[0];
 }
 function voiceLabel(v){
  const g=guessVoiceGender(v);
  const gender=g==="female"?" · 女声":g==="male"?" · 男声":"";
- const quality=/natural|neural|premium|enhanced|studio/i.test(v.name)?" · 高品质":"";
- return `${v.name}${gender}${quality}`;
+ const raw=String(v?.name||"")+" "+String(v?.voiceURI||"");
+ const quality=/natural|neural|premium|enhanced|studio|siri/i.test(raw)?" · 高品质":"";
+ return `${v.name||"未命名音色"}${gender}${quality}`;
+}
+function preferredProviderName(){return deviceFamily()==="ios"?"Apple":deviceFamily()==="android"?"Google":"系统"}
+function preferredProviderCount(){
+ if(deviceFamily()==="ios")return voiceScanInfo.lastAll.filter(v=>isAmericanVoice(v)&&isAppleVoice(v)).length;
+ if(deviceFamily()==="android")return voiceScanInfo.lastAll.filter(v=>isAmericanVoice(v)&&isGoogleVoice(v)).length;
+ return voiceScanInfo.lastAll.filter(isAmericanVoice).length;
+}
+function applyPlatformVoiceUI(){
+ const f=deviceFamily();
+ const icon=document.getElementById("voicePlatformIcon"),title=document.getElementById("voicePlatformTitle"),desc=document.getElementById("voicePlatformDesc"),summary=document.getElementById("voiceDeviceSummary");
+ if(f==="ios"){
+   if(icon)icon.textContent="🍎";
+   if(title)title.textContent="Apple 美式英语发音";
+   if(desc)desc.textContent="iPhone/iPad 优先使用 Safari 当前公开的 Apple English (United States) / en-US 音色；设备新增或下载后被 Safari 公开的音色会自动加入列表。";
+   if(summary)summary.textContent="🍎 iPhone / iPad 当前可选的美式音色";
+ }else if(f==="android"){
+   if(icon)icon.textContent="🇺🇸";
+   if(title)title.textContent="Google 美式英语发音优先";
+   if(desc)desc.textContent="Android 优先寻找 Google 提供的 English (United States) / en-US 音色；找不到时自动回退到其他可用美式音色。";
+   if(summary)summary.textContent="🤖 Android 当前可选的美式音色";
+ }else{
+   if(icon)icon.textContent="🇺🇸";
+   if(title)title.textContent="美式英语发音";
+   if(desc)desc.textContent="优先使用当前浏览器公开的 English (United States) / en-US 音色，并允许手动试听选择。";
+   if(summary)summary.textContent="🎙️ 当前设备可选的美式音色";
+ }
 }
 
-let voiceScanInfo={scans:0,total:0,us:0,google:0,reason:"启动",lastAll:[]};
+let voiceScanInfo={scans:0,total:0,us:0,google:0,apple:0,reason:"启动",lastAll:[]};
 function updateVoiceDiag(){
  const box=document.getElementById("voiceDiagText");if(!box)return;
- const google=voiceScanInfo.lastAll.filter(isGoogleVoice);
- const us=voiceScanInfo.lastAll.filter(isAmericanVoice);
- const sample=voiceScanInfo.lastAll.slice(0,12).map(v=>`• ${v.name||"(无名称)"} | ${v.lang||"?"}${isGoogleVoice(v)?" | Google":""}`).join("\n");
- box.textContent=`扫描次数：${voiceScanInfo.scans} · 浏览器全部音色：${voiceScanInfo.total} · 美式 en-US：${voiceScanInfo.us} · Google：${voiceScanInfo.google}\n最近触发：${voiceScanInfo.reason}${sample?"\n\n浏览器当前公开的音色（最多显示12个）：\n"+sample:"\n\n当前 getVoices() 返回空列表。"}`;
+ const sample=voiceScanInfo.lastAll.slice(0,16).map(v=>`• ${v.name||"(无名称)"} | ${v.lang||"?"} | ${voiceProvider(v)}${v.localService?" | local":""}`).join("\n");
+ box.textContent=`设备：${deviceLabel()}\n扫描次数：${voiceScanInfo.scans} · 浏览器全部音色：${voiceScanInfo.total} · 美式 en-US：${voiceScanInfo.us} · Google en-US：${voiceScanInfo.google} · Apple en-US：${voiceScanInfo.apple}\n最近触发：${voiceScanInfo.reason}${sample?"\n\n浏览器当前公开的音色（最多显示16个）：\n"+sample:"\n\n当前 getVoices() 返回空列表。"}`;
 }
 function updateVoiceStatus(){
  const box=document.getElementById("voiceCurrent"),warn=document.getElementById("voiceWarning");
  if(!box||!warn)return;
  const chosen=resolvePreferredVoice();
+ const f=deviceFamily();
  if(chosen){
    const provider=voiceProvider(chosen);
-   const googleTag=isGoogleVoice(chosen)?" · ✅ Google 优先命中":"";
-   box.innerHTML=`当前实际使用：<b>🇺🇸 ${voiceLabel(chosen)}</b><br>来源：${provider}${googleTag} · 语言：${chosen.lang} · 语速：${Number(voiceSettings.rate).toFixed(2)}×`;
-   if(voiceSettings.choice==="google" && !isGoogleVoice(chosen)){
-     warn.textContent="当前这一轮扫描还没有发现 Google en-US；页面会继续在用户操作、回到页面和 voiceschanged 事件中自动重新扫描。";
+   const preferredHit=(f==="ios"&&isAppleVoice(chosen))||(f==="android"&&isGoogleVoice(chosen));
+   const hitTag=preferredHit?` · ✅ ${preferredProviderName()} 优先命中`:"";
+   box.innerHTML=`当前实际使用：<b>🇺🇸 ${voiceLabel(chosen)}</b><br>来源：${provider}${hitTag} · 语言：${chosen.lang||"en-US"} · 语速：${Number(voiceSettings.rate).toFixed(2)}×`;
+   if(f==="android"&&voiceSettings.choice==="google"&&!isGoogleVoice(chosen)){
+     warn.textContent="当前扫描没有发现 Google en-US，已临时回退到其他美式音色；页面会继续自动扫描。";
      warn.className="voice-warning show";
    }else{
-     warn.className="voice-warning";
-     warn.textContent="";
+     warn.className="voice-warning";warn.textContent="";
    }
  }else{
    box.innerHTML=`当前实际使用：<b>浏览器 en-US 默认音色</b><br>语速：${Number(voiceSettings.rate).toFixed(2)}×`;
-   warn.textContent="浏览器这一刻没有公开可选择的 en-US 音色。V11 不会把一次空扫描当成最终结果，会持续等待 Android/Chrome 补回音色列表。";
+   warn.textContent=f==="ios"?"Safari 当前没有向网页公开可手动选择的 en-US 音色；仍会请求系统 en-US 默认发音，并在页面重新可见或刷新时继续扫描。":"浏览器当前没有公开可选择的 en-US 音色；仍会请求系统 en-US 默认发音，并继续等待音色列表。";
    warn.className="voice-warning show";
  }
  updateVoiceDiag();
+ renderVoiceDeviceList();
+}
+function strategyOptionsHTML(){
+ const f=deviceFamily();
+ const first=f==="ios"?'<option value="apple">🍎 Apple 美式音色优先</option>':f==="android"?'<option value="google">🇺🇸 Google 美式音色优先</option>':'';
+ return `${first}<option value="auto">✨ 自动选择最佳美式音色</option><option value="female">👩 美式女声优先</option><option value="male">👨 美式男声优先</option>`;
 }
 function rebuildVoiceSelect(){
  const sel=document.getElementById("voiceSelect"),rate=document.getElementById("voiceRate");
  if(!sel)return;
- const previous=voiceSettings.choice||"google";
- sel.innerHTML=`
-   <option value="google">🇺🇸 Google 美式音色优先</option>
-   <option value="auto">✨ 自动选择最佳美式音色</option>
-   <option value="female">👩 美式女声优先</option>
-   <option value="male">👨 美式男声优先</option>`;
+ const previous=voiceSettings.choice||defaultVoicePreference();
+ sel.innerHTML=strategyOptionsHTML();
  const voices=sortedAmericanVoices();
  if(voices.length){
    const group=document.createElement("optgroup");
    group.label=`当前设备的 🇺🇸 en-US 音色（${voices.length}）`;
    voices.forEach(v=>{
      const op=document.createElement("option");
-     op.value="uri:"+v.voiceURI;
-     op.textContent=voiceLabel(v);
+     op.value=voiceChoiceValue(v);
+     op.textContent=`${voiceProvider(v)} · ${voiceLabel(v)}`;
      group.appendChild(op);
    });
    sel.appendChild(group);
  }
  const exists=[...sel.options].some(o=>o.value===previous);
- sel.value=exists?previous:"google";
+ if(!exists&&(previous.startsWith("voice:")||previous.startsWith("uri:"))){
+   const wait=document.createElement("option");
+   wait.value=previous;wait.textContent="⏳ 已保存音色（等待系统重新公开）";sel.appendChild(wait);
+ }
+ sel.value=[...sel.options].some(o=>o.value===previous)?previous:defaultVoicePreference();
  voiceSettings.choice=sel.value;
  if(rate){
    const values=[...rate.options].map(o=>Number(o.value));
    const nearest=values.reduce((a,b)=>Math.abs(b-voiceSettings.rate)<Math.abs(a-voiceSettings.rate)?b:a,0.84);
-   rate.value=nearest.toFixed(2);
-   voiceSettings.rate=Number(rate.value);
+   rate.value=nearest.toFixed(2);voiceSettings.rate=Number(rate.value);
  }
  saveVoiceSettings();
  updateVoiceStatus();
 }
+function renderVoiceDeviceList(){
+ const box=document.getElementById("voiceDeviceList");if(!box)return;
+ const voices=sortedAmericanVoices();
+ if(!voices.length){
+   box.innerHTML=`<div class="voice-empty">当前浏览器还没有公开可手动选择的 en-US 音色。点击“刷新设备音色”后会继续扫描；即使这里为空，标准发音仍会请求系统 en-US 默认声音。</div>`;
+   return;
+ }
+ box.innerHTML="";
+ const selected=resolvePreferredVoice();
+ voices.forEach(v=>{
+   const row=document.createElement("div");
+   const choice=voiceChoiceValue(v);
+   const active=selected&&voiceIdentity(selected)===voiceIdentity(v);
+   row.className="voice-device-row"+(active?" active":"");
+   const meta=document.createElement("div");meta.className="voice-device-meta";
+   const b=document.createElement("b");b.textContent=(active?"✓ ":"")+voiceLabel(v);
+   const small=document.createElement("small");small.textContent=`${voiceProvider(v)} · ${v.lang||"en-US"}${v.localService?" · 本机":""}`;
+   meta.append(b,small);
+   const btn=document.createElement("button");btn.className="voice-device-test";btn.textContent=active?"▶ 当前/试听":"▶ 选择并试听";
+   btn.onclick=()=>selectAndPreviewVoice(choice);
+   row.append(meta,btn);box.appendChild(row);
+ });
+}
 function refreshVoiceList(showToast=false,reason="刷新"){
  if(!("speechSynthesis" in window)){
-   if(showToast)toast("当前浏览器不支持语音朗读");
-   return [];
+   if(showToast)toast("当前浏览器不支持语音朗读");return [];
  }
  let all=[];try{all=speechSynthesis.getVoices()||[]}catch(e){}
- voiceScanInfo.scans++;
- voiceScanInfo.total=all.length;
- voiceScanInfo.reason=reason;
+ voiceScanInfo.scans++;voiceScanInfo.total=all.length;voiceScanInfo.reason=reason;
  if(all.length){
-   // 只有浏览器真正返回非空列表时才替换快照，避免 Android 偶发空返回把刚找到的 Google 音色清掉。
+   // 只用非空列表替换快照，避免 Android/iOS 偶发空返回把已经找到的音色清掉。
    voiceScanInfo.lastAll=all;
    const next=[];const seen=new Set();
    all.filter(isAmericanVoice).forEach(v=>{const k=voiceIdentity(v);if(!seen.has(k)){seen.add(k);next.push(v)}});
@@ -651,10 +762,12 @@ function refreshVoiceList(showToast=false,reason="刷新"){
  }
  voiceScanInfo.us=voiceScanInfo.lastAll.filter(isAmericanVoice).length;
  voiceScanInfo.google=voiceScanInfo.lastAll.filter(v=>isAmericanVoice(v)&&isGoogleVoice(v)).length;
+ voiceScanInfo.apple=voiceScanInfo.lastAll.filter(v=>isAmericanVoice(v)&&isAppleVoice(v)).length;
  rebuildVoiceSelect();
  if(showToast){
-   if(voiceScanInfo.google)toast(`已找到 ${voiceScanInfo.google} 个 Google 美式音色`);
-   else if(voiceScanInfo.us)toast(`找到 ${voiceScanInfo.us} 个美式音色，暂未发现 Google`);
+   const n=preferredProviderCount();
+   if(n)toast(`✅ 找到 ${n} 个 ${preferredProviderName()} 美式音色`);
+   else if(voiceScanInfo.us)toast(`找到 ${voiceScanInfo.us} 个 en-US 音色，可逐个试听选择`);
    else toast("本轮仍未读取到 en-US，正在继续等待系统音色列表");
  }
  return all;
@@ -664,13 +777,14 @@ function scanVoicesBurst(showToast=false,reason="连续扫描"){
  if(!("speechSynthesis" in window))return refreshVoiceList(showToast,reason);
  const serial=++voiceBurstSerial;
  const delays=[0,80,220,500,950,1600,2600,4200];
- if(showToast)toast("正在重新扫描手机音色…");
+ if(showToast)toast("正在重新扫描设备音色…");
  delays.forEach((ms,i)=>setTimeout(()=>{
    if(serial!==voiceBurstSerial)return;
    refreshVoiceList(false,`${reason} ${i+1}/${delays.length}`);
    if(i===delays.length-1&&showToast){
-     if(voiceScanInfo.google)toast(`✅ 找到 Google 美式音色（${voiceScanInfo.google} 个）`);
-     else if(voiceScanInfo.us)toast(`找到 ${voiceScanInfo.us} 个 en-US，但还没有 Google`);
+     const n=preferredProviderCount();
+     if(n)toast(`✅ 找到 ${n} 个 ${preferredProviderName()} 美式音色`);
+     else if(voiceScanInfo.us)toast(`找到 ${voiceScanInfo.us} 个 en-US 音色，可手动试听`);
      else toast("扫描结束：浏览器仍未公开 en-US 音色");
    }
  },ms));
@@ -681,17 +795,19 @@ function saveVoiceChoice(){
  if(rate)voiceSettings.rate=Number(rate.value)||0.84;
  saveVoiceSettings();updateVoiceStatus();
 }
-function previewVoice(){
- saveVoiceChoice();
- refreshVoiceList(false,"点击试听前");
+function selectAndPreviewVoice(choice){
+ voiceSettings.choice=choice;saveVoiceSettings();rebuildVoiceSelect();
+ // 此函数由用户直接点击触发，保持在用户手势内立即发音。
  speak("Hello! Great job! Let's learn English together.");
- // Android Chrome 有时要在第一次真实 TTS 用户手势之后才补回 voice 列表。
+}
+function previewVoice(){
+ saveVoiceChoice();refreshVoiceList(false,"点击试听前");
+ speak("Hello! Great job! Let's learn English together.");
  setTimeout(()=>scanVoicesBurst(false,"试听后恢复"),120);
 }
 function initAmericanVoices(){
- loadVoiceSettings();
- refreshVoiceList(false,"页面初始化");
- scanVoicesBurst(false,"页面启动");
+ loadVoiceSettings();applyPlatformVoiceUI();
+ refreshVoiceList(false,"页面初始化");scanVoicesBurst(false,"页面启动");
  if("speechSynthesis" in window){
    const changed=()=>scanVoicesBurst(false,"voiceschanged");
    try{speechSynthesis.onvoiceschanged=changed}catch(e){}
@@ -700,7 +816,6 @@ function initAmericanVoices(){
  window.addEventListener("pageshow",()=>scanVoicesBurst(false,"pageshow"));
  window.addEventListener("focus",()=>scanVoicesBurst(false,"窗口重新获得焦点"));
  document.addEventListener("visibilitychange",()=>{if(!document.hidden)scanVoicesBurst(false,"页面重新可见")});
- // 第一次真实触摸也重新扫描一次，但不播放任何静音/测试音，避免再次干扰 V6 的 TTS。
  document.addEventListener("pointerdown",()=>scanVoicesBurst(false,"首次用户触摸"),{once:true,capture:true});
 }
 

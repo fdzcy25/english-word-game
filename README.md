@@ -37,7 +37,3 @@ Settings → Pages → Deploy from a branch → `main` → `/(root)`。
 
 ## V6 Google 美式优先
 默认优先扫描 Google / Speech Services by Google 的 en-US voice，并在页面显示实际 voice 来源；找不到时自动回退到其他美式音色。
-
-
-## V9
-新增跟读录音、停止按钮、录音回放与纠音提示；重新以 V6 Google 美式优先版为基础，并加强 Android 音色列表刷新。页面底部显示 V9。

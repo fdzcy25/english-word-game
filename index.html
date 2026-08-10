@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-<title>北师大旧版英语 · 单词勇者岛 V9 录音纠音版</title>
+<title>北师大旧版英语 · 单词勇者岛 V6 Google美式优先版</title>
 <meta name="theme-color" content="#526dff">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -11,7 +11,6 @@
 <meta name="apple-mobile-web-app-title" content="单词勇者岛">
 <meta name="description" content="北师大版小学英语旧版三至六年级背单词、跟读、闯关冒险游戏，支持可选美式英语音色">
 <link rel="manifest" href="./manifest.webmanifest">
-<link rel="stylesheet" href="./v9.css">
 <link rel="icon" type="image/png" sizes="192x192" href="./icons/icon-192.png">
 <link rel="apple-touch-icon" href="./icons/icon-192.png">
 <style>
@@ -327,7 +326,7 @@ button{touch-action:manipulation}
       </div>
       <div class="voice-actions">
         <button onclick="previewVoice()">▶️ 试听当前美式发音</button>
-        <button class="secondary" onclick="refreshPhoneVoicesV9()">🔄 刷新手机音色</button>
+        <button class="secondary" onclick="refreshVoiceList(true)">🔄 刷新手机音色</button>
       </div>
       <div id="voiceCurrent" class="voice-current">正在读取手机可用的美式英语音色…</div>
       <div id="voiceWarning" class="voice-warning"></div>
@@ -364,20 +363,8 @@ button{touch-action:manipulation}
           <div class="repeat-actions">
             <button class="repeat-btn" onclick="playRepeatWord()">🔊 听标准发音</button>
             <button id="repeatMicBtn" class="repeat-btn mic" onclick="startRepeat()">🎙️ 开始跟读</button>
-            <button id="repeatStopBtn" class="record-stop" onclick="stopRegularRecordingV9()">⏹ 停止录音</button>
           </div>
           <div id="repeatStatus" class="repeat-status">先听一遍，再跟着读</div>
-          <div id="repeatReview" class="record-review">
-            <div class="record-review-title">🎧 我的跟读录音</div>
-            <div class="record-review-sub">录完后先听自己的声音，再和标准发音对照。</div>
-            <audio id="repeatAudio" controls preload="metadata"></audio>
-            <div id="repeatCorrection" class="pron-correction"></div>
-            <div class="record-review-actions">
-              <button onclick="playMyRecordingV9('regular')">▶️ 播放我的录音</button>
-              <button onclick="playRepeatWord()">🔊 标准发音</button>
-              <button class="retry" onclick="retryRegularRecordingV9()">🔁 重新录音</button>
-            </div>
-          </div>
         </div>
         <button id="nextbtn" class="nextbtn" onclick="nextQuestion()">下一题 →</button>
       </div>
@@ -415,19 +402,7 @@ button{touch-action:manipulation}
         <div id="repeatChallengeZh" class="repeat-challenge-zh"></div>
         <button class="speaker" onclick="speakRepeatChallenge()" style="display:block">🔊</button>
         <button id="repeatChallengeMic" class="repeat-challenge-mic" onclick="startRepeatChallengeMic()">🎙️</button>
-        <button id="repeatChallengeStop" class="record-stop" onclick="stopRepeatChallengeRecordingV9()">⏹ 停止录音</button>
         <div id="repeatChallengeStatus" class="repeat-challenge-status">点击麦克风开始跟读</div>
-        <div id="repeatChallengeReview" class="record-review">
-          <div class="record-review-title">🎧 刚刚的跟读录音</div>
-          <div class="record-review-sub">停止后可立即回放；自动识别可用时会同时给出发音反馈。</div>
-          <audio id="repeatChallengeAudio" controls preload="metadata"></audio>
-          <div id="repeatChallengeCorrection" class="pron-correction"></div>
-          <div class="record-review-actions">
-            <button onclick="playMyRecordingV9('challenge')">▶️ 播放我的录音</button>
-            <button onclick="speakRepeatChallenge()">🔊 标准发音</button>
-            <button class="retry" onclick="retryChallengeRecordingV9()">🔁 再录一次</button>
-          </div>
-        </div>
         <button id="repeatChallengeNext" class="nextbtn" onclick="nextRepeatChallenge()">下一词 →</button>
       </div>
     </div>
@@ -439,7 +414,6 @@ button{touch-action:manipulation}
     <div class="map-head"><button class="back" onclick="show(previousScreen)">←</button><div class="map-title"><h2>📕 我的错词本</h2><small>答错自动加入；复习答对会降低错误次数</small></div><button class="pill" onclick="clearWrong()">清空</button></div>
     <div class="card"><div id="reviewList" class="review-list"></div><button id="reviewBtn" class="bigbtn green" onclick="startWrongReview()">开始错词特训</button></div>
   </section>
-  <div class="app-version">单词勇者岛 · V9</div>
 </div>
 <div class="toast" id="toast"></div>
 <div id="installHint" class="install-hint">
@@ -1382,6 +1356,5 @@ function playSfx(type){
 function toast(s){const t=document.getElementById("toast");t.textContent=s;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),1800)}
 init();
 </script>
-<script src="./v9-pronunciation.js"></script>
 </body>
 </html>

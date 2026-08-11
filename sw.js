@@ -1,4 +1,4 @@
-const CACHE="word-hero-island-pwa-v14-ios15-recording-playback";
+const CACHE="word-hero-island-pwa-v15-mic-toggle-google-voice-recovery";
 const APP_SHELL=[
   "./",
   "./index.html",

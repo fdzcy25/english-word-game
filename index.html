@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-<title>北师大旧版英语 · 单词勇者岛 V14 iOS15录音回放兼容版</title>
+<title>北师大旧版英语 · 单词勇者岛 V15 跟读按钮整合与Google音色恢复版</title>
 <meta name="theme-color" content="#526dff">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -248,7 +248,7 @@ button{touch-action:manipulation}
 .voice-diag summary{cursor:pointer;font-weight:850;color:#52657d}
 .voice-diag #voiceDiagText{margin-top:8px;white-space:pre-wrap;word-break:break-word}
 
-/* ===== V14 iPhone系统音色优先 + iOS 15录音回放兼容 + Android Google优先 ===== */
+/* ===== V15 跟读按钮整合 + Google音色恢复 + V14 iOS15兼容 ===== */
 .voice-device-details{margin-top:10px;border:1px solid #e1e8f2;border-radius:15px;background:#fbfcff;overflow:hidden}
 .voice-device-details summary{cursor:pointer;padding:10px 12px;font-weight:900;color:#52657d;list-style:none}
 .voice-device-details summary::-webkit-details-marker{display:none}
@@ -353,7 +353,7 @@ button{touch-action:manipulation}
       </div>
       <div class="voice-actions">
         <button onclick="previewVoice()">▶️ 试听当前美式发音</button>
-        <button class="secondary" onclick="scanVoicesBurst(true,'手动刷新')">🔄 刷新设备音色</button>
+        <button class="secondary" onclick="manualRefreshVoicesV15()">🔄 刷新设备音色</button>
       </div>
       <div id="voiceCurrent" class="voice-current">正在读取设备可用的美式英语音色…</div>
       <div id="voiceWarning" class="voice-warning"></div>
@@ -397,13 +397,12 @@ button{touch-action:manipulation}
           <div id="repeatWord" class="repeat-word"></div>
           <div class="repeat-actions">
             <button class="repeat-btn" onclick="playRepeatWord()">🔊 听标准发音</button>
-            <button id="repeatMicBtn" class="repeat-btn mic" onclick="startRepeat()">🎙️ 开始跟读</button>
-            <button id="repeatStopBtn" class="record-stop" onclick="stopRegularRecordingV10()">⏹ 停止录音</button>
+            <button id="repeatMicBtn" class="repeat-btn mic" onclick="toggleRegularRecordingV15()">🎙️ 开始跟读</button>
           </div>
           <div id="repeatStatus" class="repeat-status">先听一遍，再跟着读</div>
           <div id="repeatReview" class="record-review">
             <div class="record-review-title">🎧 我的跟读录音</div>
-            <div class="record-review-sub">停止后先回放自己的声音，再和标准美式发音对照。</div>
+            <div class="record-review-sub">结束后先回放自己的声音，再和标准美式发音对照。</div>
             <audio id="repeatAudio" controls preload="auto" playsinline></audio>
             <div id="repeatCorrection" class="pron-correction"></div>
             <div class="record-review-actions">
@@ -448,12 +447,11 @@ button{touch-action:manipulation}
         <div id="repeatChallengeWord" class="repeat-challenge-word"></div>
         <div id="repeatChallengeZh" class="repeat-challenge-zh"></div>
         <button class="speaker" onclick="speakRepeatChallenge()" style="display:block">🔊</button>
-        <button id="repeatChallengeMic" class="repeat-challenge-mic" onclick="startRepeatChallengeMic()">🎙️</button>
-        <button id="repeatChallengeStop" class="record-stop" onclick="stopRepeatChallengeRecordingV10()">⏹ 停止录音</button>
+        <button id="repeatChallengeMic" class="repeat-challenge-mic" onclick="toggleRepeatChallengeRecordingV15()">🎙️</button>
         <div id="repeatChallengeStatus" class="repeat-challenge-status">点击麦克风开始跟读</div>
         <div id="repeatChallengeReview" class="record-review">
           <div class="record-review-title">🎧 刚刚的跟读录音</div>
-          <div class="record-review-sub">停止后可立即回放。自动识别成功时，会同时给出识别结果和纠音建议。</div>
+          <div class="record-review-sub">结束后可立即回放。自动识别成功时，会同时给出识别结果和纠音建议。</div>
           <audio id="repeatChallengeAudio" controls preload="auto" playsinline></audio>
           <div id="repeatChallengeCorrection" class="pron-correction"></div>
           <div class="record-review-actions">
@@ -473,7 +471,7 @@ button{touch-action:manipulation}
     <div class="map-head"><button class="back" onclick="show(previousScreen)">←</button><div class="map-title"><h2>📕 我的错词本</h2><small>答错自动加入；复习答对会降低错误次数</small></div><button class="pill" onclick="clearWrong()">清空</button></div>
     <div class="card"><div id="reviewList" class="review-list"></div><button id="reviewBtn" class="bigbtn green" onclick="startWrongReview()">开始错词特训</button></div>
   </section>
-  <div class="app-version">单词勇者岛 · V14</div>
+  <div class="app-version">单词勇者岛 · V15</div>
 </div>
 <div class="toast" id="toast"></div>
 <div id="installHint" class="install-hint">
@@ -487,13 +485,17 @@ button{touch-action:manipulation}
 // 后续可继续把每册 Word List 全量导入，不需要改游戏逻辑。
 
 
-// ===== V14 iPhone系统音色优先 + iOS 15录音回放兼容 + Android Google优先 =====
-const VOICE_SETTINGS_KEY="wordHeroAmericanVoiceSettingsV14";
+// ===== V15 跟读按钮整合 + Google音色恢复 + V14 iOS15兼容 =====
+const VOICE_SETTINGS_KEY="wordHeroAmericanVoiceSettingsV15";
+const V14_VOICE_SETTINGS_KEY="wordHeroAmericanVoiceSettingsV14";
 const V13_VOICE_SETTINGS_KEY="wordHeroAmericanVoiceSettingsV13";
+const VOICE_LAST_GOOGLE_KEY="wordHeroLastGoogleVoiceV15";
 const V12_VOICE_SETTINGS_KEY="wordHeroAmericanVoiceSettingsV12";
 const OLD_VOICE_SETTINGS_KEY="wordHeroAmericanVoiceSettings";
 let americanVoices=[];
 let voiceSettings={choice:"auto",rate:0.84};
+let lastKnownGoogleMeta=null;
+let androidVoiceRecoveryTimer=null;
 
 const FEMALE_VOICE_HINTS=[
  "samantha","ava","allison","susan","zira","jenny","aria","emma","joanna",
@@ -527,7 +529,13 @@ function loadVoiceSettings(){
  let saved={};
  try{saved=JSON.parse(localStorage.getItem(VOICE_SETTINGS_KEY)||"{}")}catch(e){}
  if(!saved || !Object.keys(saved).length){
-   // V14 首次运行：先完整迁移 V13 设置，避免升级后丢失 iPhone 系统音色/语速选择。
+   // V15 首次运行：优先完整迁移 V14 设置，避免升级后丢失 iPhone 系统音色/语速选择。
+   try{
+     const v14=JSON.parse(localStorage.getItem(V14_VOICE_SETTINGS_KEY)||"{}");
+     if(v14&&Object.keys(v14).length)saved={...v14};
+   }catch(e){}
+ }
+ if(!saved || !Object.keys(saved).length){
    try{
      const v13=JSON.parse(localStorage.getItem(V13_VOICE_SETTINGS_KEY)||"{}");
      if(v13&&Object.keys(v13).length)saved={...v13};
@@ -559,6 +567,17 @@ function loadVoiceSettings(){
 }
 function saveVoiceSettings(){
  localStorage.setItem(VOICE_SETTINGS_KEY,JSON.stringify(voiceSettings));
+}
+function loadLastKnownGoogleMeta(){
+ try{
+   const saved=JSON.parse(localStorage.getItem(VOICE_LAST_GOOGLE_KEY)||"null");
+   if(saved&&saved.name)lastKnownGoogleMeta=saved;
+ }catch(e){}
+}
+function rememberGoogleVoice(v){
+ if(!v||!isGoogleVoice(v)||!isAmericanVoice(v))return;
+ lastKnownGoogleMeta={name:String(v.name||"Google en-US"),voiceURI:String(v.voiceURI||""),lang:String(v.lang||"en-US"),time:Date.now()};
+ try{localStorage.setItem(VOICE_LAST_GOOGLE_KEY,JSON.stringify(lastKnownGoogleMeta))}catch(e){}
 }
 function normLang(lang){return String(lang||"").replace(/_/g,"-").toLowerCase()}
 function voiceIdentity(v){return `${v?.name||""}|${v?.voiceURI||""}|${v?.lang||""}`}
@@ -654,9 +673,9 @@ function voiceLabel(v){
 }
 function preferredProviderName(){return deviceFamily()==="ios"?"Apple":deviceFamily()==="android"?"Google":"系统"}
 function preferredProviderCount(){
- if(deviceFamily()==="ios")return voiceScanInfo.lastAll.filter(v=>isAmericanVoice(v)&&isAppleVoice(v)).length;
- if(deviceFamily()==="android")return voiceScanInfo.lastAll.filter(v=>isAmericanVoice(v)&&isGoogleVoice(v)).length;
- return voiceScanInfo.lastAll.filter(isAmericanVoice).length;
+ if(deviceFamily()==="ios")return americanVoices.filter(v=>isAppleVoice(v)).length;
+ if(deviceFamily()==="android")return americanVoices.filter(v=>isGoogleVoice(v)).length;
+ return americanVoices.length;
 }
 function applyPlatformVoiceUI(){
  const f=deviceFamily();
@@ -684,7 +703,8 @@ function updateVoiceDiag(){
  const box=document.getElementById("voiceDiagText");if(!box)return;
  const sample=voiceScanInfo.lastAll.slice(0,16).map(v=>`• ${v.name||"(无名称)"} | ${v.lang||"?"} | ${voiceProvider(v)}${v.localService?" | local":""}`).join("\n");
  const strategy=(deviceFamily()==="ios"&&voiceSettings.choice==="ios-system")?"跟随 iPhone 系统（不指定 voice）":voiceSettings.choice;
- box.textContent=`设备：${deviceLabel()}\n当前策略：${strategy}\n扫描次数：${voiceScanInfo.scans} · 浏览器全部音色：${voiceScanInfo.total} · 美式 en-US：${voiceScanInfo.us} · Google en-US：${voiceScanInfo.google} · Apple en-US：${voiceScanInfo.apple}\n最近触发：${voiceScanInfo.reason}${sample?"\n\n浏览器当前公开的音色（最多显示16个）：\n"+sample:"\n\n当前 getVoices() 返回空列表。"}`;
+ const lastGoogle=lastKnownGoogleMeta?`\n上次成功检测到 Google：${lastKnownGoogleMeta.name} · ${lastKnownGoogleMeta.lang||"en-US"}`:"";
+ box.textContent=`设备：${deviceLabel()}\n当前策略：${strategy}\n扫描次数：${voiceScanInfo.scans} · 浏览器全部音色：${voiceScanInfo.total} · 美式 en-US：${voiceScanInfo.us} · Google en-US：${voiceScanInfo.google} · Apple en-US：${voiceScanInfo.apple}\n最近触发：${voiceScanInfo.reason}${lastGoogle}${sample?"\n\n浏览器当前公开的音色（最多显示16个）：\n"+sample:"\n\n当前 getVoices() 返回空列表。"}`;
 }
 function updateVoiceStatus(){
  const box=document.getElementById("voiceCurrent"),warn=document.getElementById("voiceWarning");
@@ -711,7 +731,11 @@ function updateVoiceStatus(){
    }
  }else{
    box.innerHTML=`当前实际使用：<b>浏览器 en-US 默认音色</b><br>语速：${Number(voiceSettings.rate).toFixed(2)}×`;
-   warn.textContent="浏览器当前没有公开可选择的 en-US 音色；仍会请求系统 en-US 默认发音，并继续等待音色列表。";
+   if(f==="android"&&lastKnownGoogleMeta){
+     warn.textContent=`本轮 getVoices() 暂时为空；本机上次已成功检测到“${lastKnownGoogleMeta.name}”。V15 会后台持续重试，Google 音色一旦重新公开会自动恢复，不需要反复手动刷新。`;
+   }else{
+     warn.textContent="浏览器当前没有公开可选择的 en-US 音色；仍会请求系统 en-US 默认发音，并继续等待音色列表。";
+   }
    warn.className="voice-warning show";
  }
  updateVoiceDiag();
@@ -798,15 +822,20 @@ function refreshVoiceList(showToast=false,reason="刷新"){
  let all=[];try{all=speechSynthesis.getVoices()||[]}catch(e){}
  voiceScanInfo.scans++;voiceScanInfo.total=all.length;voiceScanInfo.reason=reason;
  if(all.length){
-   // 只用非空列表替换快照，避免 Android/iOS 偶发空返回把已经找到的音色清掉。
+   // 当前快照仅用于诊断；真实可用的 en-US 对象采用“只增不因瞬时缺失而清空”的方式缓存。
+   // Android Chrome 某些轮次会先返回空数组或只返回部分语言，不能因此把已经拿到的 Google voice 丢掉。
    voiceScanInfo.lastAll=all;
-   const next=[];const seen=new Set();
-   all.filter(isAmericanVoice).forEach(v=>{const k=voiceIdentity(v);if(!seen.has(k)){seen.add(k);next.push(v)}});
-   americanVoices=next;
+   const currentUS=all.filter(isAmericanVoice);
+   if(currentUS.length){
+     const merged=[];const seen=new Set();
+     [...currentUS,...americanVoices].forEach(v=>{const k=voiceIdentity(v);if(!seen.has(k)){seen.add(k);merged.push(v)}});
+     americanVoices=merged;
+     const googleHit=currentUS.find(isGoogleVoice);if(googleHit)rememberGoogleVoice(googleHit);
+   }
  }
- voiceScanInfo.us=voiceScanInfo.lastAll.filter(isAmericanVoice).length;
- voiceScanInfo.google=voiceScanInfo.lastAll.filter(v=>isAmericanVoice(v)&&isGoogleVoice(v)).length;
- voiceScanInfo.apple=voiceScanInfo.lastAll.filter(v=>isAmericanVoice(v)&&isAppleVoice(v)).length;
+ voiceScanInfo.us=americanVoices.length;
+ voiceScanInfo.google=americanVoices.filter(isGoogleVoice).length;
+ voiceScanInfo.apple=americanVoices.filter(isAppleVoice).length;
  rebuildVoiceSelect();
  if(showToast){
    const n=preferredProviderCount();
@@ -820,7 +849,7 @@ let voiceBurstSerial=0;
 function scanVoicesBurst(showToast=false,reason="连续扫描"){
  if(!("speechSynthesis" in window))return refreshVoiceList(showToast,reason);
  const serial=++voiceBurstSerial;
- const delays=[0,80,220,500,950,1600,2600,4200];
+ const delays=[0,80,220,500,950,1600,2600,4200,7000,11000];
  if(showToast)toast("正在重新扫描设备音色…");
  delays.forEach((ms,i)=>setTimeout(()=>{
    if(serial!==voiceBurstSerial)return;
@@ -833,6 +862,42 @@ function scanVoicesBurst(showToast=false,reason="连续扫描"){
    }
  },ms));
 }
+function androidVoiceEngineNudgeV15(){
+ if(deviceFamily()!=="android"||!("speechSynthesis" in window))return;
+ try{
+   if(speechSynthesis.speaking||speechSynthesis.pending)return;
+   const u=new SpeechSynthesisUtterance("\u200B");
+   u.lang="en-US";u.volume=0;u.rate=1;u.pitch=1;
+   u.onend=()=>scanVoicesBurst(false,"Android TTS 引擎唤醒后");
+   u.onerror=()=>setTimeout(()=>scanVoicesBurst(false,"Android TTS 唤醒异常后"),120);
+   speechSynthesis.speak(u);
+ }catch(e){}
+}
+function startAndroidVoiceRecoveryV15(reason="Android 自动恢复"){
+ if(deviceFamily()!=="android"||!("speechSynthesis" in window))return;
+ if(androidVoiceRecoveryTimer){clearInterval(androidVoiceRecoveryTimer);androidVoiceRecoveryTimer=null}
+ let attempts=0;
+ const tick=()=>{
+   attempts++;
+   refreshVoiceList(false,`${reason} ${attempts}`);
+   if(preferredProviderCount()>0||attempts>=24){
+     clearInterval(androidVoiceRecoveryTimer);androidVoiceRecoveryTimer=null;
+   }
+ };
+ tick();
+ if(preferredProviderCount()>0)return;
+ androidVoiceRecoveryTimer=setInterval(tick,2500);
+}
+function manualRefreshVoicesV15(){
+ scanVoicesBurst(true,"手动刷新");
+ if(deviceFamily()==="android"){
+   let now=[];try{now=speechSynthesis.getVoices()||[]}catch(e){}
+   if(!now.length)androidVoiceEngineNudgeV15();
+   startAndroidVoiceRecoveryV15("手动刷新持续恢复");
+ }
+}
+window.manualRefreshVoicesV15=manualRefreshVoicesV15;
+
 function saveVoiceChoice(){
  const sel=document.getElementById("voiceSelect"),rate=document.getElementById("voiceRate");
  if(sel)voiceSettings.choice=sel.value;
@@ -850,17 +915,18 @@ function previewVoice(){
  setTimeout(()=>scanVoicesBurst(false,"试听后恢复"),120);
 }
 function initAmericanVoices(){
- loadVoiceSettings();applyPlatformVoiceUI();
+ loadVoiceSettings();loadLastKnownGoogleMeta();applyPlatformVoiceUI();
  refreshVoiceList(false,"页面初始化");scanVoicesBurst(false,"页面启动");
+ if(deviceFamily()==="android")setTimeout(()=>startAndroidVoiceRecoveryV15("页面启动后台恢复"),900);
  if("speechSynthesis" in window){
-   const changed=()=>scanVoicesBurst(false,"voiceschanged");
+   const changed=()=>{scanVoicesBurst(false,"voiceschanged");if(deviceFamily()==="android")startAndroidVoiceRecoveryV15("voiceschanged 后恢复")};
    try{speechSynthesis.onvoiceschanged=changed}catch(e){}
    try{speechSynthesis.addEventListener?.("voiceschanged",changed)}catch(e){}
  }
- window.addEventListener("pageshow",()=>scanVoicesBurst(false,"pageshow"));
- window.addEventListener("focus",()=>scanVoicesBurst(false,"窗口重新获得焦点"));
- document.addEventListener("visibilitychange",()=>{if(!document.hidden)scanVoicesBurst(false,"页面重新可见")});
- document.addEventListener("pointerdown",()=>scanVoicesBurst(false,"首次用户触摸"),{once:true,capture:true});
+ window.addEventListener("pageshow",()=>{scanVoicesBurst(false,"pageshow");if(deviceFamily()==="android")startAndroidVoiceRecoveryV15("pageshow 恢复")});
+ window.addEventListener("focus",()=>{scanVoicesBurst(false,"窗口重新获得焦点");if(deviceFamily()==="android")startAndroidVoiceRecoveryV15("焦点恢复")});
+ document.addEventListener("visibilitychange",()=>{if(!document.hidden){scanVoicesBurst(false,"页面重新可见");if(deviceFamily()==="android")startAndroidVoiceRecoveryV15("页面可见恢复")}});
+ document.addEventListener("pointerdown",()=>{scanVoicesBurst(false,"首次用户触摸");if(deviceFamily()==="android")startAndroidVoiceRecoveryV15("用户触摸后恢复")},{once:true,capture:true});
 }
 
 // ===== PWA + 麦克风权限管理 =====
@@ -1522,7 +1588,7 @@ function speak(text){
  u.pitch=1.0;
  u.volume=1;
  u.onstart=()=>refreshVoiceList(false,"TTS开始播放");
- u.onend=()=>scanVoicesBurst(false,"TTS播放结束");
+ u.onend=()=>{scanVoicesBurst(false,"TTS播放结束");if(deviceFamily()==="android")startAndroidVoiceRecoveryV15("TTS播放后恢复")};
  u.onerror=()=>setTimeout(()=>scanVoicesBurst(false,"TTS异常后"),80);
  speechSynthesis.speak(u);
 }
@@ -1622,7 +1688,7 @@ function playSfx(type){
 }
 function toast(s){const t=document.getElementById("toast");t.textContent=s;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),1800)}
 
-// ===== V11 跟读录音 + 显式停止 + 回放（沿用 V10 录音模块） =====
+// ===== V15 跟读录音：同一麦克风按钮开始/结束 + V14 回放兼容 =====
 // 注意：V10 不重写 V6 的 TTS / Google 音色逻辑；下面代码只负责麦克风录音和跟读评分。
 const V10_IPA={"accident":"ˈæksədənt","activity":"æktˈɪvəti","afternoon":"ˌæftɚnˈun","animal":"ˈænəməl","apple":"ˈæpəl","art room":"ˈɑrt rˈum","astronaut":"ˈæstrənˌɑt","aunt":"ˈænt","baby":"bˈeɪbi","bad":"bˈæd","badminton":"bˈædmˌɪntən","bag":"bˈæɡ","ball":"bˈɔl","banana":"bənˈænə","bank":"bˈæŋk","basketball":"bˈæskətbˌɔl","bathroom":"bˈæθrˌum","beach":"bˈitʃ","bean":"bˈin","bed":"bˈɛd","bedroom":"bˈɛdrˌum","behind":"bɪhˈaɪnd","better":"bˈɛtɚ","between":"bɪtwˈin","birthday":"bˈɝθdˌeɪ","black":"blˈæk","blue":"blˈu","book":"bˈʊk","bookcase":"bˈʊkkˌeɪs","boy":"bˈɔɪ","break":"brˈeɪk","breakfast":"brˈɛkfəst","brother":"brˈʌðɚ","brown":"brˈaʊn","bus stop":"bˈʌs stˈɑp","buy":"bˈaɪ","cabbage":"kˈæbədʒ","cake":"kˈeɪk","camera":"kˈæmɚə","can":"kˈæn","candle":"kˈændəl","car":"kˈɑr","careful":"kˈɛrfəl","carrot":"kˈærət","catch":"kˈætʃ","centimeter":"sˈɛntəmˌitɚ","chair":"tʃˈɛr","cheap":"tʃˈip","chicken":"tʃˈɪkən","city":"sˈɪti","classroom":"klˈæsrˌum","clock":"klˈɑk","clothes":"klˈoʊðz","cloud":"klˈaʊd","cloudy":"klˈaʊdi","coat":"kˈoʊt","cold":"kˈoʊld","color":"kˈʌlɚ","come":"kˈʌm","computer":"kəmpjˈutɚ","concert":"kˈɑnsɚt","corn":"kˈɔrn","dance":"dˈæns","dancer":"dˈænsɚ","date":"dˈeɪt","desk":"dˈɛsk","different":"dˈɪfɚənt","dinner":"dˈɪnɚ","doctor":"dˈɑktɚ","doll":"dˈɑl","door":"dˈɔr","draw":"drˈɔ","dress":"drˈɛs","drink":"drˈɪŋk","drum":"drˈʌm","early":"ˈɝli","earth":"ˈɝθ","eight":"ˈeɪt","evening":"ˈivnɪŋ","expensive":"ɪkspˈɛnsɪv","fall":"fˈɔl","family":"fˈæməli","farmer":"fˈɑrmɚ","fast":"fˈæst","father":"fˈɑðɚ","favorite":"fˈeɪvɚɪt","February":"fˈɛbjəwˌɛri","first":"fˈɝst","five":"fˈaɪv","fix":"fˈɪks","floor":"flˈɔr","food":"fˈud","football":"fˈʊtbˌɔl","forty":"fˈɔrti","four":"fˈɔr","fox":"fˈɑks","fresh":"frˈɛʃ","Friday":"frˈaɪdi","friend":"frˈɛnd","fruit":"frˈut","future":"fjˈutʃɚ","get up":"ɡˈɛt ˈʌp","gift":"ɡˈɪft","girl":"ɡˈɝl","go":"ɡˈoʊ","go to bed":"ɡˈoʊ tˈu bˈɛd","goat":"ɡˈoʊt","good":"ɡˈʊd","goodbye":"ɡˌʊdbˈaɪ","grandfather":"ɡrˈændfˌɑðɚ","grandmother":"ɡrˈændmˌʌðɚ","green":"ɡrˈin","guitar":"ɡɪtˈɑr","happen":"hˈæpən","he":"hˈi","headache":"hˈɛdˌeɪk","heavy":"hˈɛvi","height":"hˈaɪt","hello":"həlˈoʊ","hi":"hˈaɪ","high":"hˈaɪ","homework":"hˈoʊmwˌɝk","horse":"hˈɔrs","hospital":"hˈɑspˌɪtəl","hot":"hˈɑt","hotel":"hoʊtˈɛl","house":"hˈaʊs","how much":"hˈaʊ mˈʌtʃ","hungry":"hˈʌŋɡri","hurry":"hˈɝi","hurt":"hˈɝt","I":"ˈaɪ","ill":"ˈɪl","in front of":"ɪn frˈʌnt ˈʌv","is":"ˈɪz","January":"dʒˈænjuˌɛri","jeans":"dʒˈinz","job":"dʒˈɑb","juice":"dʒˈus","jump":"dʒˈʌmp","kilogram":"kˈɪləɡrˌæm","kitchen":"kˈɪtʃən","know":"nˈoʊ","large":"lˈɑrdʒ","late":"lˈeɪt","learn":"lˈɝn","left":"lˈɛft","lemon":"lˈɛmən","library":"lˈaɪbrɛrˌi","life":"lˈaɪf","light":"lˈaɪt","like":"lˈaɪk","lion":"lˈaɪən","listen":"lˈɪsən","litter":"lˈɪtɚ","living room":"lˈɪvɪŋ rˈum","long":"lˈɔŋ","lose":"lˈuz","lunch":"lˈʌntʃ","March":"mˈɑrtʃ","Mars":"mˈɑrz","matter":"mˈætɚ","measure":"mˈɛʒɚ","medicine":"mˈɛdəsən","medium":"mˈidiəm","menu":"mˈɛnju","Monday":"mˈʌndi","money":"mˈʌni","monkey":"mˈʌŋki","month":"mˈʌnθ","moon":"mˈun","morning":"mˈɔrnɪŋ","mother":"mˈʌðɚ","mountain":"mˈaʊntən","move":"mˈuv","music":"mjˈuzɪk","music room":"mjˈuzɪk rˈum","my":"mˈaɪ","name":"nˈeɪm","near":"nˈɪr","new":"nˈu","next to":"nˈɛkst tˈu","night":"nˈaɪt","nine":"nˈaɪn","no":"nˈoʊ","noodles":"nˈudəlz","nurse":"nˈɝs","o'clock":"əklˈɑk","office":"ˈɔfɪs","on":"ˈɑn","one":"wˈʌn","onion":"ˈʌnjən","orange":"ˈɔrəndʒ","panda":"pˈændə","park":"pˈɑrk","parking":"pˈɑrkɪŋ","party":"pˈɑrti","peach":"pˈitʃ","pear":"pˈɛr","pen":"pˈɛn","pencil":"pˈɛnsəl","photo":"fˈoʊtˌoʊ","piano":"piˈænoʊ","picture":"pˈɪktʃɚ","pilot":"pˈaɪlət","pink":"pˈɪŋk","place":"plˈeɪs","plane":"plˈeɪn","planet":"plˈænət","play":"plˈeɪ","playground":"plˈeɪɡrˌaʊnd","police station":"pəlˈis stˈeɪʃən","policeman":"pəlˈismən","position":"pəzˈɪʃən","possible":"pˈɑsəbəl","post office":"pˈoʊst ˈɔfɪs","potato":"pətˈeɪtˌoʊ","prize":"prˈaɪz","purple":"pˈɝpəl","rabbit":"rˈæbət","rain":"rˈeɪn","rainy":"rˈeɪni","read":"riːd","ready":"rˈɛdi","red":"rˈɛd","rest":"rˈɛst","restaurant":"rˈɛstɚˌɑnt","rice":"rˈaɪs","ride":"rˈaɪd","right":"rˈaɪt","robot":"rˈoʊbˌɑt","room":"rˈum","ruler":"rˈulɚ","run":"rˈʌn","running":"rˈʌnɪŋ","Saturday":"sˈætɚdi","school":"skˈul","second":"sˈɛkənd","sell":"sˈɛl","seven":"sˈɛvən","she":"ʃˈi","sheep":"ʃˈip","shirt":"ʃˈɝt","shoes":"ʃˈuz","shop":"ʃˈɑp","shopping":"ʃˈɑpɪŋ","short":"ʃˈɔrt","shorts":"ʃˈɔrts","show":"ʃˈoʊ","sign":"sˈaɪn","sing":"sˈɪŋ","singer":"sˈɪŋɚ","sister":"sˈɪstɚ","six":"sˈɪks","size":"sˈaɪz","skirt":"skˈɝt","sleep":"slˈip","slow":"slˈoʊ","small":"smˈɔl","snow":"snˈoʊ","snowy":"snˈoʊi","socks":"sˈɑks","sofa":"sˈoʊfə","song":"sˈɔŋ","soup":"sˈup","sour":"sˈaʊɚ","space":"spˈeɪs","spaceship":"spˈeɪsʃˌɪp","sport":"spˈɔrt","star":"stˈɑr","stomach":"stˈʌmək","store":"stˈɔr","street":"strˈit","student":"stˈudənt","study":"stˈʌdi","suddenly":"sˈʌdənli","sun":"sˈʌn","Sunday":"sˈʌndˌeɪ","sunny":"sˈʌni","supermarket":"sˈupɚmˌɑrkɪt","sweater":"swˈɛtɚ","sweet":"swˈit","swim":"swˈɪm","swimming":"swˈɪmɪŋ","table":"tˈeɪbəl","talent":"tˈælənt","tall":"tˈɔl","taste":"tˈeɪst","teacher":"tˈitʃɚ","team":"tˈim","tell":"tˈɛl","ten":"tˈɛn","tennis":"tˈɛnəs","than":"ðˈæn","that":"ðˈæt","thirsty":"θˈɝsti","thirty":"θˈɝdˌi","this":"ðˈɪs","three":"θrˈi","throw":"θrˈoʊ","Thursday":"θˈɝzdˌeɪ","tiger":"tˈaɪɡɚ","time":"tˈaɪm","today":"tədˈeɪ","together":"təɡˈɛðɚ","tomato":"təmˈeɪtˌoʊ","tomorrow":"təmˈɑrˌoʊ","touch":"tˈʌtʃ","train":"trˈeɪn","train station":"trˈeɪn stˈeɪʃən","travel":"trˈævəl","trip":"trˈɪp","trousers":"trˈaʊzɚz","Tuesday":"tˈuzdi","twenty":"twˈɛnti","two":"tˈu","uncle":"ˈʌŋkəl","under":"ˈʌndɚ","vacation":"veɪkˈeɪʃən","vegetable":"vˈɛdʒtəbəl","vet":"vˈɛt","violin":"vaɪəlˈɪn","visit":"vˈɪzɪt","walk":"wˈɔk","watch":"wˈɑtʃ","watch TV":"wˈɑtʃ tˈivˈi","water":"wˈɔtɚ","watermelon":"wˈɔtɚmˌɛlən","weather":"wˈɛðɚ","Wednesday":"wˈɛnzdi","week":"wˈik","weight":"wˈeɪt","what":"wˈʌt","white":"wˈaɪt","who":"hˈu","will":"wˈɪl","win":"wˈɪn","wind":"wˈaɪnd","window":"wˈɪndoʊ","windy":"wˈɪndi","winner":"wˈɪnɚ","world":"wˈɝld","write":"rˈaɪt","year":"jˈɪr","yellow":"jˈɛloʊ","yes":"jˈɛs","yesterday":"jˈɛstɚdˌeɪ","you":"jˈu","your":"jˈɔr","live":"lɪv","close":"kloʊz","use":"juz","present":"ˈprɛzənt","toothache":"ˈtuθeɪk"};
 let v10Capture=null;
@@ -1702,13 +1768,21 @@ window.playMyRecordingV10=playMyRecordingV10;
 
 function v10UpdateRunning(kind,running){
  if(kind==="challenge"){
-   const mic=document.getElementById("repeatChallengeMic"),stop=document.getElementById("repeatChallengeStop");
-   if(mic){mic.disabled=running;mic.classList.toggle("listening",running);mic.textContent=running?"🎤":"🎙️"}
-   if(stop){stop.classList.toggle("show",running);stop.disabled=false;stop.textContent="⏹ 停止录音"}
+   const mic=document.getElementById("repeatChallengeMic");
+   if(mic){
+     mic.disabled=false;
+     mic.classList.toggle("listening",running);
+     mic.textContent=running?"🎤":"🎙️";
+     mic.setAttribute("aria-label",running?"录音中，再次点击结束跟读录音":"开始跟读录音");
+     mic.title=running?"录音中…再次点击麦克风结束":"点击开始跟读";
+   }
  }else{
-   const mic=document.getElementById("repeatMicBtn"),stop=document.getElementById("repeatStopBtn");
-   if(mic){mic.disabled=running;mic.classList.toggle("listening",running);mic.textContent=running?"🎤 录音中…":"🎙️ 开始跟读"}
-   if(stop){stop.classList.toggle("show",running);stop.disabled=false;stop.textContent="⏹ 停止录音"}
+   const mic=document.getElementById("repeatMicBtn");
+   if(mic){
+     mic.disabled=false;
+     mic.classList.toggle("listening",running);
+     mic.textContent=running?"🎤 录音中… 再点结束":"🎙️ 开始跟读";
+   }
  }
 }
 
@@ -1813,12 +1887,19 @@ window.renderRepeatChallenge=renderRepeatChallenge;
 startRepeatChallengeMic=async function(){
  const q=repeatGame.questions[repeatGame.i];if(!q||repeatGame.attempted||v10Capture)return;const status=document.getElementById("repeatChallengeStatus");
  v10ShowReview("challenge",false);v10SetAudio("challenge",null);document.getElementById("repeatChallengeNext").style.display="none";
- status.innerHTML="🎙️ 正在录音，请读出上面的英文。<br><small>读完后请点击红色“⏹ 停止录音”。</small>";status.className="repeat-challenge-status";
+ status.innerHTML="🎙️ 录音中，请读出上面的英文。<br><small>读完后再次点击上面的麦克风按钮即可结束录音。</small>";status.className="repeat-challenge-status";
  try{await v10BeginCapture("challenge",q.en);v10UpdateRunning("challenge",true)}catch(e){v10UpdateRunning("challenge",false);status.textContent="录音启动失败："+(e?.message||e);status.className="repeat-challenge-status bad"}
 };window.startRepeatChallengeMic=startRepeatChallengeMic;
 
+async function toggleRepeatChallengeRecordingV15(){
+ if(v10Capture?.kind==="challenge")return stopRepeatChallengeRecordingV10(false);
+ if(v10Capture)return toast("另一处录音正在进行，请先结束当前录音");
+ return startRepeatChallengeMic();
+}
+window.toggleRepeatChallengeRecordingV15=toggleRepeatChallengeRecordingV15;
+
 async function stopRepeatChallengeRecordingV10(auto=false){
- if(!v10Capture||v10Capture.kind!=="challenge")return;const status=document.getElementById("repeatChallengeStatus"),stop=document.getElementById("repeatChallengeStop");if(stop){stop.disabled=true;stop.textContent="正在结束…"}
+ if(!v10Capture||v10Capture.kind!=="challenge")return;const status=document.getElementById("repeatChallengeStatus");
  status.textContent=auto?"已达到最长录音时间，正在处理…":"录音结束，正在生成回放和发音反馈…";
  const data=await v10StopCapture("challenge");v10UpdateRunning("challenge",false);if(!data)return;if(data.url)v10SetAudio("challenge",data.url,data.blob);v10ShowReview("challenge",true);
  const r=v10Evaluate(data.target,data.transcripts,data.error,data.mode);v10RenderCorrection("challenge",r);const next=document.getElementById("repeatChallengeNext");
@@ -1830,19 +1911,25 @@ window.stopRepeatChallengeRecordingV10=stopRepeatChallengeRecordingV10;
 function retryChallengeRecordingV10(){if(v10Capture)return;if(repeatGame.attempted)return toast("本词已经完成，请进入下一词");document.getElementById("repeatChallengeNext").style.display="none";startRepeatChallengeMic()}
 window.retryChallengeRecordingV10=retryChallengeRecordingV10;
 const v10BaseNextRepeatChallenge=nextRepeatChallenge;
-nextRepeatChallenge=function(){if(v10Capture)return toast("请先点击停止录音");if(!repeatGame.attempted&&v10ChallengePendingFailure){const q=repeatGame.questions[repeatGame.i];repeatGame.attempted=true;repeatGame.lives--;repeatGame.combo=0;state.stats.done=(state.stats.done||0)+1;state.wrong[q.en]={en:q.en,zh:q.zh,miss:(state.wrong[q.en]?.miss||0)+1,book:repeatGame.book};saveState(state);updateTop()}else if(!repeatGame.attempted){return toast("请先完成一次跟读录音")}repeatGame.i++;renderRepeatChallenge()};window.nextRepeatChallenge=nextRepeatChallenge;
+nextRepeatChallenge=function(){if(v10Capture)return toast("请再次点击麦克风按钮结束当前录音");if(!repeatGame.attempted&&v10ChallengePendingFailure){const q=repeatGame.questions[repeatGame.i];repeatGame.attempted=true;repeatGame.lives--;repeatGame.combo=0;state.stats.done=(state.stats.done||0)+1;state.wrong[q.en]={en:q.en,zh:q.zh,miss:(state.wrong[q.en]?.miss||0)+1,book:repeatGame.book};saveState(state);updateTop()}else if(!repeatGame.attempted){return toast("请先完成一次跟读录音")}repeatGame.i++;renderRepeatChallenge()};window.nextRepeatChallenge=nextRepeatChallenge;
 
 // ---- 普通答题后的跟读面板 ----
 const v10BaseShowRepeatPanel=showRepeatPanel;
 showRepeatPanel=function(q){v10Abort();v10ShowReview("regular",false);v10SetAudio("regular",null);v10UpdateRunning("regular",false);v10BaseShowRepeatPanel(q)};window.showRepeatPanel=showRepeatPanel;
-startRepeat=async function(){const q=game.questions[game.i];if(!q||v10Capture)return;const status=document.getElementById("repeatStatus");v10ShowReview("regular",false);v10SetAudio("regular",null);status.innerHTML="🎙️ 正在录音。读完后点击红色“⏹ 停止录音”。";status.className="repeat-status";try{await v10BeginCapture("regular",q.en);v10UpdateRunning("regular",true)}catch(e){v10UpdateRunning("regular",false);status.textContent="录音启动失败："+(e?.message||e);status.className="repeat-status bad"}};window.startRepeat=startRepeat;
-async function stopRegularRecordingV10(auto=false){if(!v10Capture||v10Capture.kind!=="regular")return;const status=document.getElementById("repeatStatus"),stop=document.getElementById("repeatStopBtn");if(stop){stop.disabled=true;stop.textContent="正在结束…"}status.textContent=auto?"达到最长录音时间，正在处理…":"正在生成你的录音回放和发音反馈…";const data=await v10StopCapture("regular");v10UpdateRunning("regular",false);if(!data)return;if(data.url)v10SetAudio("regular",data.url,data.blob);v10ShowReview("regular",true);const r=v10Evaluate(data.target,data.transcripts,data.error,data.mode);v10RenderCorrection("regular",r);if(r.pass){status.textContent="🌟 跟读基本正确。现在播放自己的录音和标准音做一次对照。";status.className="repeat-status good";playSfx("repeatGood")}else if(r.graded){status.textContent="🛠️ 已给出纠音建议。对照录音后建议重新录一次。";status.className="repeat-status bad";playSfx("repeatTry")}else{status.textContent="🎧 录音已完成；自动评分不可用，但录音回放和标准发音都可继续使用。";status.className="repeat-status"}}
+startRepeat=async function(){const q=game.questions[game.i];if(!q||v10Capture)return;const status=document.getElementById("repeatStatus");v10ShowReview("regular",false);v10SetAudio("regular",null);status.innerHTML="🎙️ 录音中… 读完后再次点击同一个麦克风按钮结束。";status.className="repeat-status";try{await v10BeginCapture("regular",q.en);v10UpdateRunning("regular",true)}catch(e){v10UpdateRunning("regular",false);status.textContent="录音启动失败："+(e?.message||e);status.className="repeat-status bad"}};window.startRepeat=startRepeat;
+async function toggleRegularRecordingV15(){
+ if(v10Capture?.kind==="regular")return stopRegularRecordingV10(false);
+ if(v10Capture)return toast("另一处录音正在进行，请先结束当前录音");
+ return startRepeat();
+}
+window.toggleRegularRecordingV15=toggleRegularRecordingV15;
+async function stopRegularRecordingV10(auto=false){if(!v10Capture||v10Capture.kind!=="regular")return;const status=document.getElementById("repeatStatus");status.textContent=auto?"达到最长录音时间，正在处理…":"正在生成你的录音回放和发音反馈…";const data=await v10StopCapture("regular");v10UpdateRunning("regular",false);if(!data)return;if(data.url)v10SetAudio("regular",data.url,data.blob);v10ShowReview("regular",true);const r=v10Evaluate(data.target,data.transcripts,data.error,data.mode);v10RenderCorrection("regular",r);if(r.pass){status.textContent="🌟 跟读基本正确。现在播放自己的录音和标准音做一次对照。";status.className="repeat-status good";playSfx("repeatGood")}else if(r.graded){status.textContent="🛠️ 已给出纠音建议。对照录音后建议重新录一次。";status.className="repeat-status bad";playSfx("repeatTry")}else{status.textContent="🎧 录音已完成；自动评分不可用，但录音回放和标准发音都可继续使用。";status.className="repeat-status"}}
 window.stopRegularRecordingV10=stopRegularRecordingV10;
 function retryRegularRecordingV10(){if(!v10Capture)startRepeat()}window.retryRegularRecordingV10=retryRegularRecordingV10;
 
 // 切屏/下一题时必须关闭麦克风；不碰 TTS 初始化和音色扫描。
 const v10BaseShow=show;show=function(id){const cur=document.querySelector('.screen.active')?.id||'';if(v10Capture&&cur&&cur!==id)v10Abort();return v10BaseShow(id)};window.show=show;
-const v10BaseNextQuestion=nextQuestion;nextQuestion=function(){if(v10Capture)return toast("请先点击停止录音");return v10BaseNextQuestion()};window.nextQuestion=nextQuestion;
+const v10BaseNextQuestion=nextQuestion;nextQuestion=function(){if(v10Capture)return toast("请再次点击麦克风按钮结束当前录音");return v10BaseNextQuestion()};window.nextQuestion=nextQuestion;
 window.addEventListener("pagehide",()=>v10Abort());
 
 init();

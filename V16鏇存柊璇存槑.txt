@@ -1,8 +1,0 @@
-V16 更新说明
-
-1. 修复 iOS 15.8.x 跟读录音能播放但无声：旧 iOS 不再并发运行 SpeechRecognition 与 MediaRecorder，改为录音声音优先。
-2. iOS 15 回放按钮使用新建 Audio(dataURL) 实例，降低旧 Safari 音频会话/听筒路由造成的无声问题。
-3. Android 先注册 voiceschanged 再首次调用 getVoices()。
-4. Android“刷新设备音色”改为在用户点击手势里真正启动一次极低音量 en-US TTS 来重绑定引擎，再持续扫描 Google en-US。
-5. 音色诊断增加 Android TTS 重绑定状态和次数。
-6. 版本号与 PWA 缓存升级为 V16。

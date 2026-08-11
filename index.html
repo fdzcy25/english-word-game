@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-<title>北师大旧版英语 · 单词勇者岛 V13 iPhone系统音色优先版</title>
+<title>北师大旧版英语 · 单词勇者岛 V14 iOS15录音回放兼容版</title>
 <meta name="theme-color" content="#526dff">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -248,7 +248,7 @@ button{touch-action:manipulation}
 .voice-diag summary{cursor:pointer;font-weight:850;color:#52657d}
 .voice-diag #voiceDiagText{margin-top:8px;white-space:pre-wrap;word-break:break-word}
 
-/* ===== V13 iPhone系统音色优先 + Android Google优先 ===== */
+/* ===== V14 iPhone系统音色优先 + iOS 15录音回放兼容 + Android Google优先 ===== */
 .voice-device-details{margin-top:10px;border:1px solid #e1e8f2;border-radius:15px;background:#fbfcff;overflow:hidden}
 .voice-device-details summary{cursor:pointer;padding:10px 12px;font-weight:900;color:#52657d;list-style:none}
 .voice-device-details summary::-webkit-details-marker{display:none}
@@ -404,7 +404,7 @@ button{touch-action:manipulation}
           <div id="repeatReview" class="record-review">
             <div class="record-review-title">🎧 我的跟读录音</div>
             <div class="record-review-sub">停止后先回放自己的声音，再和标准美式发音对照。</div>
-            <audio id="repeatAudio" controls preload="metadata"></audio>
+            <audio id="repeatAudio" controls preload="auto" playsinline></audio>
             <div id="repeatCorrection" class="pron-correction"></div>
             <div class="record-review-actions">
               <button onclick="playMyRecordingV10('regular')">▶️ 播放我的录音</button>
@@ -454,7 +454,7 @@ button{touch-action:manipulation}
         <div id="repeatChallengeReview" class="record-review">
           <div class="record-review-title">🎧 刚刚的跟读录音</div>
           <div class="record-review-sub">停止后可立即回放。自动识别成功时，会同时给出识别结果和纠音建议。</div>
-          <audio id="repeatChallengeAudio" controls preload="metadata"></audio>
+          <audio id="repeatChallengeAudio" controls preload="auto" playsinline></audio>
           <div id="repeatChallengeCorrection" class="pron-correction"></div>
           <div class="record-review-actions">
             <button onclick="playMyRecordingV10('challenge')">▶️ 播放我的录音</button>
@@ -473,7 +473,7 @@ button{touch-action:manipulation}
     <div class="map-head"><button class="back" onclick="show(previousScreen)">←</button><div class="map-title"><h2>📕 我的错词本</h2><small>答错自动加入；复习答对会降低错误次数</small></div><button class="pill" onclick="clearWrong()">清空</button></div>
     <div class="card"><div id="reviewList" class="review-list"></div><button id="reviewBtn" class="bigbtn green" onclick="startWrongReview()">开始错词特训</button></div>
   </section>
-  <div class="app-version">单词勇者岛 · V13</div>
+  <div class="app-version">单词勇者岛 · V14</div>
 </div>
 <div class="toast" id="toast"></div>
 <div id="installHint" class="install-hint">
@@ -487,8 +487,9 @@ button{touch-action:manipulation}
 // 后续可继续把每册 Word List 全量导入，不需要改游戏逻辑。
 
 
-// ===== V13 iPhone系统音色优先 + Android Google优先 =====
-const VOICE_SETTINGS_KEY="wordHeroAmericanVoiceSettingsV13";
+// ===== V14 iPhone系统音色优先 + iOS 15录音回放兼容 + Android Google优先 =====
+const VOICE_SETTINGS_KEY="wordHeroAmericanVoiceSettingsV14";
+const V13_VOICE_SETTINGS_KEY="wordHeroAmericanVoiceSettingsV13";
 const V12_VOICE_SETTINGS_KEY="wordHeroAmericanVoiceSettingsV12";
 const OLD_VOICE_SETTINGS_KEY="wordHeroAmericanVoiceSettings";
 let americanVoices=[];
@@ -526,8 +527,14 @@ function loadVoiceSettings(){
  let saved={};
  try{saved=JSON.parse(localStorage.getItem(VOICE_SETTINGS_KEY)||"{}")}catch(e){}
  if(!saved || !Object.keys(saved).length){
-   // V13 首次运行：优先迁移 V12 的语速和“明确手选”的真实 voice。
-   // iPhone 上旧的 apple 策略会转换成 ios-system，确保默认跟随系统声音。
+   // V14 首次运行：先完整迁移 V13 设置，避免升级后丢失 iPhone 系统音色/语速选择。
+   try{
+     const v13=JSON.parse(localStorage.getItem(V13_VOICE_SETTINGS_KEY)||"{}");
+     if(v13&&Object.keys(v13).length)saved={...v13};
+   }catch(e){}
+ }
+ if(!saved || !Object.keys(saved).length){
+   // 再兼容迁移 V12。iPhone 上旧 apple 策略转换成 ios-system。
    try{
      const v12=JSON.parse(localStorage.getItem(V12_VOICE_SETTINGS_KEY)||"{}");
      if(v12&&v12.rate)saved.rate=v12.rate;
@@ -1620,28 +1627,77 @@ function toast(s){const t=document.getElementById("toast");t.textContent=s;t.cla
 const V10_IPA={"accident":"ˈæksədənt","activity":"æktˈɪvəti","afternoon":"ˌæftɚnˈun","animal":"ˈænəməl","apple":"ˈæpəl","art room":"ˈɑrt rˈum","astronaut":"ˈæstrənˌɑt","aunt":"ˈænt","baby":"bˈeɪbi","bad":"bˈæd","badminton":"bˈædmˌɪntən","bag":"bˈæɡ","ball":"bˈɔl","banana":"bənˈænə","bank":"bˈæŋk","basketball":"bˈæskətbˌɔl","bathroom":"bˈæθrˌum","beach":"bˈitʃ","bean":"bˈin","bed":"bˈɛd","bedroom":"bˈɛdrˌum","behind":"bɪhˈaɪnd","better":"bˈɛtɚ","between":"bɪtwˈin","birthday":"bˈɝθdˌeɪ","black":"blˈæk","blue":"blˈu","book":"bˈʊk","bookcase":"bˈʊkkˌeɪs","boy":"bˈɔɪ","break":"brˈeɪk","breakfast":"brˈɛkfəst","brother":"brˈʌðɚ","brown":"brˈaʊn","bus stop":"bˈʌs stˈɑp","buy":"bˈaɪ","cabbage":"kˈæbədʒ","cake":"kˈeɪk","camera":"kˈæmɚə","can":"kˈæn","candle":"kˈændəl","car":"kˈɑr","careful":"kˈɛrfəl","carrot":"kˈærət","catch":"kˈætʃ","centimeter":"sˈɛntəmˌitɚ","chair":"tʃˈɛr","cheap":"tʃˈip","chicken":"tʃˈɪkən","city":"sˈɪti","classroom":"klˈæsrˌum","clock":"klˈɑk","clothes":"klˈoʊðz","cloud":"klˈaʊd","cloudy":"klˈaʊdi","coat":"kˈoʊt","cold":"kˈoʊld","color":"kˈʌlɚ","come":"kˈʌm","computer":"kəmpjˈutɚ","concert":"kˈɑnsɚt","corn":"kˈɔrn","dance":"dˈæns","dancer":"dˈænsɚ","date":"dˈeɪt","desk":"dˈɛsk","different":"dˈɪfɚənt","dinner":"dˈɪnɚ","doctor":"dˈɑktɚ","doll":"dˈɑl","door":"dˈɔr","draw":"drˈɔ","dress":"drˈɛs","drink":"drˈɪŋk","drum":"drˈʌm","early":"ˈɝli","earth":"ˈɝθ","eight":"ˈeɪt","evening":"ˈivnɪŋ","expensive":"ɪkspˈɛnsɪv","fall":"fˈɔl","family":"fˈæməli","farmer":"fˈɑrmɚ","fast":"fˈæst","father":"fˈɑðɚ","favorite":"fˈeɪvɚɪt","February":"fˈɛbjəwˌɛri","first":"fˈɝst","five":"fˈaɪv","fix":"fˈɪks","floor":"flˈɔr","food":"fˈud","football":"fˈʊtbˌɔl","forty":"fˈɔrti","four":"fˈɔr","fox":"fˈɑks","fresh":"frˈɛʃ","Friday":"frˈaɪdi","friend":"frˈɛnd","fruit":"frˈut","future":"fjˈutʃɚ","get up":"ɡˈɛt ˈʌp","gift":"ɡˈɪft","girl":"ɡˈɝl","go":"ɡˈoʊ","go to bed":"ɡˈoʊ tˈu bˈɛd","goat":"ɡˈoʊt","good":"ɡˈʊd","goodbye":"ɡˌʊdbˈaɪ","grandfather":"ɡrˈændfˌɑðɚ","grandmother":"ɡrˈændmˌʌðɚ","green":"ɡrˈin","guitar":"ɡɪtˈɑr","happen":"hˈæpən","he":"hˈi","headache":"hˈɛdˌeɪk","heavy":"hˈɛvi","height":"hˈaɪt","hello":"həlˈoʊ","hi":"hˈaɪ","high":"hˈaɪ","homework":"hˈoʊmwˌɝk","horse":"hˈɔrs","hospital":"hˈɑspˌɪtəl","hot":"hˈɑt","hotel":"hoʊtˈɛl","house":"hˈaʊs","how much":"hˈaʊ mˈʌtʃ","hungry":"hˈʌŋɡri","hurry":"hˈɝi","hurt":"hˈɝt","I":"ˈaɪ","ill":"ˈɪl","in front of":"ɪn frˈʌnt ˈʌv","is":"ˈɪz","January":"dʒˈænjuˌɛri","jeans":"dʒˈinz","job":"dʒˈɑb","juice":"dʒˈus","jump":"dʒˈʌmp","kilogram":"kˈɪləɡrˌæm","kitchen":"kˈɪtʃən","know":"nˈoʊ","large":"lˈɑrdʒ","late":"lˈeɪt","learn":"lˈɝn","left":"lˈɛft","lemon":"lˈɛmən","library":"lˈaɪbrɛrˌi","life":"lˈaɪf","light":"lˈaɪt","like":"lˈaɪk","lion":"lˈaɪən","listen":"lˈɪsən","litter":"lˈɪtɚ","living room":"lˈɪvɪŋ rˈum","long":"lˈɔŋ","lose":"lˈuz","lunch":"lˈʌntʃ","March":"mˈɑrtʃ","Mars":"mˈɑrz","matter":"mˈætɚ","measure":"mˈɛʒɚ","medicine":"mˈɛdəsən","medium":"mˈidiəm","menu":"mˈɛnju","Monday":"mˈʌndi","money":"mˈʌni","monkey":"mˈʌŋki","month":"mˈʌnθ","moon":"mˈun","morning":"mˈɔrnɪŋ","mother":"mˈʌðɚ","mountain":"mˈaʊntən","move":"mˈuv","music":"mjˈuzɪk","music room":"mjˈuzɪk rˈum","my":"mˈaɪ","name":"nˈeɪm","near":"nˈɪr","new":"nˈu","next to":"nˈɛkst tˈu","night":"nˈaɪt","nine":"nˈaɪn","no":"nˈoʊ","noodles":"nˈudəlz","nurse":"nˈɝs","o'clock":"əklˈɑk","office":"ˈɔfɪs","on":"ˈɑn","one":"wˈʌn","onion":"ˈʌnjən","orange":"ˈɔrəndʒ","panda":"pˈændə","park":"pˈɑrk","parking":"pˈɑrkɪŋ","party":"pˈɑrti","peach":"pˈitʃ","pear":"pˈɛr","pen":"pˈɛn","pencil":"pˈɛnsəl","photo":"fˈoʊtˌoʊ","piano":"piˈænoʊ","picture":"pˈɪktʃɚ","pilot":"pˈaɪlət","pink":"pˈɪŋk","place":"plˈeɪs","plane":"plˈeɪn","planet":"plˈænət","play":"plˈeɪ","playground":"plˈeɪɡrˌaʊnd","police station":"pəlˈis stˈeɪʃən","policeman":"pəlˈismən","position":"pəzˈɪʃən","possible":"pˈɑsəbəl","post office":"pˈoʊst ˈɔfɪs","potato":"pətˈeɪtˌoʊ","prize":"prˈaɪz","purple":"pˈɝpəl","rabbit":"rˈæbət","rain":"rˈeɪn","rainy":"rˈeɪni","read":"riːd","ready":"rˈɛdi","red":"rˈɛd","rest":"rˈɛst","restaurant":"rˈɛstɚˌɑnt","rice":"rˈaɪs","ride":"rˈaɪd","right":"rˈaɪt","robot":"rˈoʊbˌɑt","room":"rˈum","ruler":"rˈulɚ","run":"rˈʌn","running":"rˈʌnɪŋ","Saturday":"sˈætɚdi","school":"skˈul","second":"sˈɛkənd","sell":"sˈɛl","seven":"sˈɛvən","she":"ʃˈi","sheep":"ʃˈip","shirt":"ʃˈɝt","shoes":"ʃˈuz","shop":"ʃˈɑp","shopping":"ʃˈɑpɪŋ","short":"ʃˈɔrt","shorts":"ʃˈɔrts","show":"ʃˈoʊ","sign":"sˈaɪn","sing":"sˈɪŋ","singer":"sˈɪŋɚ","sister":"sˈɪstɚ","six":"sˈɪks","size":"sˈaɪz","skirt":"skˈɝt","sleep":"slˈip","slow":"slˈoʊ","small":"smˈɔl","snow":"snˈoʊ","snowy":"snˈoʊi","socks":"sˈɑks","sofa":"sˈoʊfə","song":"sˈɔŋ","soup":"sˈup","sour":"sˈaʊɚ","space":"spˈeɪs","spaceship":"spˈeɪsʃˌɪp","sport":"spˈɔrt","star":"stˈɑr","stomach":"stˈʌmək","store":"stˈɔr","street":"strˈit","student":"stˈudənt","study":"stˈʌdi","suddenly":"sˈʌdənli","sun":"sˈʌn","Sunday":"sˈʌndˌeɪ","sunny":"sˈʌni","supermarket":"sˈupɚmˌɑrkɪt","sweater":"swˈɛtɚ","sweet":"swˈit","swim":"swˈɪm","swimming":"swˈɪmɪŋ","table":"tˈeɪbəl","talent":"tˈælənt","tall":"tˈɔl","taste":"tˈeɪst","teacher":"tˈitʃɚ","team":"tˈim","tell":"tˈɛl","ten":"tˈɛn","tennis":"tˈɛnəs","than":"ðˈæn","that":"ðˈæt","thirsty":"θˈɝsti","thirty":"θˈɝdˌi","this":"ðˈɪs","three":"θrˈi","throw":"θrˈoʊ","Thursday":"θˈɝzdˌeɪ","tiger":"tˈaɪɡɚ","time":"tˈaɪm","today":"tədˈeɪ","together":"təɡˈɛðɚ","tomato":"təmˈeɪtˌoʊ","tomorrow":"təmˈɑrˌoʊ","touch":"tˈʌtʃ","train":"trˈeɪn","train station":"trˈeɪn stˈeɪʃən","travel":"trˈævəl","trip":"trˈɪp","trousers":"trˈaʊzɚz","Tuesday":"tˈuzdi","twenty":"twˈɛnti","two":"tˈu","uncle":"ˈʌŋkəl","under":"ˈʌndɚ","vacation":"veɪkˈeɪʃən","vegetable":"vˈɛdʒtəbəl","vet":"vˈɛt","violin":"vaɪəlˈɪn","visit":"vˈɪzɪt","walk":"wˈɔk","watch":"wˈɑtʃ","watch TV":"wˈɑtʃ tˈivˈi","water":"wˈɔtɚ","watermelon":"wˈɔtɚmˌɛlən","weather":"wˈɛðɚ","Wednesday":"wˈɛnzdi","week":"wˈik","weight":"wˈeɪt","what":"wˈʌt","white":"wˈaɪt","who":"hˈu","will":"wˈɪl","win":"wˈɪn","wind":"wˈaɪnd","window":"wˈɪndoʊ","windy":"wˈɪndi","winner":"wˈɪnɚ","world":"wˈɝld","write":"rˈaɪt","year":"jˈɪr","yellow":"jˈɛloʊ","yes":"jˈɛs","yesterday":"jˈɛstɚdˌeɪ","you":"jˈu","your":"jˈɔr","live":"lɪv","close":"kloʊz","use":"juz","present":"ˈprɛzənt","toothache":"ˈtuθeɪk"};
 let v10Capture=null;
 let v10AudioUrls={regular:null,challenge:null};
+let v10AudioBlobs={regular:null,challenge:null};
 let v10ChallengePendingFailure=false;
 
 function v10Delay(ms){return new Promise(r=>setTimeout(r,ms))}
 function v10Escape(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
 function v10RecognitionClass(){return window.SpeechRecognition||window.webkitSpeechRecognition||null}
 function v10RecorderSupported(){return !!(window.MediaRecorder&&navigator.mediaDevices?.getUserMedia)}
+
+// ===== V14 iOS 15.8.x MediaRecorder/回放兼容 =====
+// 老版 iOS WebKit 的 MediaRecorder 以 MP4/AAC 为稳定路径；WebM 在 iOS 17.4 以后才全面可播放。
+// iOS 录音不使用 timeslice / requestData，避免短分片 MP4 在旧 Safari 上出现播放器“错误”。
+function v14IOSMajor(){
+ if(deviceFamily()!=="ios")return 0;
+ const ua=String(navigator.userAgent||"");
+ let m=ua.match(/OS (\d+)[_\.]?/i);
+ if(!m)m=ua.match(/Version\/(\d+)/i);
+ return m?Number(m[1])||0:0;
+}
+function v14LegacyIOS(){const n=v14IOSMajor();return deviceFamily()==="ios"&&!!n&&n<=15}
+function v14IsBlobUrl(url){return /^blob:/i.test(String(url||""))}
+function v14BlobToDataURL(blob){
+ return new Promise((resolve,reject)=>{
+   try{const r=new FileReader();r.onload=()=>resolve(String(r.result||""));r.onerror=()=>reject(r.error||new Error("FileReader error"));r.readAsDataURL(blob)}catch(e){reject(e)}
+ });
+}
+async function v14PlaybackUrl(blob){
+ if(!blob?.size)return null;
+ // iOS 15.x 对短录音优先 data URL，绕开旧 Safari 的 blob/Range/MP4 元数据兼容坑。
+ if(v14LegacyIOS()){try{const d=await v14BlobToDataURL(blob);if(d)return d}catch(e){}}
+ try{return URL.createObjectURL(blob)}catch(e){return null}
+}
 function v10MimeType(){
  if(!window.MediaRecorder)return "";
- for(const t of ["audio/webm;codecs=opus","audio/webm","audio/mp4","audio/ogg;codecs=opus"]){try{if(MediaRecorder.isTypeSupported(t))return t}catch(e){}}
+ const ios=deviceFamily()==="ios";
+ const types=ios
+   ?["audio/mp4","audio/mp4;codecs=mp4a.40.2"]
+   :["audio/webm;codecs=opus","audio/webm","audio/mp4","audio/ogg;codecs=opus"];
+ for(const t of types){try{if(!MediaRecorder.isTypeSupported||MediaRecorder.isTypeSupported(t))return t}catch(e){}}
  return "";
 }
 function v10ErrorText(code){
  const map={"no-speech":"没有识别到清晰语音","audio-capture":"语音识别没有拿到音频输入","network":"在线语音识别网络不可用","not-allowed":"语音识别权限不可用","service-not-allowed":"浏览器不允许当前语音识别服务","language-not-supported":"识别服务不支持 en-US","aborted":"识别被结束","unsupported":"当前浏览器没有 SpeechRecognition"};
  return map[code]||("语音识别暂不可用"+(code?`（${code}）`:""));
 }
-function v10SetAudio(kind,url){
+function v10SetAudio(kind,url,blob=null){
  const el=document.getElementById(kind==="challenge"?"repeatChallengeAudio":"repeatAudio");if(!el)return;
- if(v10AudioUrls[kind]){try{URL.revokeObjectURL(v10AudioUrls[kind])}catch(e){}}
- v10AudioUrls[kind]=url||null;el.src=url||"";if(url)try{el.load()}catch(e){}
+ if(v14IsBlobUrl(v10AudioUrls[kind])){try{URL.revokeObjectURL(v10AudioUrls[kind])}catch(e){}}
+ v10AudioUrls[kind]=url||null;
+ v10AudioBlobs[kind]=blob||null;
+ try{el.pause()}catch(e){}
+ try{el.removeAttribute("src")}catch(e){}
+ if(url){el.src=url;try{el.load()}catch(e){}}
 }
 function v10ShowReview(kind,show=true){const e=document.getElementById(kind==="challenge"?"repeatChallengeReview":"repeatReview");if(e)e.classList.toggle("show",show)}
-function playMyRecordingV10(kind){const a=document.getElementById(kind==="challenge"?"repeatChallengeAudio":"repeatAudio");if(!a||!a.src)return toast("还没有录音");try{a.currentTime=0;const p=a.play();if(p?.catch)p.catch(()=>toast("录音播放失败，请点播放器上的 ▶ 再试"))}catch(e){toast("录音播放失败")}}
+async function playMyRecordingV10(kind){
+ const a=document.getElementById(kind==="challenge"?"repeatChallengeAudio":"repeatAudio");
+ const blob=v10AudioBlobs[kind];
+ if(!a||(!a.src&&!blob))return toast("还没有录音");
+ // iOS 15 如果播放器已经进入 error 状态，点击按钮时重新生成兼容 data URL。
+ if(blob&&(v14LegacyIOS()||a.error)){
+   try{
+     const d=await v14BlobToDataURL(blob);
+     if(d&&a.src!==d){v10AudioUrls[kind]=d;a.src=d;a.load()}
+   }catch(e){}
+ }
+ try{
+   a.currentTime=0;
+   const p=a.play();
+   if(p?.catch)p.catch(()=>toast(v14LegacyIOS()?"iOS 15 回放未启动，请再点播放器里的 ▶":"录音播放失败，请点播放器上的 ▶ 再试"));
+ }catch(e){toast("录音播放失败，请点播放器里的 ▶ 再试")}
+}
 window.playMyRecordingV10=playMyRecordingV10;
 
 function v10UpdateRunning(kind,running){
@@ -1663,6 +1719,10 @@ async function v10StartRecognition(recognition,track,transcripts,state){
  recognition.onresult=e=>{for(let r=e.resultIndex||0;r<e.results.length;r++){for(let i=0;i<e.results[r].length;i++){const t=String(e.results[r][i].transcript||"").trim();if(t)transcripts.push(t)}}};
  recognition.onerror=e=>{state.error=String(e?.error||e?.name||"unknown")};
  recognition.onend=()=>{state.done=true};
+ // iOS 15 的 webkitSpeechRecognition 不支持可靠的 start(audioTrack)；直接走传统麦克风识别。
+ if(v14LegacyIOS()){
+   try{recognition.start();state.mode="microphone-ios15";return}catch(e){state.error=String(e?.name||"start-error");state.done=true;return}
+ }
  // 新版浏览器优先把“同一个麦克风音轨”同时交给录音和识别，避免重复抢麦克风。
  try{recognition.start(track);state.mode="audio-track";return}catch(e){}
  // 不支持 start(audioTrack) 时回退传统在线识别；录音本身仍独立工作。
@@ -1680,11 +1740,17 @@ async function v10BeginCapture(kind,target){
  const mime=v10MimeType();const recorder=mime?new MediaRecorder(stream,{mimeType:mime}):new MediaRecorder(stream);const chunks=[];
  let recResolve;const recorderDone=new Promise(r=>recResolve=r);
  recorder.ondataavailable=e=>{if(e.data?.size)chunks.push(e.data)};
- recorder.onerror=e=>console.warn("V10 MediaRecorder",e);
- recorder.onstop=()=>{const type=recorder.mimeType||mime||"audio/webm";const blob=new Blob(chunks,{type});recResolve({blob,url:blob.size?URL.createObjectURL(blob):null})};
+ recorder.onerror=e=>console.warn("V14 MediaRecorder",e);
+ recorder.onstop=()=>{
+   const rawType=String(recorder.mimeType||mime||"");
+   const type=deviceFamily()==="ios"?"audio/mp4":(rawType||"audio/webm");
+   const blob=new Blob(chunks,{type});
+   recResolve({blob,url:null,mimeType:type,size:blob.size});
+ };
  const transcripts=[];const sttState={done:false,error:"",mode:""};let recognition=null;const SR=v10RecognitionClass();if(SR)try{recognition=new SR()}catch(e){}
- recorder.start(150);
- // 稍后启动识别，避免 Android 上 recorder.start 与 recognition.start 同一拍竞争。
+ // iOS（尤其 15.x）一次性录完整 MP4/AAC，不切 150ms 分片；Android/新浏览器保留低延迟分片。
+ if(deviceFamily()==="ios")recorder.start();else recorder.start(150);
+ // 稍后启动识别，避免 recorder.start 与 recognition.start 同一拍竞争。
  await v10Delay(180);v10StartRecognition(recognition,track,transcripts,sttState);
  const autoTimer=setTimeout(()=>{if(v10Capture?.kind===kind){kind==="challenge"?stopRepeatChallengeRecordingV10(true):stopRegularRecordingV10(true)}},12000);
  v10Capture={kind,target,stream,track,recorder,recognition,recorderDone,transcripts,sttState,autoTimer,stopping:false};
@@ -1698,9 +1764,16 @@ async function v10WaitStt(c,ms=1500){
 async function v10StopCapture(kind){
  const c=v10Capture;if(!c||c.kind!==kind)return null;if(c.stopping)return c.stopPromise;c.stopping=true;clearTimeout(c.autoTimer);
  c.stopPromise=(async()=>{
-   try{if(c.recorder.state!=="inactive"){try{c.recorder.requestData()}catch(e){}c.recorder.stop()}}catch(e){}
+   try{
+     if(c.recorder.state!=="inactive"){
+       // 旧 iOS 不在 stop 前 requestData，避免把 MP4 切成旧 Safari 难以回放的短分片。
+       if(deviceFamily()!=="ios"){try{c.recorder.requestData()}catch(e){}}
+       c.recorder.stop();
+     }
+   }catch(e){}
    try{c.recognition?.stop()}catch(e){try{c.recognition?.abort()}catch(_){}}
-   const rec=await Promise.race([c.recorderDone,v10Delay(2600).then(()=>({blob:null,url:null}))]);
+   const rec=await Promise.race([c.recorderDone,v10Delay(3600).then(()=>({blob:null,url:null,mimeType:"",size:0}))]);
+   if(rec?.blob?.size&&!rec.url)rec.url=await v14PlaybackUrl(rec.blob);
    const stt=await v10WaitStt(c,1800);
    try{c.stream.getTracks().forEach(t=>t.stop())}catch(e){}
    v10Capture=null;return {...rec,...stt,target:c.target};
@@ -1747,7 +1820,7 @@ startRepeatChallengeMic=async function(){
 async function stopRepeatChallengeRecordingV10(auto=false){
  if(!v10Capture||v10Capture.kind!=="challenge")return;const status=document.getElementById("repeatChallengeStatus"),stop=document.getElementById("repeatChallengeStop");if(stop){stop.disabled=true;stop.textContent="正在结束…"}
  status.textContent=auto?"已达到最长录音时间，正在处理…":"录音结束，正在生成回放和发音反馈…";
- const data=await v10StopCapture("challenge");v10UpdateRunning("challenge",false);if(!data)return;if(data.url)v10SetAudio("challenge",data.url);v10ShowReview("challenge",true);
+ const data=await v10StopCapture("challenge");v10UpdateRunning("challenge",false);if(!data)return;if(data.url)v10SetAudio("challenge",data.url,data.blob);v10ShowReview("challenge",true);
  const r=v10Evaluate(data.target,data.transcripts,data.error,data.mode);v10RenderCorrection("challenge",r);const next=document.getElementById("repeatChallengeNext");
  if(r.pass){repeatGame.attempted=true;repeatGame.score++;repeatGame.combo++;repeatGame.bestCombo=Math.max(repeatGame.bestCombo,repeatGame.combo);state.stats.done=(state.stats.done||0)+1;state.stats.right=(state.stats.right||0)+1;dailyAdd("repeat",1);state.stats.bestCombo=Math.max(state.stats.bestCombo||0,repeatGame.bestCombo);saveState(state);updateTop();document.getElementById("repeatCombo").textContent=repeatGame.combo;status.textContent="🌟 发音通过！先回放对照，也可以直接进入下一词。";status.className="repeat-challenge-status good";next.style.display="block";next.textContent="下一词 →";playSfx("repeatGood");v10ChallengePendingFailure=false}
  else if(r.graded){repeatGame.attempted=false;v10ChallengePendingFailure=true;status.innerHTML="🛠️ 系统判断这次还需要纠正。<br><small>先听纠音并回放录音；建议“再录一次”。</small>";status.className="repeat-challenge-status bad";next.style.display="block";next.textContent="跳过本词 →";playSfx("repeatTry")}
@@ -1763,7 +1836,7 @@ nextRepeatChallenge=function(){if(v10Capture)return toast("请先点击停止录
 const v10BaseShowRepeatPanel=showRepeatPanel;
 showRepeatPanel=function(q){v10Abort();v10ShowReview("regular",false);v10SetAudio("regular",null);v10UpdateRunning("regular",false);v10BaseShowRepeatPanel(q)};window.showRepeatPanel=showRepeatPanel;
 startRepeat=async function(){const q=game.questions[game.i];if(!q||v10Capture)return;const status=document.getElementById("repeatStatus");v10ShowReview("regular",false);v10SetAudio("regular",null);status.innerHTML="🎙️ 正在录音。读完后点击红色“⏹ 停止录音”。";status.className="repeat-status";try{await v10BeginCapture("regular",q.en);v10UpdateRunning("regular",true)}catch(e){v10UpdateRunning("regular",false);status.textContent="录音启动失败："+(e?.message||e);status.className="repeat-status bad"}};window.startRepeat=startRepeat;
-async function stopRegularRecordingV10(auto=false){if(!v10Capture||v10Capture.kind!=="regular")return;const status=document.getElementById("repeatStatus"),stop=document.getElementById("repeatStopBtn");if(stop){stop.disabled=true;stop.textContent="正在结束…"}status.textContent=auto?"达到最长录音时间，正在处理…":"正在生成你的录音回放和发音反馈…";const data=await v10StopCapture("regular");v10UpdateRunning("regular",false);if(!data)return;if(data.url)v10SetAudio("regular",data.url);v10ShowReview("regular",true);const r=v10Evaluate(data.target,data.transcripts,data.error,data.mode);v10RenderCorrection("regular",r);if(r.pass){status.textContent="🌟 跟读基本正确。现在播放自己的录音和标准音做一次对照。";status.className="repeat-status good";playSfx("repeatGood")}else if(r.graded){status.textContent="🛠️ 已给出纠音建议。对照录音后建议重新录一次。";status.className="repeat-status bad";playSfx("repeatTry")}else{status.textContent="🎧 录音已完成；自动评分不可用，但录音回放和标准发音都可继续使用。";status.className="repeat-status"}}
+async function stopRegularRecordingV10(auto=false){if(!v10Capture||v10Capture.kind!=="regular")return;const status=document.getElementById("repeatStatus"),stop=document.getElementById("repeatStopBtn");if(stop){stop.disabled=true;stop.textContent="正在结束…"}status.textContent=auto?"达到最长录音时间，正在处理…":"正在生成你的录音回放和发音反馈…";const data=await v10StopCapture("regular");v10UpdateRunning("regular",false);if(!data)return;if(data.url)v10SetAudio("regular",data.url,data.blob);v10ShowReview("regular",true);const r=v10Evaluate(data.target,data.transcripts,data.error,data.mode);v10RenderCorrection("regular",r);if(r.pass){status.textContent="🌟 跟读基本正确。现在播放自己的录音和标准音做一次对照。";status.className="repeat-status good";playSfx("repeatGood")}else if(r.graded){status.textContent="🛠️ 已给出纠音建议。对照录音后建议重新录一次。";status.className="repeat-status bad";playSfx("repeatTry")}else{status.textContent="🎧 录音已完成；自动评分不可用，但录音回放和标准发音都可继续使用。";status.className="repeat-status"}}
 window.stopRegularRecordingV10=stopRegularRecordingV10;
 function retryRegularRecordingV10(){if(!v10Capture)startRepeat()}window.retryRegularRecordingV10=retryRegularRecordingV10;
 

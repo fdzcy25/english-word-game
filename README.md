@@ -1,4 +1,4 @@
-# 单词勇者岛 · V13
+# 单词勇者岛 · V14
 
 V13 在 V12 的 iOS / Android 双平台音色基础上，调整 iPhone / iPad 的默认策略：
 
@@ -11,3 +11,11 @@ V13 在 V12 的 iOS / Android 双平台音色基础上，调整 iPhone / iPad �
 - 继续保留录音、停止、回放和音色诊断。
 
 注意：网页无法确认 iOS 最终是否调用了某个没有通过 Safari `getVoices()` 公开的下载音色。
+
+
+## V14 iOS 15.8.x 录音回放兼容
+- iPhone/iPad MediaRecorder 强制优先 MP4/AAC。
+- iOS 不使用 timeslice 和 stop 前 requestData，降低旧 Safari 生成不可回放 MP4 的概率。
+- iOS 15.x 短录音优先转为 data URL 回放，并保留播放器原生 ▶ 作为兜底。
+- iOS 15.x SpeechRecognition 使用传统麦克风入口，不再误标为 audio-track。
+- V13 的 iPhone 系统美式音色策略、Android Google en-US 优先与跟读评分逻辑继续保留。

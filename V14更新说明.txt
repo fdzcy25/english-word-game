@@ -1,0 +1,14 @@
+单词勇者岛 V14 更新说明
+
+本版专项修复 iOS 15.8.x（含 15.8.7）跟读录音“录得到、识别得到，但播放器显示错误/无法回放”的问题。
+
+1. iPhone / iPad 录音格式固定优先 MP4/AAC，不再尝试 WebM。
+2. iOS MediaRecorder 改为一次性完整录制，不使用 150ms timeslice。
+3. iOS 停止录音前不再 requestData()，避免旧 Safari 把 MP4 切成难以回放的短分片。
+4. iOS 15.x 录音停止后优先转为 data URL 给 <audio> 播放器，绕开旧 Safari 的 Blob/Range/MP4 兼容问题。
+5. 点击“播放我的录音”时，如果 iOS 播放器已报错，会重新生成兼容回放源。
+6. iOS 15.x SpeechRecognition 改用传统 microphone 模式，避免旧 webkitSpeechRecognition 把 start(track) 误当成支持。
+7. 保留 V13：iPhone 默认跟随系统 en-US 音色；Safari 公开音色可手选；Android 继续 Google en-US 优先。
+8. 保留跟读录音、停止按钮、自动识别评分、标准发音与纠音建议。
+9. PWA 缓存升级为 V14。
+10. 页面底部版本号：单词勇者岛 · V14。

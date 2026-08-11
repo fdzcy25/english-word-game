@@ -1,39 +1,21 @@
-# 单词勇者岛 — GitHub Pages / PWA 手机版
+# 单词勇者岛 · V17
 
-北师大版（三年级起点·旧版）三至六年级英语背单词闯关游戏。
+V17 以 V16 为基础，只对 Android TTS 做“回归验证”：Android 的 Google 美式音色读取与发音路径恢复到 V6 的原始时序；iPhone/iPad 的系统美式音色策略、iOS 15.8.7 录音有声回放修复，以及同一麦克风按钮开始/结束跟读全部保留。
 
-## 功能
-- 📖 背单词
-- 👾 单词小怪
-- 🌉 跟读过桥
-- 👑 单元 BOSS
-- 🎁 宝箱、金币、EXP、等级
-- 🎯 每日任务
-- 📕 错词本
-- 🎙️ HTTPS 麦克风权限检测与测试
-- 📲 PWA 添加到主屏幕
-- 💾 本地进度保存
-- 📴 App Shell 离线缓存
+## Android V17 回归 V6
+- 页面初始化立即读取一次 `speechSynthesis.getVoices()`。
+- 监听 `speechSynthesis.onvoiceschanged`。
+- 仅在 250ms / 900ms / 1800ms 再被动读取三次。
+- 删除 V11-V16 后续增加的 Android TTS 重绑定、低音量 Hello 唤醒、60 秒持续恢复、高频扫描、焦点/触摸/页面恢复扫描。
+- Android `speak()` 恢复 V6：`cancel()` -> 创建 `SpeechSynthesisUtterance` -> 选择 Google en-US -> `lang=en-US` -> `speak()`。
+- “刷新设备音色”在 Android 只执行一次被动 `getVoices()`，不触发任何 TTS。
+- 音色检测详情只做被动显示，不主动干预 Android TTS。
 
-## GitHub Pages
-Settings → Pages → Deploy from a branch → `main` → `/(root)`。
+## 继续保留
+- iPhone/iPad 默认“跟随 iPhone 系统美式音色”。
+- iOS 15.8.7 跟读录音有声优先修复。
+- 跟读麦克风：第一次点击开始录音，再次点击结束录音。
+- 录音回放、标准发音、重新录音。
+- Android Google en-US 优先。
 
-发布后务必使用 `https://用户名.github.io/仓库名/` 打开。
-
-
-## V5 美式发音升级
-- 🇺🇸 只优先选择 `en-US` 美国英语语音
-- ✨ 自动最佳美式音色
-- 👩 美式女声优先
-- 👨 美式男声优先
-- 🎧 可直接指定当前手机/电脑公开的某个 en-US 音色
-- ▶️ 一键试听
-- ⏱️ 0.72×～1.00× 六档语速
-- 💾 音色和语速自动保存
-- 📖 背词、🎧 听音题、🎙️ 跟读示范统一使用同一音色
-
-注意：网页能选择到哪些具体美式音色，由手机 Chrome/系统语音服务提供。
-
-
-## V6 Google 美式优先
-默认优先扫描 Google / Speech Services by Google 的 en-US voice，并在页面显示实际 voice 来源；找不到时自动回退到其他美式音色。
+页面底部版本号：`单词勇者岛 · V17`。

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-<title>北师大旧版英语 · 单词勇者岛 V16 iOS15有声回放与Android TTS重绑定版</title>
+<title>北师大旧版英语 · 单词勇者岛 V17 Android回归V6音色逻辑 + iOS15有声回放版</title>
 <meta name="theme-color" content="#526dff">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -248,7 +248,7 @@ button{touch-action:manipulation}
 .voice-diag summary{cursor:pointer;font-weight:850;color:#52657d}
 .voice-diag #voiceDiagText{margin-top:8px;white-space:pre-wrap;word-break:break-word}
 
-/* ===== V16 iOS15 有声录音优先 + Android TTS 用户手势重绑定 ===== */
+/* ===== V17 Android TTS 回归 V6 原始逻辑 + iOS15 有声录音保留 ===== */
 .voice-device-details{margin-top:10px;border:1px solid #e1e8f2;border-radius:15px;background:#fbfcff;overflow:hidden}
 .voice-device-details summary{cursor:pointer;padding:10px 12px;font-weight:900;color:#52657d;list-style:none}
 .voice-device-details summary::-webkit-details-marker{display:none}
@@ -353,7 +353,7 @@ button{touch-action:manipulation}
       </div>
       <div class="voice-actions">
         <button onclick="previewVoice()">▶️ 试听当前美式发音</button>
-        <button class="secondary" onclick="manualRefreshVoicesV16()">🔄 刷新设备音色</button>
+        <button class="secondary" onclick="manualRefreshVoicesV17()">🔄 刷新设备音色</button>
       </div>
       <div id="voiceCurrent" class="voice-current">正在读取设备可用的美式英语音色…</div>
       <div id="voiceWarning" class="voice-warning"></div>
@@ -471,7 +471,7 @@ button{touch-action:manipulation}
     <div class="map-head"><button class="back" onclick="show(previousScreen)">←</button><div class="map-title"><h2>📕 我的错词本</h2><small>答错自动加入；复习答对会降低错误次数</small></div><button class="pill" onclick="clearWrong()">清空</button></div>
     <div class="card"><div id="reviewList" class="review-list"></div><button id="reviewBtn" class="bigbtn green" onclick="startWrongReview()">开始错词特训</button></div>
   </section>
-  <div class="app-version">单词勇者岛 · V16</div>
+  <div class="app-version">单词勇者岛 · V17</div>
 </div>
 <div class="toast" id="toast"></div>
 <div id="installHint" class="install-hint">
@@ -485,21 +485,19 @@ button{touch-action:manipulation}
 // 后续可继续把每册 Word List 全量导入，不需要改游戏逻辑。
 
 
-// ===== V16 iOS15 有声录音优先 + Android TTS 用户手势重绑定 =====
-const VOICE_SETTINGS_KEY="wordHeroAmericanVoiceSettingsV16";
+// ===== V17 Android TTS 回归 V6 原始逻辑 + iOS15 有声录音保留 =====
+const VOICE_SETTINGS_KEY="wordHeroAmericanVoiceSettingsV17";
+const V16_VOICE_SETTINGS_KEY="wordHeroAmericanVoiceSettingsV16";
 const V15_VOICE_SETTINGS_KEY="wordHeroAmericanVoiceSettingsV15";
 const V14_VOICE_SETTINGS_KEY="wordHeroAmericanVoiceSettingsV14";
 const V13_VOICE_SETTINGS_KEY="wordHeroAmericanVoiceSettingsV13";
-const VOICE_LAST_GOOGLE_KEY="wordHeroLastGoogleVoiceV16";
+const VOICE_LAST_GOOGLE_KEY="wordHeroLastGoogleVoiceV17";
 const V15_LAST_GOOGLE_KEY="wordHeroLastGoogleVoiceV15";
 const V12_VOICE_SETTINGS_KEY="wordHeroAmericanVoiceSettingsV12";
 const OLD_VOICE_SETTINGS_KEY="wordHeroAmericanVoiceSettings";
 let americanVoices=[];
 let voiceSettings={choice:"auto",rate:0.84};
 let lastKnownGoogleMeta=null;
-let androidVoiceRecoveryTimer=null;
-let androidTtsPrimeCount=0;
-let androidTtsPrimeState="未触发";
 
 const FEMALE_VOICE_HINTS=[
  "samantha","ava","allison","susan","zira","jenny","aria","emma","joanna",
@@ -533,7 +531,14 @@ function loadVoiceSettings(){
  let saved={};
  try{saved=JSON.parse(localStorage.getItem(VOICE_SETTINGS_KEY)||"{}")}catch(e){}
  if(!saved || !Object.keys(saved).length){
-   // V16 首次运行：先完整迁移 V15 设置。
+   // V17 首次运行：先完整迁移 V16 设置。
+   try{
+     const v16=JSON.parse(localStorage.getItem(V16_VOICE_SETTINGS_KEY)||"{}");
+     if(v16&&Object.keys(v16).length)saved={...v16};
+   }catch(e){}
+ }
+ if(!saved || !Object.keys(saved).length){
+   // 再迁移 V15 设置。
    try{
      const v15=JSON.parse(localStorage.getItem(V15_VOICE_SETTINGS_KEY)||"{}");
      if(v15&&Object.keys(v15).length)saved={...v15};
@@ -611,6 +616,8 @@ function voiceFromChoice(choice,voices=americanVoices){
 }
 function isAmericanVoice(v){
  const lang=normLang(v?.lang);
+ // Android V17 回归 V6：只接受标准 en-US（en_US 经 normLang 后同样命中）。
+ if(deviceFamily()==="android")return lang==="en-us";
  if(lang==="en-us" || lang.startsWith("en-us-"))return true;
  const raw=(String(v?.name||"")+" "+String(v?.voiceURI||"")).toLowerCase();
  return /(?:^|[^a-z])en[-_ ]?us(?:[^a-z]|$)|english\s*\(?\s*(?:united states|usa|u\.s\.)\s*\)?/.test(raw);
@@ -642,10 +649,20 @@ function voiceProvider(v){
 function voiceQualityScore(v){
  const n=String(v?.name||"").toLowerCase();
  const uri=String(v?.voiceURI||"").toLowerCase();
+ if(deviceFamily()==="android"){
+   // V6 原始评分，不叠加 V11-V16 的 Android 特殊权重。
+   let s=0;
+   if(isAmericanVoice(v))s+=100;
+   if(isGoogleVoice(v))s+=120;
+   if(/natural|neural|premium|enhanced|studio/.test(n))s+=50;
+   if(/microsoft|siri|apple/.test(n))s+=20;
+   if(v.localService)s+=6;
+   if(v.default)s+=4;
+   return s;
+ }
  const f=deviceFamily();
  let s=0;
  if(isAmericanVoice(v))s+=100;
- if(f==="android"&&isGoogleVoice(v))s+=150;
  if(f==="ios"&&isAppleVoice(v))s+=130;
  if(/natural|neural|premium|enhanced|studio|siri/.test(n+" "+uri))s+=55;
  if(/compact/.test(uri))s-=8;
@@ -660,22 +677,24 @@ function resolvePreferredVoice(){
  const voices=sortedAmericanVoices();
  if(!voices.length)return null;
  const choice=voiceSettings.choice||defaultVoicePreference();
- // iPhone“跟随系统”模式故意不指定 utterance.voice，让 Safari/iOS 自己选择系统 en-US 声音。
  if(deviceFamily()==="ios"&&choice==="ios-system")return null;
+ if(deviceFamily()==="android"){
+   // Android 采用 V6 原始选择逻辑。
+   if(choice.startsWith("uri:")){
+     const uri=choice.slice(4);
+     const exact=voices.find(v=>v.voiceURI===uri);
+     if(exact)return exact;
+   }
+   if(choice==="google"){const g=voices.filter(isGoogleVoice);if(g.length)return g[0];}
+   if(choice==="female"){const f=voices.filter(v=>guessVoiceGender(v)==="female");if(f.length)return f[0];}
+   if(choice==="male"){const m=voices.filter(v=>guessVoiceGender(v)==="male");if(m.length)return m[0];}
+   return voices[0];
+ }
  const exact=voiceFromChoice(choice,voices);
  if(exact)return exact;
- if(choice==="google"){
-   const g=voices.filter(isGoogleVoice); if(g.length)return g[0];
- }
- if(choice==="apple"){
-   const a=voices.filter(isAppleVoice); if(a.length)return a[0];
- }
- if(choice==="female"){
-   const f=voices.filter(v=>guessVoiceGender(v)==="female"); if(f.length)return f[0];
- }
- if(choice==="male"){
-   const m=voices.filter(v=>guessVoiceGender(v)==="male"); if(m.length)return m[0];
- }
+ if(choice==="apple"){const a=voices.filter(isAppleVoice);if(a.length)return a[0];}
+ if(choice==="female"){const f=voices.filter(v=>guessVoiceGender(v)==="female");if(f.length)return f[0];}
+ if(choice==="male"){const m=voices.filter(v=>guessVoiceGender(v)==="male");if(m.length)return m[0];}
  return voices[0];
 }
 function voiceLabel(v){
@@ -717,44 +736,51 @@ function updateVoiceDiag(){
  const box=document.getElementById("voiceDiagText");if(!box)return;
  const sample=voiceScanInfo.lastAll.slice(0,16).map(v=>`• ${v.name||"(无名称)"} | ${v.lang||"?"} | ${voiceProvider(v)}${v.localService?" | local":""}`).join("\n");
  const strategy=(deviceFamily()==="ios"&&voiceSettings.choice==="ios-system")?"跟随 iPhone 系统（不指定 voice）":voiceSettings.choice;
- const lastGoogle=lastKnownGoogleMeta?`\n上次成功检测到 Google：${lastKnownGoogleMeta.name} · ${lastKnownGoogleMeta.lang||"en-US"}`:"";
- const prime=deviceFamily()==="android"?`\nAndroid TTS 重绑定：${androidTtsPrimeState} · 次数 ${androidTtsPrimeCount}`:"";
- box.textContent=`设备：${deviceLabel()}\n当前策略：${strategy}\n扫描次数：${voiceScanInfo.scans} · 浏览器全部音色：${voiceScanInfo.total} · 美式 en-US：${voiceScanInfo.us} · Google en-US：${voiceScanInfo.google} · Apple en-US：${voiceScanInfo.apple}\n最近触发：${voiceScanInfo.reason}${prime}${lastGoogle}${sample?"\n\n浏览器当前公开的音色（最多显示16个）：\n"+sample:"\n\n当前 getVoices() 返回空列表。"}`;
+ const androidMode=deviceFamily()==="android"?"\nAndroid 音色初始化：V6 原始模式（无 TTS 重绑定、无循环唤醒、无持续扫描）":"";
+ box.textContent=`设备：${deviceLabel()}\n当前策略：${strategy}\n扫描次数：${voiceScanInfo.scans} · 浏览器全部音色：${voiceScanInfo.total} · 美式 en-US：${voiceScanInfo.us} · Google en-US：${voiceScanInfo.google} · Apple en-US：${voiceScanInfo.apple}\n最近触发：${voiceScanInfo.reason}${androidMode}${sample?"\n\n浏览器当前公开的音色（最多显示16个）：\n"+sample:"\n\n当前 getVoices() 返回空列表。"}`;
+}
+function applyPlatformVoiceUI(){
+ const f=deviceFamily();
+ const icon=document.getElementById("voicePlatformIcon"),title=document.getElementById("voicePlatformTitle"),desc=document.getElementById("voicePlatformDesc"),summary=document.getElementById("voiceDeviceSummary");
+ if(f==="ios"){
+   if(icon)icon.textContent="🍎";
+   if(title)title.textContent="iPhone 系统美式音色优先";
+   if(desc)desc.textContent="默认“跟随 iPhone 系统美式音色”：网页只请求 en-US，不强制指定 voice，更适合配合系统里已选的优化/高音质美式声音。下方仍保留 Safari 实际公开的 en-US 音色供手动选择。";
+   if(summary)summary.textContent="🍎 Safari 当前公开的 en-US 音色（可手动选择）";
+ }else if(f==="android"){
+   if(icon)icon.textContent="🇺🇸";
+   if(title)title.textContent="Google 美式英语发音优先 · V6原始逻辑";
+   if(desc)desc.textContent="Android 发音模块已回归 V6：页面加载读取一次 getVoices()，再监听 voiceschanged，并仅在 250/900/1800ms 被动补读；不再主动重绑定或循环唤醒 TTS。";
+   if(summary)summary.textContent="🤖 Android 当前可选的美式音色";
+ }else{
+   if(icon)icon.textContent="🇺🇸";
+   if(title)title.textContent="美式英语发音";
+   if(desc)desc.textContent="优先使用当前浏览器公开的 English (United States) / en-US 音色，并允许手动试听选择。";
+   if(summary)summary.textContent="🎙️ 当前设备可选的美式音色";
+ }
 }
 function updateVoiceStatus(){
  const box=document.getElementById("voiceCurrent"),warn=document.getElementById("voiceWarning");
  if(!box||!warn)return;
  const f=deviceFamily();
- const systemFollow=(f==="ios"&&voiceSettings.choice==="ios-system");
- if(systemFollow){
+ if(f==="ios"&&voiceSettings.choice==="ios-system"){
    box.innerHTML=`当前实际使用：<b>🍎 跟随 iPhone 系统美式音色</b><br>网页设置：en-US · 不强制指定 voice · 语速：${Number(voiceSettings.rate).toFixed(2)}×`;
-   warn.textContent="此模式把具体声音交给 Safari/iOS 决定，适合配合 iPhone 系统中已选择的优化/高音质美式声音。网页无法读取或验证最终是否调用了某个未向 Safari 公开的下载音色。";
-   warn.className="voice-warning show";
-   updateVoiceDiag();renderVoiceDeviceList();return;
+   warn.textContent="此模式把具体声音交给 Safari/iOS 决定，适合配合 iPhone 系统中已选择的优化/高音质美式声音。网页无法验证最终是否调用某个未向 Safari 公开的下载音色。";
+   warn.className="voice-warning show";updateVoiceDiag();renderVoiceDeviceList();return;
  }
  const chosen=resolvePreferredVoice();
  if(chosen){
-   const provider=voiceProvider(chosen);
-   const preferredHit=(f==="android"&&isGoogleVoice(chosen));
-   const hitTag=preferredHit?` · ✅ ${preferredProviderName()} 优先命中`:"";
-   box.innerHTML=`当前实际使用：<b>🇺🇸 ${voiceLabel(chosen)}</b><br>来源：${provider}${hitTag} · 语言：${chosen.lang||"en-US"} · 语速：${Number(voiceSettings.rate).toFixed(2)}×`;
+   const provider=voiceProvider(chosen);const googleTag=(f==="android"&&isGoogleVoice(chosen))?" · ✅ Google 优先命中":"";
+   box.innerHTML=`当前实际使用：<b>🇺🇸 ${voiceLabel(chosen)}</b><br>来源：${provider}${googleTag} · 语言：${chosen.lang||"en-US"} · 语速：${Number(voiceSettings.rate).toFixed(2)}×`;
    if(f==="android"&&voiceSettings.choice==="google"&&!isGoogleVoice(chosen)){
-     warn.textContent="当前扫描没有发现 Google en-US，已临时回退到其他美式音色；页面会继续自动扫描。";
-     warn.className="voice-warning show";
-   }else{
-     warn.className="voice-warning";warn.textContent="";
-   }
+     warn.textContent="当前设备没有向网页公开 Google en-US 音色，因此按 V6 原逻辑回退到其他可用的美式英语音色。";warn.className="voice-warning show";
+   }else{warn.className="voice-warning";warn.textContent="";}
  }else{
    box.innerHTML=`当前实际使用：<b>浏览器 en-US 默认音色</b><br>语速：${Number(voiceSettings.rate).toFixed(2)}×`;
-   if(f==="android"&&lastKnownGoogleMeta){
-     warn.textContent=`本轮 getVoices() 暂时为空；本机上次已成功检测到“${lastKnownGoogleMeta.name}”。V16 会后台持续重试，Google 音色一旦重新公开会自动恢复，不需要反复手动刷新。`;
-   }else{
-     warn.textContent="浏览器当前没有公开可选择的 en-US 音色；仍会请求系统 en-US 默认发音，并继续等待音色列表。";
-   }
+   warn.textContent=f==="android"?"当前 getVoices() 返回空列表。V17 不再主动重绑定或高频扫描，保持 V6 原始初始化时序；标准发音仍会直接请求 en-US。":"浏览器当前没有公开可选择的 en-US 音色；仍会请求系统 en-US 默认发音。";
    warn.className="voice-warning show";
  }
- updateVoiceDiag();
- renderVoiceDeviceList();
+ updateVoiceDiag();renderVoiceDeviceList();
 }
 function strategyOptionsHTML(){
  const f=deviceFamily();
@@ -762,202 +788,98 @@ function strategyOptionsHTML(){
  return `${first}<option value="auto">✨ 自动选择最佳美式音色</option><option value="female">👩 美式女声优先</option><option value="male">👨 美式男声优先</option>`;
 }
 function rebuildVoiceSelect(){
- const sel=document.getElementById("voiceSelect"),rate=document.getElementById("voiceRate");
- if(!sel)return;
- const previous=voiceSettings.choice||defaultVoicePreference();
- sel.innerHTML=strategyOptionsHTML();
- const voices=sortedAmericanVoices();
- if(voices.length){
-   const group=document.createElement("optgroup");
-   group.label=`当前设备的 🇺🇸 en-US 音色（${voices.length}）`;
-   voices.forEach(v=>{
-     const op=document.createElement("option");
-     op.value=voiceChoiceValue(v);
-     op.textContent=`${voiceProvider(v)} · ${voiceLabel(v)}`;
-     group.appendChild(op);
-   });
-   sel.appendChild(group);
+ const sel=document.getElementById("voiceSelect"),rate=document.getElementById("voiceRate");if(!sel)return;
+ const f=deviceFamily(),previous=voiceSettings.choice||defaultVoicePreference();
+ if(f==="android"){
+   // V6 原始下拉框结构与 uri: 保存方式。
+   sel.innerHTML=`<option value="google">🇺🇸 Google 美式音色优先</option><option value="auto">✨ 自动选择最佳美式音色</option><option value="female">👩 美式女声优先</option><option value="male">👨 美式男声优先</option>`;
+   const voices=sortedAmericanVoices();
+   if(voices.length){
+     const group=document.createElement("optgroup");group.label=`当前设备的 🇺🇸 en-US 音色（${voices.length}）`;
+     voices.forEach(v=>{const op=document.createElement("option");op.value="uri:"+v.voiceURI;op.textContent=voiceLabel(v);group.appendChild(op)});sel.appendChild(group);
+   }
+   const exists=[...sel.options].some(o=>o.value===previous);sel.value=exists?previous:"google";voiceSettings.choice=sel.value;
+ }else{
+   sel.innerHTML=strategyOptionsHTML();
+   const voices=sortedAmericanVoices();
+   if(voices.length){
+     const group=document.createElement("optgroup");group.label=`当前设备的 🇺🇸 en-US 音色（${voices.length}）`;
+     voices.forEach(v=>{const op=document.createElement("option");op.value=voiceChoiceValue(v);op.textContent=`${voiceProvider(v)} · ${voiceLabel(v)}`;group.appendChild(op)});sel.appendChild(group);
+   }
+   const exists=[...sel.options].some(o=>o.value===previous);
+   if(!exists&&(previous.startsWith("voice:")||previous.startsWith("uri:"))){const wait=document.createElement("option");wait.value=previous;wait.textContent="⏳ 已保存音色（等待系统重新公开）";sel.appendChild(wait)}
+   sel.value=[...sel.options].some(o=>o.value===previous)?previous:defaultVoicePreference();voiceSettings.choice=sel.value;
  }
- const exists=[...sel.options].some(o=>o.value===previous);
- if(!exists&&(previous.startsWith("voice:")||previous.startsWith("uri:"))){
-   const wait=document.createElement("option");
-   wait.value=previous;wait.textContent="⏳ 已保存音色（等待系统重新公开）";sel.appendChild(wait);
- }
- sel.value=[...sel.options].some(o=>o.value===previous)?previous:defaultVoicePreference();
- voiceSettings.choice=sel.value;
- if(rate){
-   const values=[...rate.options].map(o=>Number(o.value));
-   const nearest=values.reduce((a,b)=>Math.abs(b-voiceSettings.rate)<Math.abs(a-voiceSettings.rate)?b:a,0.84);
-   rate.value=nearest.toFixed(2);voiceSettings.rate=Number(rate.value);
- }
- saveVoiceSettings();
- updateVoiceStatus();
+ if(rate){const values=[...rate.options].map(o=>Number(o.value));const nearest=values.reduce((a,b)=>Math.abs(b-voiceSettings.rate)<Math.abs(a-voiceSettings.rate)?b:a,0.84);rate.value=nearest.toFixed(2);voiceSettings.rate=Number(rate.value)}
+ saveVoiceSettings();updateVoiceStatus();
 }
 function renderVoiceDeviceList(){
- const box=document.getElementById("voiceDeviceList");if(!box)return;
- const voices=sortedAmericanVoices();
- box.innerHTML="";
- const f=deviceFamily();
+ const box=document.getElementById("voiceDeviceList");if(!box)return;const voices=sortedAmericanVoices();box.innerHTML="";const f=deviceFamily();
  if(f==="ios"){
-   const row=document.createElement("div");
-   const active=voiceSettings.choice==="ios-system";
-   row.className="voice-device-row"+(active?" active":"");
-   const meta=document.createElement("div");meta.className="voice-device-meta";
-   const b=document.createElement("b");b.textContent=(active?"✓ ":"")+"跟随 iPhone 系统美式音色";
-   const small=document.createElement("small");small.textContent="en-US · 不指定网页 voice · 推荐用于系统已选优化/高音质声音";
-   meta.append(b,small);
-   const btn=document.createElement("button");btn.className="voice-device-test";btn.textContent=active?"▶ 当前/试听":"▶ 使用并试听";
-   btn.onclick=()=>selectAndPreviewVoice("ios-system");
-   row.append(meta,btn);box.appendChild(row);
+   const row=document.createElement("div"),active=voiceSettings.choice==="ios-system";row.className="voice-device-row"+(active?" active":"");
+   const meta=document.createElement("div");meta.className="voice-device-meta";const b=document.createElement("b");b.textContent=(active?"✓ ":"")+"跟随 iPhone 系统美式音色";const small=document.createElement("small");small.textContent="en-US · 不指定网页 voice · 推荐用于系统已选优化/高音质声音";meta.append(b,small);
+   const btn=document.createElement("button");btn.className="voice-device-test";btn.textContent=active?"▶ 当前/试听":"▶ 使用并试听";btn.onclick=()=>selectAndPreviewVoice("ios-system");row.append(meta,btn);box.appendChild(row);
  }
- if(!voices.length){
-   const empty=document.createElement("div");empty.className="voice-empty";
-   empty.textContent=f==="ios"?"Safari 当前没有额外公开可手动指定的 en-US 音色。上面的“跟随 iPhone 系统”仍可正常使用，并会把具体声音交给 iOS 决定。":"当前浏览器还没有公开可手动选择的 en-US 音色。点击“刷新设备音色”后会继续扫描；即使这里为空，标准发音仍会请求系统 en-US 默认声音。";
-   box.appendChild(empty);return;
- }
+ if(!voices.length){const empty=document.createElement("div");empty.className="voice-empty";empty.textContent=f==="ios"?"Safari 当前没有额外公开可手动指定的 en-US 音色。上面的“跟随 iPhone 系统”仍可使用。":"当前 getVoices() 没有公开可手动选择的 en-US 音色。V17 Android 保持 V6 原始读取方式。";box.appendChild(empty);return}
  const selected=resolvePreferredVoice();
- voices.forEach(v=>{
-   const row=document.createElement("div");
-   const choice=voiceChoiceValue(v);
-   const active=voiceSettings.choice!=="ios-system"&&selected&&voiceIdentity(selected)===voiceIdentity(v);
-   row.className="voice-device-row"+(active?" active":"");
-   const meta=document.createElement("div");meta.className="voice-device-meta";
-   const b=document.createElement("b");b.textContent=(active?"✓ ":"")+voiceLabel(v);
-   const small=document.createElement("small");small.textContent=`${voiceProvider(v)} · ${v.lang||"en-US"}${v.localService?" · 本机":""}`;
-   meta.append(b,small);
-   const btn=document.createElement("button");btn.className="voice-device-test";btn.textContent=active?"▶ 当前/试听":"▶ 选择并试听";
-   btn.onclick=()=>selectAndPreviewVoice(choice);
-   row.append(meta,btn);box.appendChild(row);
- });
+ voices.forEach(v=>{const row=document.createElement("div");const choice=f==="android"?("uri:"+v.voiceURI):voiceChoiceValue(v);const active=voiceSettings.choice!=="ios-system"&&selected&&voiceIdentity(selected)===voiceIdentity(v);row.className="voice-device-row"+(active?" active":"");const meta=document.createElement("div");meta.className="voice-device-meta";const b=document.createElement("b");b.textContent=(active?"✓ ":"")+voiceLabel(v);const small=document.createElement("small");small.textContent=`${voiceProvider(v)} · ${v.lang||"en-US"}${v.localService?" · 本机":""}`;meta.append(b,small);const btn=document.createElement("button");btn.className="voice-device-test";btn.textContent=active?"▶ 当前/试听":"▶ 选择并试听";btn.onclick=()=>selectAndPreviewVoice(choice);row.append(meta,btn);box.appendChild(row)});
 }
 function refreshVoiceList(showToast=false,reason="刷新"){
- if(!("speechSynthesis" in window)){
-   if(showToast)toast("当前浏览器不支持语音朗读");return [];
- }
+ if(!("speechSynthesis" in window)){if(showToast)toast("当前浏览器不支持语音朗读");return []}
  let all=[];try{all=speechSynthesis.getVoices()||[]}catch(e){}
- voiceScanInfo.scans++;voiceScanInfo.total=all.length;voiceScanInfo.reason=reason;
- if(all.length){
-   // 当前快照仅用于诊断；真实可用的 en-US 对象采用“只增不因瞬时缺失而清空”的方式缓存。
-   // Android Chrome 某些轮次会先返回空数组或只返回部分语言，不能因此把已经拿到的 Google voice 丢掉。
-   voiceScanInfo.lastAll=all;
+ voiceScanInfo.scans++;voiceScanInfo.total=all.length;voiceScanInfo.reason=reason;voiceScanInfo.lastAll=all;
+ if(deviceFamily()==="android"){
+   // V6：每次都直接采用本轮 getVoices() 的 en-US 结果，不做跨轮缓存、合并或主动唤醒。
+   americanVoices=all.filter(v=>normLang(v.lang)==="en-us");
+ }else{
    const currentUS=all.filter(isAmericanVoice);
-   if(currentUS.length){
-     const merged=[];const seen=new Set();
-     [...currentUS,...americanVoices].forEach(v=>{const k=voiceIdentity(v);if(!seen.has(k)){seen.add(k);merged.push(v)}});
-     americanVoices=merged;
-     const googleHit=currentUS.find(isGoogleVoice);if(googleHit)rememberGoogleVoice(googleHit);
-   }
+   if(currentUS.length){const merged=[],seen=new Set();[...currentUS,...americanVoices].forEach(v=>{const k=voiceIdentity(v);if(!seen.has(k)){seen.add(k);merged.push(v)}});americanVoices=merged}
  }
- voiceScanInfo.us=americanVoices.length;
- voiceScanInfo.google=americanVoices.filter(isGoogleVoice).length;
- voiceScanInfo.apple=americanVoices.filter(isAppleVoice).length;
+ voiceScanInfo.us=americanVoices.length;voiceScanInfo.google=americanVoices.filter(isGoogleVoice).length;voiceScanInfo.apple=americanVoices.filter(isAppleVoice).length;
  rebuildVoiceSelect();
  if(showToast){
-   const n=preferredProviderCount();
-   if(n)toast(`✅ 找到 ${n} 个 ${preferredProviderName()} 美式音色`);
-   else if(voiceScanInfo.us)toast(`找到 ${voiceScanInfo.us} 个 en-US 音色，可逐个试听选择`);
-   else toast("本轮仍未读取到 en-US，正在继续等待系统音色列表");
+   if(deviceFamily()==="android")toast(americanVoices.length?`找到 ${americanVoices.length} 个美式音色`:"暂未读取到可选 en-US 音色");
+   else toast(americanVoices.length?`找到 ${americanVoices.length} 个 en-US 音色`:"暂未读取到可选 en-US 音色");
  }
  return all;
 }
 let voiceBurstSerial=0;
 function scanVoicesBurst(showToast=false,reason="连续扫描"){
+ if(deviceFamily()==="android")return refreshVoiceList(showToast,reason);
  if(!("speechSynthesis" in window))return refreshVoiceList(showToast,reason);
- const serial=++voiceBurstSerial;
- const delays=[0,80,220,500,950,1600,2600,4200,7000,11000];
- if(showToast)toast("正在重新扫描设备音色…");
- delays.forEach((ms,i)=>setTimeout(()=>{
-   if(serial!==voiceBurstSerial)return;
-   refreshVoiceList(false,`${reason} ${i+1}/${delays.length}`);
-   if(i===delays.length-1&&showToast){
-     const n=preferredProviderCount();
-     if(n)toast(`✅ 找到 ${n} 个 ${preferredProviderName()} 美式音色`);
-     else if(voiceScanInfo.us)toast(`找到 ${voiceScanInfo.us} 个 en-US 音色，可手动试听`);
-     else toast("扫描结束：浏览器仍未公开 en-US 音色");
-   }
- },ms));
+ const serial=++voiceBurstSerial,delays=[0,80,220,500,950,1600,2600,4200,7000,11000];if(showToast)toast("正在重新扫描设备音色…");
+ delays.forEach((ms,i)=>setTimeout(()=>{if(serial!==voiceBurstSerial)return;refreshVoiceList(false,`${reason} ${i+1}/${delays.length}`);if(i===delays.length-1&&showToast)toast(americanVoices.length?`找到 ${americanVoices.length} 个 en-US 音色`:"扫描结束：浏览器仍未公开 en-US 音色")},ms));
 }
-function androidPrimeTtsEngineV16({audible=false,reason="Android TTS 用户手势重绑定"}={}){
- if(deviceFamily()!=="android"||!("speechSynthesis" in window))return false;
- androidTtsPrimeCount++;
- androidTtsPrimeState="正在重绑定";
- updateVoiceDiag();
- try{
-   // V15 的零宽字符+volume=0 在部分旧 Android Chrome 上不会真正唤起 TTS provider。
-   // V16 只在用户主动点击“刷新设备音色”时，用极低音量的真实 en-US utterance 完成绑定。
-   speechSynthesis.cancel();
-   const u=new SpeechSynthesisUtterance("Hello");
-   u.lang="en-US";u.rate=1;u.pitch=1;u.volume=audible?1:0.06;
-   u.onstart=()=>{androidTtsPrimeState="TTS 已启动";refreshVoiceList(false,`${reason} · onstart`)};
-   u.onend=()=>{
-     androidTtsPrimeState="TTS 已完成，等待 voiceschanged";
-     refreshVoiceList(false,`${reason} · onend`);
-     scanVoicesBurst(false,`${reason} · 完成后扫描`);
-     startAndroidVoiceRecoveryV16(`${reason} · 完成后恢复`);
-   };
-   u.onerror=e=>{
-     androidTtsPrimeState=`TTS 启动异常 ${String(e?.error||"")}`.trim();
-     refreshVoiceList(false,`${reason} · error`);
-     startAndroidVoiceRecoveryV16(`${reason} · 异常后恢复`);
-   };
-   speechSynthesis.speak(u);
-   return true;
- }catch(e){
-   androidTtsPrimeState=`重绑定失败 ${String(e?.name||"")}`.trim();
-   updateVoiceDiag();return false;
- }
+function manualRefreshVoicesV17(){
+ // Android：只做一次 V6 式被动读取；不 speak、不 cancel、不重绑定。
+ if(deviceFamily()==="android")refreshVoiceList(true,"手动刷新（V6单次读取）");else scanVoicesBurst(true,"手动刷新");
 }
-function startAndroidVoiceRecoveryV16(reason="Android 自动恢复"){
- if(deviceFamily()!=="android"||!("speechSynthesis" in window))return;
- if(androidVoiceRecoveryTimer){clearInterval(androidVoiceRecoveryTimer);androidVoiceRecoveryTimer=null}
- let attempts=0;
- const tick=()=>{
-   attempts++;
-   refreshVoiceList(false,`${reason} ${attempts}`);
-   if(preferredProviderCount()>0||attempts>=16){clearInterval(androidVoiceRecoveryTimer);androidVoiceRecoveryTimer=null}
- };
- tick();if(preferredProviderCount()>0)return;
- androidVoiceRecoveryTimer=setInterval(tick,3000);
-}
-function manualRefreshVoicesV16(){
- if(deviceFamily()==="android"){
-   androidPrimeTtsEngineV16({audible:false,reason:"手动刷新重绑定"});
-   setTimeout(()=>scanVoicesBurst(true,"手动刷新重绑定后"),180);
- }else scanVoicesBurst(true,"手动刷新");
-}
-window.manualRefreshVoicesV16=manualRefreshVoicesV16;
-
-function saveVoiceChoice(){
- const sel=document.getElementById("voiceSelect"),rate=document.getElementById("voiceRate");
- if(sel)voiceSettings.choice=sel.value;
- if(rate)voiceSettings.rate=Number(rate.value)||0.84;
- saveVoiceSettings();updateVoiceStatus();
-}
-function selectAndPreviewVoice(choice){
- voiceSettings.choice=choice;saveVoiceSettings();rebuildVoiceSelect();
- // 此函数由用户直接点击触发，保持在用户手势内立即发音。
- speak("Hello! Great job! Let's learn English together.");
-}
+window.manualRefreshVoicesV17=manualRefreshVoicesV17;
+function saveVoiceChoice(){const sel=document.getElementById("voiceSelect"),rate=document.getElementById("voiceRate");if(sel)voiceSettings.choice=sel.value;if(rate)voiceSettings.rate=Number(rate.value)||0.84;saveVoiceSettings();updateVoiceStatus()}
+function selectAndPreviewVoice(choice){voiceSettings.choice=choice;saveVoiceSettings();rebuildVoiceSelect();speak("Hello! Great job! Let's learn English together.")}
 function previewVoice(){
- saveVoiceChoice();refreshVoiceList(false,"点击试听前");
- if(deviceFamily()==="android"&&!voiceScanInfo.total){androidTtsPrimeCount++;androidTtsPrimeState="通过正式试听重绑定"}
- speak("Hello! Great job! Let's learn English together.");
- setTimeout(()=>scanVoicesBurst(false,"试听后恢复"),120);
+ saveVoiceChoice();
+ // Android 与 V6 完全一致：试听前不额外扫描或唤醒。
+ if(deviceFamily()==="android"){speak("Hello! Great job! Let's learn English together.");return}
+ refreshVoiceList(false,"点击试听前");speak("Hello! Great job! Let's learn English together.");setTimeout(()=>scanVoicesBurst(false,"试听后"),120);
 }
 function initAmericanVoices(){
- loadVoiceSettings();loadLastKnownGoogleMeta();applyPlatformVoiceUI();
- // Chromium 首次 getVoices() 可能返回 [] 同时才开始绑定 TTS，因此监听必须先挂上。
- if("speechSynthesis" in window){
-   const changed=()=>{scanVoicesBurst(false,"voiceschanged");if(deviceFamily()==="android")startAndroidVoiceRecoveryV16("voiceschanged 后恢复")};
-   try{speechSynthesis.onvoiceschanged=changed}catch(e){}
-   try{speechSynthesis.addEventListener?.("voiceschanged",changed)}catch(e){}
+ loadVoiceSettings();applyPlatformVoiceUI();
+ if(deviceFamily()==="android"){
+   // V6 原始初始化顺序：立即读取 -> onvoiceschanged -> 250/900/1800ms 三次补读。
+   refreshVoiceList(false,"V6页面初始化");
+   if("speechSynthesis" in window){
+     speechSynthesis.onvoiceschanged=()=>refreshVoiceList(false,"V6 voiceschanged");
+     setTimeout(()=>refreshVoiceList(false,"V6 250ms"),250);
+     setTimeout(()=>refreshVoiceList(false,"V6 900ms"),900);
+     setTimeout(()=>refreshVoiceList(false,"V6 1800ms"),1800);
+   }
+   return;
  }
+ loadLastKnownGoogleMeta();
+ if("speechSynthesis" in window){const changed=()=>scanVoicesBurst(false,"voiceschanged");try{speechSynthesis.onvoiceschanged=changed}catch(e){}try{speechSynthesis.addEventListener?.("voiceschanged",changed)}catch(e){}}
  refreshVoiceList(false,"页面初始化");scanVoicesBurst(false,"页面启动");
- if(deviceFamily()==="android")setTimeout(()=>startAndroidVoiceRecoveryV16("页面启动后台恢复"),900);
- window.addEventListener("pageshow",()=>{scanVoicesBurst(false,"pageshow");if(deviceFamily()==="android")startAndroidVoiceRecoveryV16("pageshow 恢复")});
- window.addEventListener("focus",()=>{scanVoicesBurst(false,"窗口重新获得焦点");if(deviceFamily()==="android")startAndroidVoiceRecoveryV16("焦点恢复")});
- document.addEventListener("visibilitychange",()=>{if(!document.hidden){scanVoicesBurst(false,"页面重新可见");if(deviceFamily()==="android")startAndroidVoiceRecoveryV16("页面可见恢复")}});
- document.addEventListener("pointerdown",()=>{scanVoicesBurst(false,"首次用户触摸");if(deviceFamily()==="android")startAndroidVoiceRecoveryV16("用户触摸后恢复")},{once:true,capture:true});
+ window.addEventListener("pageshow",()=>scanVoicesBurst(false,"pageshow"));window.addEventListener("focus",()=>scanVoicesBurst(false,"窗口重新获得焦点"));document.addEventListener("visibilitychange",()=>{if(!document.hidden)scanVoicesBurst(false,"页面重新可见")});
 }
 
 // ===== PWA + 麦克风权限管理 =====
@@ -1607,20 +1529,25 @@ function goNextUnit(book,unitIdx){
 function speakCurrent(){const q=game.questions[game.i];if(q)speak(q.en)}
 function speak(text){
  if(!("speechSynthesis" in window))return toast("当前浏览器不支持语音朗读");
- // 每一次真正点击发音前，都在同一个用户手势里重新读取一次，避免启动阶段的空列表一直沿用。
- refreshVoiceList(false,"发音前即时扫描");
+ if(deviceFamily()==="android"){
+   // V17 Android = V6 原始发音路径。
+   speechSynthesis.cancel();
+   const u=new SpeechSynthesisUtterance(text);
+   const selected=resolvePreferredVoice();
+   u.lang="en-US";
+   if(selected)u.voice=selected;
+   u.rate=Number(voiceSettings.rate)||0.84;
+   u.pitch=1.0;
+   u.volume=1;
+   speechSynthesis.speak(u);
+   return;
+ }
  speechSynthesis.cancel();
  const u=new SpeechSynthesisUtterance(text);
  const selected=resolvePreferredVoice();
  u.lang="en-US";
- // iPhone 的 ios-system 模式故意不写 u.voice，让 Safari/iOS 跟随系统美式声音。
  if(!(deviceFamily()==="ios"&&voiceSettings.choice==="ios-system")&&selected)u.voice=selected;
- u.rate=Number(voiceSettings.rate)||0.84;
- u.pitch=1.0;
- u.volume=1;
- u.onstart=()=>{if(deviceFamily()==="android")androidTtsPrimeState="正式 TTS 正在播放";refreshVoiceList(false,"TTS开始播放")};
- u.onend=()=>{if(deviceFamily()==="android")androidTtsPrimeState="正式 TTS 已完成";scanVoicesBurst(false,"TTS播放结束");if(deviceFamily()==="android")startAndroidVoiceRecoveryV16("TTS播放后恢复")};
- u.onerror=()=>setTimeout(()=>scanVoicesBurst(false,"TTS异常后"),80);
+ u.rate=Number(voiceSettings.rate)||0.84;u.pitch=1.0;u.volume=1;
  speechSynthesis.speak(u);
 }
 

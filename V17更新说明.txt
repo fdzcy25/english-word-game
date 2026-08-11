@@ -1,0 +1,12 @@
+V17 更新说明
+
+1. Android TTS/Google 美式音色模块回归 V6 原始逻辑。
+2. Android 删除 TTS 重绑定、主动 Hello 唤醒、持续恢复和高频扫描。
+3. Android 初始化只保留：立即读取 + voiceschanged + 250/900/1800ms 三次被动补读。
+4. Android 发音函数恢复 V6 的 cancel -> Utterance -> Google en-US -> speak 路径。
+5. Android“刷新设备音色”只进行一次 getVoices() 被动读取。
+6. 音色检测详情保留，但只显示，不主动干预 TTS。
+7. 保留 iPhone/iPad 系统美式音色策略。
+8. 保留 iOS 15.8.7 跟读录音有声回放修复。
+9. 保留同一麦克风按钮第一次开始、第二次结束录音。
+10. 页面版本与 PWA 缓存升级为 V17。

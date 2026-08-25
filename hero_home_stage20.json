@@ -1,0 +1,17 @@
+{
+  "module": "勇者主页",
+  "version": "V18.5 Stage20",
+  "display": [
+    "角色头像",
+    "等级",
+    "经验条",
+    "金币",
+    "星星",
+    "装备栏",
+    "学习力",
+    "记忆力",
+    "战斗力"
+  ],
+  "equipmentUpdate": true,
+  "attributeRefresh": true
+}

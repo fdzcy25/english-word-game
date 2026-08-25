@@ -1,0 +1,840 @@
+{
+  "book": "四年级上册",
+  "version": "V18.5 Stage20 imported",
+  "units": [
+    {
+      "unit": "Unit 1",
+      "title": "Signs",
+      "totalWords": 15,
+      "words": [
+        {
+          "word": "*sign",
+          "phonetic_us": "[saɪn]",
+          "gloss_zh": [
+            "标志",
+            "指示牌"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "left",
+          "phonetic_us": "[left]",
+          "gloss_zh": [
+            "左",
+            "向左"
+          ],
+          "part_of_speech": "名词/副词/形容词"
+        },
+        {
+          "word": "right",
+          "phonetic_us": "[raɪt]",
+          "gloss_zh": [
+            "右",
+            "向右"
+          ],
+          "part_of_speech": "名词/副词/形容词"
+        },
+        {
+          "word": "*litter",
+          "phonetic_us": "[ˈlɪtər]",
+          "gloss_zh": [
+            "乱丢垃圾"
+          ],
+          "part_of_speech": "动词/名词"
+        },
+        {
+          "word": "sorry",
+          "phonetic_us": "[ˈsɑːri]",
+          "gloss_zh": [
+            "对不起"
+          ],
+          "part_of_speech": "形容词/感叹词"
+        },
+        {
+          "word": "very",
+          "phonetic_us": "[ˈveri]",
+          "gloss_zh": [
+            "很",
+            "非常"
+          ],
+          "part_of_speech": "副词"
+        },
+        {
+          "word": "*smoking",
+          "phonetic_us": "[ˈsmoʊkɪŋ]",
+          "gloss_zh": [
+            "吸烟",
+            "抽烟"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "*touch",
+          "phonetic_us": "[tʌtʃ]",
+          "gloss_zh": [
+            "触摸"
+          ],
+          "part_of_speech": "动词"
+        },
+        {
+          "word": "food",
+          "phonetic_us": "[fuːd]",
+          "gloss_zh": [
+            "食物"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "parking",
+          "phonetic_us": "[ˈpɑːrkɪŋ]",
+          "gloss_zh": [
+            "停车"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "*camera",
+          "phonetic_us": "[ˈkæmrə]",
+          "gloss_zh": [
+            "照相机"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "worry",
+          "phonetic_us": "[ˈwɜːri]",
+          "gloss_zh": [
+            "担心"
+          ],
+          "part_of_speech": "动词"
+        },
+        {
+          "word": "afraid",
+          "phonetic_us": "[əˈfreɪd]",
+          "gloss_zh": [
+            "害怕的"
+          ],
+          "part_of_speech": "形容词"
+        },
+        {
+          "word": "cry",
+          "phonetic_us": "[kraɪ]",
+          "gloss_zh": [
+            "哭"
+          ],
+          "part_of_speech": "动词"
+        },
+        {
+          "word": "try",
+          "phonetic_us": "[traɪ]",
+          "gloss_zh": [
+            "尝试"
+          ],
+          "part_of_speech": "动词"
+        }
+      ]
+    },
+    {
+      "unit": "Unit 2",
+      "title": "Numbers & Shopping",
+      "totalWords": 25,
+      "words": [
+        {
+          "word": "shopping",
+          "phonetic_us": "[ˈʃɑːpɪŋ]",
+          "gloss_zh": [
+            "购物"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "how much",
+          "phonetic_us": "[haʊ mʌtʃ]",
+          "gloss_zh": [
+            "多少钱"
+          ],
+          "part_of_speech": "疑问短语"
+        },
+        {
+          "word": "train",
+          "phonetic_us": "[treɪn]",
+          "gloss_zh": [
+            "火车"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "plane",
+          "phonetic_us": "[pleɪn]",
+          "gloss_zh": [
+            "飞机"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "*money",
+          "phonetic_us": "[ˈmʌni]",
+          "gloss_zh": [
+            "钱"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "*doll",
+          "phonetic_us": "[dɑːl]",
+          "gloss_zh": [
+            "玩具娃娃"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "eleven",
+          "phonetic_us": "[ɪˈlevn]",
+          "gloss_zh": [
+            "十一"
+          ],
+          "part_of_speech": "数词"
+        },
+        {
+          "word": "twelve",
+          "phonetic_us": "[twelv]",
+          "gloss_zh": [
+            "twelv]"
+          ],
+          "part_of_speech": "数词"
+        },
+        {
+          "word": "thirteen",
+          "phonetic_us": "[θɜːrˈtiːn]",
+          "gloss_zh": [
+            "十三"
+          ],
+          "part_of_speech": "数词"
+        },
+        {
+          "word": "fourteen",
+          "phonetic_us": "[fɔːrˈtiːn]",
+          "gloss_zh": [
+            "十四"
+          ],
+          "part_of_speech": "数词"
+        },
+        {
+          "word": "fifteen",
+          "phonetic_us": "[fɪfˈtiːn]",
+          "gloss_zh": [
+            "十五"
+          ],
+          "part_of_speech": "数词"
+        },
+        {
+          "word": "sixteen",
+          "phonetic_us": "[sɪksˈtiːn]",
+          "gloss_zh": [
+            "十六"
+          ],
+          "part_of_speech": "数词"
+        },
+        {
+          "word": "seventeen",
+          "phonetic_us": "[sevnˈtiːn]",
+          "gloss_zh": [
+            "十七"
+          ],
+          "part_of_speech": "数词"
+        },
+        {
+          "word": "eighteen",
+          "phonetic_us": "[eɪˈtiːn]",
+          "gloss_zh": [
+            "十八"
+          ],
+          "part_of_speech": "数词"
+        },
+        {
+          "word": "nineteen",
+          "phonetic_us": "[naɪnˈtiːn]",
+          "gloss_zh": [
+            "十九"
+          ],
+          "part_of_speech": "数词"
+        },
+        {
+          "word": "twenty",
+          "phonetic_us": "[ˈtwenti]",
+          "gloss_zh": [
+            "二十"
+          ],
+          "part_of_speech": "数词"
+        },
+        {
+          "word": "look at",
+          "phonetic_us": "[lʊk æt]",
+          "gloss_zh": [
+            "看"
+          ],
+          "part_of_speech": "动词短语"
+        },
+        {
+          "word": "thirty",
+          "phonetic_us": "[ˈθɜːrti]",
+          "gloss_zh": [
+            "三十"
+          ],
+          "part_of_speech": "数词"
+        },
+        {
+          "word": "forty",
+          "phonetic_us": "[ˈfɔːrti]",
+          "gloss_zh": [
+            "四十"
+          ],
+          "part_of_speech": "数词"
+        },
+        {
+          "word": "fifty",
+          "phonetic_us": "[ˈfɪfti]",
+          "gloss_zh": [
+            "五十"
+          ],
+          "part_of_speech": "数词"
+        },
+        {
+          "word": "sixty",
+          "phonetic_us": "[ˈsɪksti]",
+          "gloss_zh": [
+            "六十"
+          ],
+          "part_of_speech": "数词"
+        },
+        {
+          "word": "seventy",
+          "phonetic_us": "[ˈsevnti]",
+          "gloss_zh": [
+            "七十"
+          ],
+          "part_of_speech": "数词"
+        },
+        {
+          "word": "eighty",
+          "phonetic_us": "[eɪti]",
+          "gloss_zh": [
+            "八十"
+          ],
+          "part_of_speech": "数词"
+        },
+        {
+          "word": "ninety",
+          "phonetic_us": "[ˈnaɪnti]",
+          "gloss_zh": [
+            "九十"
+          ],
+          "part_of_speech": "数词"
+        },
+        {
+          "word": "hundred",
+          "phonetic_us": "[ˈhʌndrəd]",
+          "gloss_zh": [
+            "百"
+          ],
+          "part_of_speech": "数词"
+        }
+      ]
+    },
+    {
+      "unit": "Unit 3",
+      "title": "Uncle Booky's Study",
+      "totalWords": 13,
+      "words": [
+        {
+          "word": "study",
+          "phonetic_us": "[ˈstʌdi]",
+          "gloss_zh": [
+            "书房"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "whose",
+          "phonetic_us": "[huːz]",
+          "gloss_zh": [
+            "谁的"
+          ],
+          "part_of_speech": "代词"
+        },
+        {
+          "word": "*CD",
+          "phonetic_us": "[ˌsiː ˈdiː]",
+          "gloss_zh": [
+            "激光唱片",
+            "光盘"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "new",
+          "phonetic_us": "[nuː]",
+          "gloss_zh": [
+            "新的"
+          ],
+          "part_of_speech": "形容词"
+        },
+        {
+          "word": "umbrella",
+          "phonetic_us": "[ʌmˈbrelə]",
+          "gloss_zh": [
+            "伞"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "chair",
+          "phonetic_us": "[tʃer]",
+          "gloss_zh": [
+            "椅子"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "watch",
+          "phonetic_us": "[wɑːtʃ]",
+          "gloss_zh": [
+            "手表"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "TV",
+          "phonetic_us": "[ˌtiː ˈviː]",
+          "gloss_zh": [
+            "电视",
+            "电视机"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "table",
+          "phonetic_us": "[ˈteɪbl]",
+          "gloss_zh": [
+            "桌子"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "*radio",
+          "phonetic_us": "[ˈreɪdioʊ]",
+          "gloss_zh": [
+            "收音机"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "*glasses",
+          "phonetic_us": "[ˈɡlæsɪz]",
+          "gloss_zh": [
+            "眼镜"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "*tidy",
+          "phonetic_us": "[ˈtaɪdi]",
+          "gloss_zh": [
+            "整洁的",
+            "整齐的"
+          ],
+          "part_of_speech": "形容词"
+        },
+        {
+          "word": "clean",
+          "phonetic_us": "[kliːn]",
+          "gloss_zh": [
+            "干净的"
+          ],
+          "part_of_speech": "形容词"
+        }
+      ]
+    },
+    {
+      "unit": "Unit 4",
+      "title": "Bobby's House",
+      "totalWords": 20,
+      "words": [
+        {
+          "word": "living room",
+          "phonetic_us": "[ˈlɪvɪŋ ruːm]",
+          "gloss_zh": [
+            "客厅"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "room",
+          "phonetic_us": "[ruːm]",
+          "gloss_zh": [
+            "房间"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "door",
+          "phonetic_us": "[dɔːr]",
+          "gloss_zh": [
+            "门"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "welcome",
+          "phonetic_us": "[ˈwelkəm]",
+          "gloss_zh": [
+            "欢迎"
+          ],
+          "part_of_speech": "动词/感叹词"
+        },
+        {
+          "word": "nice",
+          "phonetic_us": "[naɪs]",
+          "gloss_zh": [
+            "好的"
+          ],
+          "part_of_speech": "形容词"
+        },
+        {
+          "word": "bedroom",
+          "phonetic_us": "[ˈbedruːm]",
+          "gloss_zh": [
+            "卧室"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "sleep (sleeping)",
+          "phonetic_us": "[sliːp]",
+          "gloss_zh": [
+            "睡觉"
+          ],
+          "part_of_speech": "动词"
+        },
+        {
+          "word": "*bathroom",
+          "phonetic_us": "[ˈbæθruːm]",
+          "gloss_zh": [
+            "浴室",
+            "卫生间"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "wash (washing)",
+          "phonetic_us": "[wɑːʃ]",
+          "gloss_zh": [
+            "洗"
+          ],
+          "part_of_speech": "动词"
+        },
+        {
+          "word": "river",
+          "phonetic_us": "[ˈrɪvər]",
+          "gloss_zh": [
+            "河"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "kitchen",
+          "phonetic_us": "[ˈkɪtʃɪn]",
+          "gloss_zh": [
+            "厨房"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "cook (cooking)",
+          "phonetic_us": "[kʊk]",
+          "gloss_zh": [
+            "烹调",
+            "做饭"
+          ],
+          "part_of_speech": "动词"
+        },
+        {
+          "word": "fish (fishing)",
+          "phonetic_us": "[fɪʃ]",
+          "gloss_zh": [
+            "钓鱼"
+          ],
+          "part_of_speech": "动词"
+        },
+        {
+          "word": "Mrs",
+          "phonetic_us": "[ˈmɪsɪz]",
+          "gloss_zh": [
+            "夫人",
+            "太太"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "make (making)",
+          "phonetic_us": "[meɪk]",
+          "gloss_zh": [
+            "做"
+          ],
+          "part_of_speech": "动词"
+        },
+        {
+          "word": "dinner",
+          "phonetic_us": "[ˈdɪnər]",
+          "gloss_zh": [
+            "正餐",
+            "晚餐"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "drink (drinking)",
+          "phonetic_us": "[drɪŋk]",
+          "gloss_zh": [
+            "喝"
+          ],
+          "part_of_speech": "动词"
+        },
+        {
+          "word": "study (studying)",
+          "phonetic_us": "[ˈstʌdi]",
+          "gloss_zh": [
+            "学习"
+          ],
+          "part_of_speech": "动词"
+        },
+        {
+          "word": "eat (eating)",
+          "phonetic_us": "[iːt]",
+          "gloss_zh": [
+            "吃"
+          ],
+          "part_of_speech": "动词"
+        },
+        {
+          "word": "*paint (painting)",
+          "phonetic_us": "[peɪnt]",
+          "gloss_zh": [
+            "绘画"
+          ],
+          "part_of_speech": "动词"
+        }
+      ]
+    },
+    {
+      "unit": "Unit 5",
+      "title": "At School",
+      "totalWords": 18,
+      "words": [
+        {
+          "word": "school",
+          "phonetic_us": "[skuːl]",
+          "gloss_zh": [
+            "学校"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "subject",
+          "phonetic_us": "[ˈsʌbdʒɪkt]",
+          "gloss_zh": [
+            "科目"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "have",
+          "phonetic_us": "[hæv]",
+          "gloss_zh": [
+            "有"
+          ],
+          "part_of_speech": "动词"
+        },
+        {
+          "word": "math",
+          "phonetic_us": "[mæθ]",
+          "gloss_zh": [
+            "数学"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "English",
+          "phonetic_us": "[ˈɪŋɡlɪʃ]",
+          "gloss_zh": [
+            "英语"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "Chinese",
+          "phonetic_us": "[ˌtʃaɪˈniːz]",
+          "gloss_zh": [
+            "语文",
+            "中文"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "P.E.",
+          "phonetic_us": "[ˌpiː ˈiː]",
+          "gloss_zh": [
+            "体育"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "class",
+          "phonetic_us": "[klæs]",
+          "gloss_zh": [
+            "课"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "their",
+          "phonetic_us": "[ðer]",
+          "gloss_zh": [
+            "他们的"
+          ],
+          "part_of_speech": "代词"
+        },
+        {
+          "word": "teacher",
+          "phonetic_us": "[ˈtiːtʃər]",
+          "gloss_zh": [
+            "教师",
+            "老师"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "music",
+          "phonetic_us": "[ˈmjuːzɪk]",
+          "gloss_zh": [
+            "音乐"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "art",
+          "phonetic_us": "[ɑːrt]",
+          "gloss_zh": [
+            "美术",
+            "艺术"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "science",
+          "phonetic_us": "[ˈsaɪəns]",
+          "gloss_zh": [
+            "科学"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "*classroom",
+          "phonetic_us": "[ˈklæsruːm]",
+          "gloss_zh": [
+            "教室"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "blackboard",
+          "phonetic_us": "[ˈblækbɔːrd]",
+          "gloss_zh": [
+            "黑板"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "*office",
+          "phonetic_us": "[ˈɑːfɪs]",
+          "gloss_zh": [
+            "办公室"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "playground",
+          "phonetic_us": "[ˈpleɪɡraʊnd]",
+          "gloss_zh": [
+            "操场"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "library",
+          "phonetic_us": "[ˈlaɪbreri]",
+          "gloss_zh": [
+            "图书馆"
+          ],
+          "part_of_speech": "名词"
+        }
+      ]
+    },
+    {
+      "unit": "Unit 6",
+      "title": "A Christmas Party",
+      "totalWords": 6,
+      "words": [
+        {
+          "word": "*Christmas",
+          "phonetic_us": "[ˈkrɪsməs]",
+          "gloss_zh": [
+            "圣诞节"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "party",
+          "phonetic_us": "[ˈpɑːrti]",
+          "gloss_zh": [
+            "聚会"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "beautiful",
+          "phonetic_us": "[ˈbjuːtɪfl]",
+          "gloss_zh": [
+            "美丽的"
+          ],
+          "part_of_speech": "形容词"
+        },
+        {
+          "word": "*gift",
+          "phonetic_us": "[ɡɪft]",
+          "gloss_zh": [
+            "礼物"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "parents",
+          "phonetic_us": "[ˈperənts]",
+          "gloss_zh": [
+            "父母"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "some",
+          "phonetic_us": "[sʌm]",
+          "gloss_zh": [
+            "一些",
+            "若干"
+          ],
+          "part_of_speech": "形容词/代词"
+        }
+      ]
+    }
+  ]
+}

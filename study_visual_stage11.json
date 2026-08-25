@@ -1,0 +1,19 @@
+{
+  "module": "背词蓄力",
+  "version": "V18.5 Stage11",
+  "visual": {
+    "wordCardAnimation": true,
+    "pageTurnAnimation": true,
+    "masterEffect": true,
+    "energyBarAnimation": true,
+    "starRewardAnimation": true,
+    "coinRewardAnimation": true
+  },
+  "unlockFlow": {
+    "unitComplete": [
+      "单词小怪",
+      "跟读过桥",
+      "BOSS挑战"
+    ]
+  }
+}

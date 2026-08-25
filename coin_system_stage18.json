@@ -1,0 +1,18 @@
+{
+  "module": "金币经济系统",
+  "version": "V18.5 Stage18",
+  "currency": {
+    "coin": 0,
+    "sources": [
+      "背词蓄力",
+      "错词复习",
+      "每日任务",
+      "BOSS挑战"
+    ]
+  },
+  "rewards": {
+    "masterWord": 5,
+    "completeDailyTask": 20,
+    "completeUnit": 50
+  }
+}

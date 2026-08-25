@@ -1,0 +1,535 @@
+{
+  "book": "三年级上册",
+  "version": "V18.5 Stage20 imported",
+  "units": [
+    {
+      "unit": "Unit 1",
+      "title": "Hello",
+      "totalWords": 23,
+      "words": [
+        {
+          "word": "what",
+          "gloss_zh": [
+            "什么"
+          ],
+          "part_of_speech": "疑问词"
+        },
+        {
+          "word": "is",
+          "gloss_zh": [
+            "是"
+          ],
+          "part_of_speech": "be动词"
+        },
+        {
+          "word": "your",
+          "gloss_zh": [
+            "你的",
+            "你们的"
+          ],
+          "part_of_speech": "物主限定词"
+        },
+        {
+          "word": "name",
+          "gloss_zh": [
+            "名字",
+            "姓名"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "hi",
+          "gloss_zh": [
+            "嗨",
+            "你好"
+          ],
+          "part_of_speech": "感叹词"
+        },
+        {
+          "word": "hello",
+          "gloss_zh": [
+            "嗨",
+            "你好"
+          ],
+          "part_of_speech": "感叹词"
+        },
+        {
+          "word": "my",
+          "gloss_zh": [
+            "我的"
+          ],
+          "part_of_speech": "物主限定词"
+        },
+        {
+          "word": "I",
+          "gloss_zh": [
+            "我"
+          ],
+          "part_of_speech": "人称代词"
+        },
+        {
+          "word": "am",
+          "gloss_zh": [
+            "是"
+          ],
+          "part_of_speech": "be动词"
+        },
+        {
+          "word": "and",
+          "gloss_zh": [
+            "和",
+            "与"
+          ],
+          "part_of_speech": "连词"
+        },
+        {
+          "word": "good morning",
+          "gloss_zh": [
+            "早上好"
+          ],
+          "part_of_speech": "固定短语"
+        },
+        {
+          "word": "children",
+          "gloss_zh": [
+            "孩子",
+            "儿童"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "goodbye",
+          "gloss_zh": [
+            "再见"
+          ],
+          "part_of_speech": "感叹词"
+        },
+        {
+          "word": "bye",
+          "gloss_zh": [
+            "再见"
+          ],
+          "part_of_speech": "感叹词"
+        },
+        {
+          "word": "tiger",
+          "gloss_zh": [
+            "老虎"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "that",
+          "gloss_zh": [
+            "那",
+            "那个"
+          ],
+          "part_of_speech": "指示代词/限定词"
+        },
+        {
+          "word": "no",
+          "gloss_zh": [
+            "不",
+            "不行"
+          ],
+          "part_of_speech": "应答词"
+        },
+        {
+          "word": "not",
+          "gloss_zh": [
+            "不",
+            "没",
+            "不是"
+          ],
+          "part_of_speech": "副词"
+        },
+        {
+          "word": "cat",
+          "gloss_zh": [
+            "猫"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "dog",
+          "gloss_zh": [
+            "狗"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "cow",
+          "gloss_zh": [
+            "奶牛"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "panda",
+          "gloss_zh": [
+            "熊猫"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "horse",
+          "gloss_zh": [
+            "马"
+          ],
+          "part_of_speech": "名词"
+        }
+      ]
+    },
+    {
+      "unit": "Unit 2",
+      "title": "Look at me",
+      "totalWords": 5,
+      "words": [
+        {
+          "word": "this",
+          "gloss_zh": [
+            "这",
+            "这个"
+          ],
+          "part_of_speech": "指示代词/限定词"
+        },
+        {
+          "word": "look",
+          "gloss_zh": [
+            "看"
+          ],
+          "part_of_speech": "动词"
+        },
+        {
+          "word": "a",
+          "gloss_zh": [
+            "一（个）",
+            "一（只）"
+          ],
+          "part_of_speech": "不定冠词"
+        },
+        {
+          "word": "deer",
+          "gloss_zh": [
+            "鹿"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "it",
+          "gloss_zh": [
+            "它"
+          ],
+          "part_of_speech": "人称代词"
+        }
+      ]
+    },
+    {
+      "unit": "Unit 3",
+      "title": "At the zoo",
+      "totalWords": 14,
+      "words": [
+        {
+          "word": "pass",
+          "gloss_zh": [
+            "传"
+          ],
+          "part_of_speech": "动词"
+        },
+        {
+          "word": "the",
+          "gloss_zh": [],
+          "part_of_speech": "定冠词"
+        },
+        {
+          "word": "ball",
+          "gloss_zh": [
+            "球"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "play",
+          "gloss_zh": [
+            "玩",
+            "玩耍"
+          ],
+          "part_of_speech": "动词"
+        },
+        {
+          "word": "football",
+          "gloss_zh": [
+            "足球"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "OK",
+          "gloss_zh": [
+            "好",
+            "行",
+            "可以"
+          ],
+          "part_of_speech": "应答词"
+        },
+        {
+          "word": "catch",
+          "gloss_zh": [
+            "接住",
+            "抓住"
+          ],
+          "part_of_speech": "动词"
+        },
+        {
+          "word": "kick",
+          "gloss_zh": [
+            "踢"
+          ],
+          "part_of_speech": "动词"
+        },
+        {
+          "word": "throw",
+          "gloss_zh": [
+            "扔"
+          ],
+          "part_of_speech": "动词"
+        },
+        {
+          "word": "who",
+          "gloss_zh": [
+            "谁"
+          ],
+          "part_of_speech": "疑问代词"
+        },
+        {
+          "word": "he",
+          "gloss_zh": [
+            "他"
+          ],
+          "part_of_speech": "人称代词"
+        },
+        {
+          "word": "cousin",
+          "gloss_zh": [
+            "表兄弟姐妹"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "she",
+          "gloss_zh": [
+            "她"
+          ],
+          "part_of_speech": "人称代词"
+        },
+        {
+          "word": "friend",
+          "gloss_zh": [
+            "朋友"
+          ],
+          "part_of_speech": "名词"
+        }
+      ]
+    },
+    {
+      "unit": "Unit 4",
+      "title": "My family",
+      "totalWords": 11,
+      "words": [
+        {
+          "word": "family",
+          "gloss_zh": [
+            "家庭"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "mother",
+          "gloss_zh": [
+            "妈妈"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "father",
+          "gloss_zh": [
+            "爸爸"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "grandmother",
+          "gloss_zh": [
+            "（外）祖母"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "grandfather",
+          "gloss_zh": [
+            "（外）祖父"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "sister",
+          "gloss_zh": [
+            "姐",
+            "妹"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "yes",
+          "gloss_zh": [
+            "是",
+            "是的"
+          ],
+          "part_of_speech": "应答词"
+        },
+        {
+          "word": "brother",
+          "gloss_zh": [
+            "哥",
+            "弟"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "me",
+          "gloss_zh": [
+            "我"
+          ],
+          "part_of_speech": "人称代词"
+        },
+        {
+          "word": "aunt",
+          "gloss_zh": [
+            "姨",
+            "姑",
+            "姨妈"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "uncle",
+          "gloss_zh": [
+            "叔",
+            "伯",
+            "舅"
+          ],
+          "part_of_speech": "名词"
+        }
+      ]
+    },
+    {
+      "unit": "Unit 5",
+      "title": "Let's eat",
+      "totalWords": 14,
+      "words": [
+        {
+          "word": "his",
+          "gloss_zh": [
+            "他的"
+          ],
+          "part_of_speech": "物主限定词"
+        },
+        {
+          "word": "her",
+          "gloss_zh": [
+            "她的"
+          ],
+          "part_of_speech": "物主限定词"
+        },
+        {
+          "word": "computer",
+          "gloss_zh": [
+            "计算机",
+            "电脑"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "mom",
+          "gloss_zh": [
+            "妈妈"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "bag",
+          "gloss_zh": [
+            "包",
+            "书包"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "toy",
+          "gloss_zh": [
+            "玩具"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "car",
+          "gloss_zh": [
+            "汽车"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "pencil box",
+          "gloss_zh": [
+            "铅笔盒"
+          ],
+          "part_of_speech": "名词短语"
+        },
+        {
+          "word": "bike",
+          "gloss_zh": [
+            "自行车"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "for",
+          "gloss_zh": [
+            "给",
+            "为",
+            "供"
+          ],
+          "part_of_speech": "介词"
+        },
+        {
+          "word": "pencil",
+          "gloss_zh": [
+            "铅笔"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "crayon",
+          "gloss_zh": [
+            "蜡笔"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "book",
+          "gloss_zh": [
+            "书"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "ruler",
+          "gloss_zh": [
+            "尺子"
+          ],
+          "part_of_speech": "名词"
+        }
+      ]
+    }
+  ]
+}

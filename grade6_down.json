@@ -1,0 +1,386 @@
+{
+  "book": "六年级下册",
+  "version": "V18.5 Stage20 imported",
+  "units": [
+    {
+      "unit": "Unit 7",
+      "title": "Travels",
+      "totalWords": 15,
+      "words": [
+        {
+          "word": "*vacation",
+          "phonetic_us": "[veɪˈkeɪʃn]",
+          "gloss_zh": [
+            "假期"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "travel (traveled)",
+          "phonetic_us": "[ˈtrævl (ˈtrævld)]",
+          "gloss_zh": [
+            "旅行"
+          ],
+          "part_of_speech": "动词/名词"
+        },
+        {
+          "word": "*housework",
+          "phonetic_us": "[ˈhaʊswɜːrk]",
+          "gloss_zh": [
+            "家务劳动"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "*over",
+          "phonetic_us": "[ˈoʊvər]",
+          "gloss_zh": [
+            "在……期间"
+          ],
+          "part_of_speech": "介词"
+        },
+        {
+          "word": "*trip",
+          "phonetic_us": "[trɪp]",
+          "gloss_zh": [
+            "旅行",
+            "出行"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "*London",
+          "phonetic_us": "[ˈlʌndən]",
+          "gloss_zh": [
+            "伦敦"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "*exciting",
+          "phonetic_us": "[ɪkˈsaɪtɪŋ]",
+          "gloss_zh": [
+            "令人兴奋的",
+            "使人激动的"
+          ],
+          "part_of_speech": "形容词"
+        },
+        {
+          "word": "photo",
+          "phonetic_us": "[ˈfoʊtoʊ]",
+          "gloss_zh": [
+            "照片"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "*tour",
+          "phonetic_us": "[tʊr]",
+          "gloss_zh": [
+            "游览",
+            "观光"
+          ],
+          "part_of_speech": "名词/动词"
+        },
+        {
+          "word": "*top",
+          "phonetic_us": "[tɑːp]",
+          "gloss_zh": [
+            "顶部",
+            "上端"
+          ],
+          "part_of_speech": "名词/形容词"
+        },
+        {
+          "word": "*special",
+          "phonetic_us": "[ˈspeʃl]",
+          "gloss_zh": [
+            "特别的"
+          ],
+          "part_of_speech": "形容词"
+        },
+        {
+          "word": "bring (brought)",
+          "phonetic_us": "[brɪŋ (brɔːt)]",
+          "gloss_zh": [
+            "带来",
+            "带回"
+          ],
+          "part_of_speech": "动词"
+        },
+        {
+          "word": "*weekend",
+          "phonetic_us": "[ˈwiːkend]",
+          "gloss_zh": [
+            "周末"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "read (read)",
+          "phonetic_us": "[riːd (red)]",
+          "gloss_zh": [
+            "阅读"
+          ],
+          "part_of_speech": "动词"
+        },
+        {
+          "word": "write (wrote)",
+          "phonetic_us": "[raɪt (roʊt)]",
+          "gloss_zh": [
+            "写"
+          ],
+          "part_of_speech": "动词"
+        }
+      ]
+    },
+    {
+      "unit": "Unit 8",
+      "title": "Music & Plans",
+      "totalWords": 13,
+      "words": [
+        {
+          "word": "*concert",
+          "phonetic_us": "[ˈkɑːnsərt]",
+          "gloss_zh": [
+            "音乐会"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "*program",
+          "phonetic_us": "[ˈproʊɡræm]",
+          "gloss_zh": [
+            "节目单",
+            "节目"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "*piano",
+          "phonetic_us": "[piˈænoʊ]",
+          "gloss_zh": [
+            "钢琴"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "*drum",
+          "phonetic_us": "[drʌm]",
+          "gloss_zh": [
+            "鼓"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "*guitar",
+          "phonetic_us": "[ɡɪˈtɑːr]",
+          "gloss_zh": [
+            "吉他"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "*flute",
+          "phonetic_us": "[fluːt]",
+          "gloss_zh": [
+            "笛子"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "*will",
+          "phonetic_us": "[wɪl]",
+          "gloss_zh": [
+            "将",
+            "会",
+            "要"
+          ],
+          "part_of_speech": "情态动词"
+        },
+        {
+          "word": "wonderful",
+          "phonetic_us": "[ˈwʌndərfl]",
+          "gloss_zh": [
+            "美妙的"
+          ],
+          "part_of_speech": "形容词"
+        },
+        {
+          "word": "begin",
+          "phonetic_us": "[bɪˈɡɪn]",
+          "gloss_zh": [
+            "开始"
+          ],
+          "part_of_speech": "动词"
+        },
+        {
+          "word": "*soon",
+          "phonetic_us": "[suːn]",
+          "gloss_zh": [
+            "不久"
+          ],
+          "part_of_speech": "副词"
+        },
+        {
+          "word": "*tonight",
+          "phonetic_us": "[təˈnaɪt]",
+          "gloss_zh": [
+            "今晚"
+          ],
+          "part_of_speech": "副词/名词"
+        },
+        {
+          "word": "*worried",
+          "phonetic_us": "[ˈwɜːrid]",
+          "gloss_zh": [
+            "担忧的"
+          ],
+          "part_of_speech": "形容词"
+        },
+        {
+          "word": "*violin",
+          "phonetic_us": "[ˌvaɪəˈlɪn]",
+          "gloss_zh": [
+            "小提琴"
+          ],
+          "part_of_speech": "名词"
+        }
+      ]
+    },
+    {
+      "unit": "Unit 9",
+      "title": "Life & Future",
+      "totalWords": 15,
+      "words": [
+        {
+          "word": "year",
+          "phonetic_us": "[jɪr]",
+          "gloss_zh": [
+            "年"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "live",
+          "phonetic_us": "[lɪv]",
+          "gloss_zh": [
+            "居住"
+          ],
+          "part_of_speech": "动词"
+        },
+        {
+          "word": "people",
+          "phonetic_us": "[ˈpiːpl]",
+          "gloss_zh": [
+            "人",
+            "人们"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "think",
+          "phonetic_us": "[θɪŋk]",
+          "gloss_zh": [
+            "认为",
+            "以为",
+            "思考"
+          ],
+          "part_of_speech": "动词"
+        },
+        {
+          "word": "*life",
+          "phonetic_us": "[laɪf]",
+          "gloss_zh": [
+            "生活",
+            "生命"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "*hard",
+          "phonetic_us": "[hɑːrd]",
+          "gloss_zh": [
+            "困难的"
+          ],
+          "part_of_speech": "形容词/副词"
+        },
+        {
+          "word": "*happen",
+          "phonetic_us": "[ˈhæpən]",
+          "gloss_zh": [
+            "发生"
+          ],
+          "part_of_speech": "动词"
+        },
+        {
+          "word": "*future",
+          "phonetic_us": "[ˈfjuːtʃər]",
+          "gloss_zh": [
+            "未来"
+          ],
+          "part_of_speech": "名词/形容词"
+        },
+        {
+          "word": "*everything",
+          "phonetic_us": "[ˈevriθɪŋ]",
+          "gloss_zh": [
+            "一切",
+            "每件事"
+          ],
+          "part_of_speech": "代词"
+        },
+        {
+          "word": "*more",
+          "phonetic_us": "[mɔːr]",
+          "gloss_zh": [
+            "更多"
+          ],
+          "part_of_speech": "形容词/副词/代词"
+        },
+        {
+          "word": "*better",
+          "phonetic_us": "[ˈbetər]",
+          "gloss_zh": [
+            "更好的",
+            "较好的"
+          ],
+          "part_of_speech": "形容词/副词"
+        },
+        {
+          "word": "dirty",
+          "phonetic_us": "[ˈdɜːrti]",
+          "gloss_zh": [
+            "脏的"
+          ],
+          "part_of_speech": "形容词"
+        },
+        {
+          "word": "*terrible",
+          "phonetic_us": "[ˈterəbl]",
+          "gloss_zh": [
+            "糟糕的"
+          ],
+          "part_of_speech": "形容词"
+        },
+        {
+          "word": "*believe",
+          "phonetic_us": "[bɪˈliːv]",
+          "gloss_zh": [
+            "认为",
+            "相信"
+          ],
+          "part_of_speech": "动词"
+        },
+        {
+          "word": "*sea",
+          "phonetic_us": "[siː]",
+          "gloss_zh": [
+            "海洋"
+          ],
+          "part_of_speech": "名词"
+        }
+      ]
+    }
+  ]
+}

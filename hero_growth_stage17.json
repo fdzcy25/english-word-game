@@ -1,0 +1,20 @@
+{
+  "module": "勇者成长体系",
+  "version": "V18.5 Stage17",
+  "level": {
+    "currentLevel": 1,
+    "experience": 0,
+    "nextLevelExp": 100
+  },
+  "attributes": {
+    "learningPower": 1,
+    "memoryPower": 1,
+    "battlePower": 1
+  },
+  "rewardSource": [
+    "背词蓄力",
+    "错词复习",
+    "跟读训练",
+    "BOSS挑战"
+  ]
+}

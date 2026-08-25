@@ -1,0 +1,798 @@
+{
+  "book": "五年级上册",
+  "version": "V18.5 Stage20 imported",
+  "units": [
+    {
+      "unit": "Unit 1",
+      "title": "Jobs",
+      "totalWords": 16,
+      "words": [
+        {
+          "word": "job",
+          "phonetic_us": "[dʒɑːb]",
+          "gloss_zh": [
+            "职业",
+            "工作"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "teacher",
+          "phonetic_us": "[ˈtiːtʃər]",
+          "gloss_zh": [
+            "教师"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "doctor",
+          "phonetic_us": "[ˈdɑːktər]",
+          "gloss_zh": [
+            "医生"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "*vet",
+          "phonetic_us": "[vet]",
+          "gloss_zh": [
+            "兽医"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "*juggler",
+          "phonetic_us": "[ˈdʒʌɡlər]",
+          "gloss_zh": [
+            "玩杂耍的人"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "Miss",
+          "phonetic_us": "[mɪs]",
+          "gloss_zh": [
+            "小姐",
+            "女士（用于未婚女子姓名前）"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "*telephone",
+          "phonetic_us": "[ˈtelɪfoʊn]",
+          "gloss_zh": [
+            "电话"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "call",
+          "phonetic_us": "[kɔːl]",
+          "gloss_zh": [
+            "（给……）打电话"
+          ],
+          "part_of_speech": "动词"
+        },
+        {
+          "word": "farmer",
+          "phonetic_us": "[ˈfɑːrmər]",
+          "gloss_zh": [
+            "农场主",
+            "农民"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "*policeman",
+          "phonetic_us": "[pəˈliːsmæn]",
+          "gloss_zh": [
+            "男警察"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "nurse",
+          "phonetic_us": "[ˈnɜːrs]",
+          "gloss_zh": [
+            "护士"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "*student",
+          "phonetic_us": "[ˈstuːdnt]",
+          "gloss_zh": [
+            "学生"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "*singer",
+          "phonetic_us": "[ˈsɪŋər]",
+          "gloss_zh": [
+            "歌手",
+            "歌唱家"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "worker",
+          "phonetic_us": "[ˈwɜːrkər]",
+          "gloss_zh": [
+            "工人"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "taxi",
+          "phonetic_us": "[ˈtæksi]",
+          "gloss_zh": [
+            "出租车",
+            "的士"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "driver",
+          "phonetic_us": "[ˈdraɪvər]",
+          "gloss_zh": [
+            "司机"
+          ],
+          "part_of_speech": "名词"
+        }
+      ]
+    },
+    {
+      "unit": "Unit 2",
+      "title": "Animals",
+      "totalWords": 14,
+      "words": [
+        {
+          "word": "animal",
+          "phonetic_us": "[ˈænɪml]",
+          "gloss_zh": [
+            "动物"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "*rabbit",
+          "phonetic_us": "[ˈræbɪt]",
+          "gloss_zh": [
+            "兔子"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "*squirrel",
+          "phonetic_us": "[ˈskwɜːrəl]",
+          "gloss_zh": [
+            "松鼠"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "meet",
+          "phonetic_us": "[miːt]",
+          "gloss_zh": [
+            "会面"
+          ],
+          "part_of_speech": "动词"
+        },
+        {
+          "word": "*cute",
+          "phonetic_us": "[kjuːt]",
+          "gloss_zh": [
+            "可爱的"
+          ],
+          "part_of_speech": "形容词"
+        },
+        {
+          "word": "*snake",
+          "phonetic_us": "[sneɪk]",
+          "gloss_zh": [
+            "蛇"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "*scary",
+          "phonetic_us": "[ˈskeri]",
+          "gloss_zh": [
+            "可怕的",
+            "恐怖的"
+          ],
+          "part_of_speech": "形容词"
+        },
+        {
+          "word": "a lot",
+          "phonetic_us": "[ə lɑːt]",
+          "gloss_zh": [
+            "很",
+            "非常"
+          ],
+          "part_of_speech": "副词短语"
+        },
+        {
+          "word": "go away",
+          "phonetic_us": "[ɡoʊ əˈweɪ]",
+          "gloss_zh": [
+            "离开",
+            "走开"
+          ],
+          "part_of_speech": "动词短语"
+        },
+        {
+          "word": "*fox",
+          "phonetic_us": "[fɑːks]",
+          "gloss_zh": [
+            "狐狸"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "beautiful",
+          "phonetic_us": "[ˈbjuːtɪfl]",
+          "gloss_zh": [
+            "美丽的"
+          ],
+          "part_of_speech": "形容词"
+        },
+        {
+          "word": "interesting",
+          "phonetic_us": "[ˈɪntrəstɪŋ]",
+          "gloss_zh": [
+            "有趣的"
+          ],
+          "part_of_speech": "形容词"
+        },
+        {
+          "word": "*funny",
+          "phonetic_us": "[ˈfʌni]",
+          "gloss_zh": [
+            "逗人笑的"
+          ],
+          "part_of_speech": "形容词"
+        },
+        {
+          "word": "clever",
+          "phonetic_us": "[ˈklevər]",
+          "gloss_zh": [
+            "聪明的"
+          ],
+          "part_of_speech": "形容词"
+        }
+      ]
+    },
+    {
+      "unit": "Unit 3",
+      "title": "Clothes",
+      "totalWords": 16,
+      "words": [
+        {
+          "word": "clothes",
+          "phonetic_us": "[kloʊðz]",
+          "gloss_zh": [
+            "衣服"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "*T-shirt",
+          "phonetic_us": "[ˈtiː ʃɜːrt]",
+          "gloss_zh": [
+            "T恤（衫）"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "trousers",
+          "phonetic_us": "[ˈtraʊzərz]",
+          "gloss_zh": [
+            "裤子"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "cap",
+          "phonetic_us": "[kæp]",
+          "gloss_zh": [
+            "（前面有帽檐的）帽子"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "shoes",
+          "phonetic_us": "[ʃuːz]",
+          "gloss_zh": [
+            "鞋"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "too",
+          "phonetic_us": "[tuː]",
+          "gloss_zh": [
+            "太",
+            "过分"
+          ],
+          "part_of_speech": "副词"
+        },
+        {
+          "word": "*expensive",
+          "phonetic_us": "[ɪkˈspensɪv]",
+          "gloss_zh": [
+            "昂贵的"
+          ],
+          "part_of_speech": "形容词"
+        },
+        {
+          "word": "*cheap",
+          "phonetic_us": "[tʃiːp]",
+          "gloss_zh": [
+            "便宜的"
+          ],
+          "part_of_speech": "形容词"
+        },
+        {
+          "word": "*size",
+          "phonetic_us": "[saɪz]",
+          "gloss_zh": [
+            "尺码",
+            "号"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "*only",
+          "phonetic_us": "[ˈoʊnli]",
+          "gloss_zh": [
+            "仅仅",
+            "才"
+          ],
+          "part_of_speech": "副词"
+        },
+        {
+          "word": "shorts",
+          "phonetic_us": "[ʃɔːrts]",
+          "gloss_zh": [
+            "短裤"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "dress",
+          "phonetic_us": "[dres]",
+          "gloss_zh": [
+            "连衣裙"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "skirt",
+          "phonetic_us": "[skɜːrt]",
+          "gloss_zh": [
+            "短裙"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "shirt",
+          "phonetic_us": "[ʃɜːrt]",
+          "gloss_zh": [
+            "衬衫"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "sweater",
+          "phonetic_us": "[ˈswetər]",
+          "gloss_zh": [
+            "毛线衣",
+            "羊毛衫"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "socks",
+          "phonetic_us": "[sɑːks]",
+          "gloss_zh": [
+            "短袜"
+          ],
+          "part_of_speech": "名词"
+        }
+      ]
+    },
+    {
+      "unit": "Unit 4",
+      "title": "Home",
+      "totalWords": 17,
+      "words": [
+        {
+          "word": "*position",
+          "phonetic_us": "[pəˈzɪʃn]",
+          "gloss_zh": [
+            "位置",
+            "方位"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "on",
+          "phonetic_us": "[ɑːn]",
+          "gloss_zh": [
+            "在……上面"
+          ],
+          "part_of_speech": "介词"
+        },
+        {
+          "word": "under",
+          "phonetic_us": "[ˈʌndər]",
+          "gloss_zh": [
+            "在……下面"
+          ],
+          "part_of_speech": "介词"
+        },
+        {
+          "word": "in",
+          "phonetic_us": "[ɪn]",
+          "gloss_zh": [
+            "在……内"
+          ],
+          "part_of_speech": "介词"
+        },
+        {
+          "word": "in front of",
+          "phonetic_us": "[ɪn frʌnt ʌv]",
+          "gloss_zh": [
+            "在……前面"
+          ],
+          "part_of_speech": "介词短语"
+        },
+        {
+          "word": "*magic",
+          "phonetic_us": "[ˈmædʒɪk]",
+          "gloss_zh": [
+            "魔术",
+            "戏法"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "*gone",
+          "phonetic_us": "[ɡɔːn]",
+          "gloss_zh": [
+            "不见了"
+          ],
+          "part_of_speech": "形容词"
+        },
+        {
+          "word": "table",
+          "phonetic_us": "[ˈteɪbl]",
+          "gloss_zh": [
+            "桌子",
+            "台子"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "get ... back",
+          "phonetic_us": "[ɡet bæk]",
+          "gloss_zh": [
+            "拿回某物"
+          ],
+          "part_of_speech": "动词短语"
+        },
+        {
+          "word": "behind",
+          "phonetic_us": "[bɪˈhaɪnd]",
+          "gloss_zh": [
+            "在……后面"
+          ],
+          "part_of_speech": "介词"
+        },
+        {
+          "word": "box",
+          "phonetic_us": "[bɑːks]",
+          "gloss_zh": [
+            "箱子",
+            "盒子"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "desk",
+          "phonetic_us": "[desk]",
+          "gloss_zh": [
+            "书桌",
+            "办公桌"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "door",
+          "phonetic_us": "[dɔːr]",
+          "gloss_zh": [
+            "门"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "window",
+          "phonetic_us": "[ˈwɪndoʊ]",
+          "gloss_zh": [
+            "窗",
+            "窗户"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "bed",
+          "phonetic_us": "[bed]",
+          "gloss_zh": [
+            "床"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "floor",
+          "phonetic_us": "[flɔːr]",
+          "gloss_zh": [
+            "地板",
+            "地面"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "chair",
+          "phonetic_us": "[tʃer]",
+          "gloss_zh": [
+            "椅子"
+          ],
+          "part_of_speech": "名词"
+        }
+      ]
+    },
+    {
+      "unit": "Unit 5",
+      "title": "Places",
+      "totalWords": 23,
+      "words": [
+        {
+          "word": "place",
+          "phonetic_us": "[pleɪs]",
+          "gloss_zh": [
+            "地方",
+            "地点",
+            "场所"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "zoo",
+          "phonetic_us": "[zuː]",
+          "gloss_zh": [
+            "动物园"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "supermarket",
+          "phonetic_us": "[ˈsuːpərmɑːrkɪt]",
+          "gloss_zh": [
+            "超级市场"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "post office",
+          "phonetic_us": "[poʊst ˈɔːfɪs]",
+          "gloss_zh": [
+            "邮政局"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "train station",
+          "phonetic_us": "[treɪn ˈsteɪʃn]",
+          "gloss_zh": [
+            "火车站"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "excuse me",
+          "phonetic_us": "[ɪkˈskjuːs miː]",
+          "gloss_zh": [
+            "劳驾（用于引起人注意）"
+          ],
+          "part_of_speech": "短语"
+        },
+        {
+          "word": "near",
+          "phonetic_us": "[nɪr]",
+          "gloss_zh": [
+            "离……很近"
+          ],
+          "part_of_speech": "介词/副词"
+        },
+        {
+          "word": "next to",
+          "phonetic_us": "[nekst tuː]",
+          "gloss_zh": [
+            "紧挨着",
+            "紧靠着"
+          ],
+          "part_of_speech": "介词短语"
+        },
+        {
+          "word": "*town",
+          "phonetic_us": "[taʊn]",
+          "gloss_zh": [
+            "镇",
+            "城镇"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "map",
+          "phonetic_us": "[mæp]",
+          "gloss_zh": [
+            "地图"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "down",
+          "phonetic_us": "[daʊn]",
+          "gloss_zh": [
+            "沿着",
+            "顺着"
+          ],
+          "part_of_speech": "介词"
+        },
+        {
+          "word": "street",
+          "phonetic_us": "[striːt]",
+          "gloss_zh": [
+            "大街",
+            "街道"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "then",
+          "phonetic_us": "[ðen]",
+          "gloss_zh": [
+            "接下来",
+            "然后"
+          ],
+          "part_of_speech": "副词"
+        },
+        {
+          "word": "turn",
+          "phonetic_us": "[tɜːrn]",
+          "gloss_zh": [
+            "转弯"
+          ],
+          "part_of_speech": "动词"
+        },
+        {
+          "word": "between",
+          "phonetic_us": "[bɪˈtwiːn]",
+          "gloss_zh": [
+            "在……之间"
+          ],
+          "part_of_speech": "介词"
+        },
+        {
+          "word": "lake",
+          "phonetic_us": "[leɪk]",
+          "gloss_zh": [
+            "湖",
+            "湖泊"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "park",
+          "phonetic_us": "[pɑːrk]",
+          "gloss_zh": [
+            "公园"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "toilet",
+          "phonetic_us": "[ˈtɔɪlət]",
+          "gloss_zh": [
+            "厕所",
+            "卫生间"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "*cage",
+          "phonetic_us": "[keɪdʒ]",
+          "gloss_zh": [
+            "笼子"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "cinema",
+          "phonetic_us": "[ˈsɪnəmə]",
+          "gloss_zh": [
+            "电影院"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "bus",
+          "phonetic_us": "[bʌs]",
+          "gloss_zh": [
+            "公共汽车"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "bus stop",
+          "phonetic_us": "[bʌs stɑːp]",
+          "gloss_zh": [
+            "公共汽车站"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "hospital",
+          "phonetic_us": "[ˈhɑːspɪtl]",
+          "gloss_zh": [
+            "医院"
+          ],
+          "part_of_speech": "名词"
+        }
+      ]
+    },
+    {
+      "unit": "Unit 6",
+      "title": "Review",
+      "totalWords": 4,
+      "words": [
+        {
+          "word": "*actor",
+          "phonetic_us": "[ˈæktər]",
+          "gloss_zh": [
+            "演员"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "*dancer",
+          "phonetic_us": "[ˈdænsər]",
+          "gloss_zh": [
+            "舞蹈演员",
+            "舞蹈家"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "angry",
+          "phonetic_us": "[ˈæŋɡri]",
+          "gloss_zh": [
+            "生气的"
+          ],
+          "part_of_speech": "形容词"
+        },
+        {
+          "word": "again",
+          "phonetic_us": "[əˈɡen]",
+          "gloss_zh": [
+            "又",
+            "再一次"
+          ],
+          "part_of_speech": "副词"
+        }
+      ]
+    }
+  ]
+}

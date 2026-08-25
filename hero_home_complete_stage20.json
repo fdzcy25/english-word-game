@@ -1,0 +1,27 @@
+{
+  "module": "勇者主页补全版",
+  "version": "V18.5 Stage20 Complete",
+  "entry": {
+    "name": "勇者主页",
+    "style": "V17 UI"
+  },
+  "display": {
+    "avatar": true,
+    "level": true,
+    "experience": true,
+    "coins": true,
+    "stars": true,
+    "equipment": true,
+    "attributes": true
+  },
+  "attributes": {
+    "learningPower": 0,
+    "memoryPower": 0,
+    "battlePower": 0
+  },
+  "equipmentSlots": [
+    "weapon",
+    "armor",
+    "accessory"
+  ]
+}

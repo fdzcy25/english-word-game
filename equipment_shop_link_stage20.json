@@ -1,0 +1,12 @@
+{
+  "purchaseFlow": [
+    "扣除金币",
+    "装备加入角色",
+    "属性即时刷新"
+  ],
+  "attributeEffects": {
+    "weapon": "battlePower",
+    "armor": "defense",
+    "accessory": "memoryPower"
+  }
+}

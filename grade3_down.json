@@ -1,0 +1,681 @@
+{
+  "book": "三年级下册",
+  "version": "V18.5 Stage20 imported",
+  "units": [
+    {
+      "unit": "Unit 7",
+      "title": "Fruits",
+      "totalWords": 14,
+      "words": [
+        {
+          "word": "banana",
+          "phonetic_us": "[bəˈnænə]",
+          "gloss_zh": [
+            "香蕉"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "fruits",
+          "phonetic_us": "[fruːts]",
+          "gloss_zh": [
+            "水果"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "*nut",
+          "phonetic_us": "[nʌt]",
+          "gloss_zh": [
+            "坚果"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "an",
+          "phonetic_us": "[æn]",
+          "gloss_zh": [
+            "一（个，只）"
+          ],
+          "part_of_speech": "不定冠词"
+        },
+        {
+          "word": "apple",
+          "phonetic_us": "[ˈæp(ə)l]",
+          "gloss_zh": [
+            "苹果"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "orange",
+          "phonetic_us": "[ˈɔːrɪndʒ]",
+          "gloss_zh": [
+            "橙子",
+            "橘子"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "*peach",
+          "phonetic_us": "[piːtʃ]",
+          "gloss_zh": [
+            "桃"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "*pear",
+          "phonetic_us": "[per]",
+          "gloss_zh": [
+            "梨"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "*strawberry",
+          "phonetic_us": "[ˈstrɔːberi]",
+          "gloss_zh": [
+            "草莓"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "*sweet",
+          "phonetic_us": "[swiːt]",
+          "gloss_zh": [
+            "甜的"
+          ],
+          "part_of_speech": "形容词"
+        },
+        {
+          "word": "*lemon",
+          "phonetic_us": "[ˈlemən]",
+          "gloss_zh": [
+            "柠檬"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "*sour",
+          "phonetic_us": "[ˈsaʊər]",
+          "gloss_zh": [
+            "酸的"
+          ],
+          "part_of_speech": "形容词"
+        },
+        {
+          "word": "*pineapple",
+          "phonetic_us": "[ˈpaɪnæp(ə)l]",
+          "gloss_zh": [
+            "菠萝"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "*watermelon",
+          "phonetic_us": "[ˈwɔːtərmelən]",
+          "gloss_zh": [
+            "西瓜"
+          ],
+          "part_of_speech": "名词"
+        }
+      ]
+    },
+    {
+      "unit": "Unit 8",
+      "title": "Vegetables",
+      "totalWords": 13,
+      "words": [
+        {
+          "word": "they",
+          "phonetic_us": "[ðeɪ]",
+          "gloss_zh": [
+            "他们",
+            "她们",
+            "它们"
+          ],
+          "part_of_speech": "人称代词"
+        },
+        {
+          "word": "are",
+          "phonetic_us": "[ɑːr]",
+          "gloss_zh": [
+            "是"
+          ],
+          "part_of_speech": "be动词"
+        },
+        {
+          "word": "tomatoes",
+          "phonetic_us": "[təˈmeɪtoʊz]",
+          "gloss_zh": [
+            "西红柿"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "these",
+          "phonetic_us": "[ðiːz]",
+          "gloss_zh": [
+            "这些"
+          ],
+          "part_of_speech": "指示代词/限定词"
+        },
+        {
+          "word": "those",
+          "phonetic_us": "[ðoʊz]",
+          "gloss_zh": [
+            "那些"
+          ],
+          "part_of_speech": "指示代词/限定词"
+        },
+        {
+          "word": "*beans",
+          "phonetic_us": "[biːnz]",
+          "gloss_zh": [
+            "豆角"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "*cabbages",
+          "phonetic_us": "[ˈkæbɪdʒɪz]",
+          "gloss_zh": [
+            "卷心菜",
+            "圆白菜"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "potatoes",
+          "phonetic_us": "[pəˈteɪtoʊz]",
+          "gloss_zh": [
+            "土豆"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "*carrots",
+          "phonetic_us": "[ˈkærəts]",
+          "gloss_zh": [
+            "胡萝卜"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "help",
+          "phonetic_us": "[help]",
+          "gloss_zh": [
+            "帮助"
+          ],
+          "part_of_speech": "动词"
+        },
+        {
+          "word": "you",
+          "phonetic_us": "[ju]",
+          "gloss_zh": [
+            "你",
+            "你们"
+          ],
+          "part_of_speech": "人称代词"
+        },
+        {
+          "word": "*mushrooms",
+          "phonetic_us": "[ˈmʌʃruːmz]",
+          "gloss_zh": [
+            "蘑菇"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "*onions",
+          "phonetic_us": "[ˈʌnjənz]",
+          "gloss_zh": [
+            "洋葱"
+          ],
+          "part_of_speech": "名词"
+        }
+      ]
+    },
+    {
+      "unit": "Unit 9",
+      "title": "Numbers",
+      "totalWords": 18,
+      "words": [
+        {
+          "word": "how many",
+          "phonetic_us": "[haʊ ˈmeni]",
+          "gloss_zh": [
+            "多少"
+          ],
+          "part_of_speech": "疑问短语"
+        },
+        {
+          "word": "birds",
+          "phonetic_us": "[bɜːrdz]",
+          "gloss_zh": [
+            "鸟",
+            "鸟类"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "there",
+          "phonetic_us": "[ðer]",
+          "gloss_zh": [
+            "那里"
+          ],
+          "part_of_speech": "副词"
+        },
+        {
+          "word": "eggs",
+          "phonetic_us": "[eɡz]",
+          "gloss_zh": [
+            "蛋",
+            "卵"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "flowers",
+          "phonetic_us": "[ˈflaʊərz]",
+          "gloss_zh": [
+            "花"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "one",
+          "phonetic_us": "[wʌn]",
+          "gloss_zh": [
+            "一"
+          ],
+          "part_of_speech": "数词"
+        },
+        {
+          "word": "two",
+          "phonetic_us": "[tuː]",
+          "gloss_zh": [
+            "二"
+          ],
+          "part_of_speech": "数词"
+        },
+        {
+          "word": "three",
+          "phonetic_us": "[θriː]",
+          "gloss_zh": [
+            "三"
+          ],
+          "part_of_speech": "数词"
+        },
+        {
+          "word": "five",
+          "phonetic_us": "[faɪv]",
+          "gloss_zh": [
+            "五"
+          ],
+          "part_of_speech": "数词"
+        },
+        {
+          "word": "four",
+          "phonetic_us": "[fɔːr]",
+          "gloss_zh": [
+            "四"
+          ],
+          "part_of_speech": "数词"
+        },
+        {
+          "word": "big",
+          "phonetic_us": "[bɪɡ]",
+          "gloss_zh": [
+            "大的"
+          ],
+          "part_of_speech": "形容词"
+        },
+        {
+          "word": "*crocodile",
+          "phonetic_us": "[ˈkrɑːkədaɪl]",
+          "gloss_zh": [
+            "鳄鱼"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "small",
+          "phonetic_us": "[smɔːl]",
+          "gloss_zh": [
+            "小的"
+          ],
+          "part_of_speech": "形容词"
+        },
+        {
+          "word": "six",
+          "phonetic_us": "[sɪks]",
+          "gloss_zh": [
+            "六"
+          ],
+          "part_of_speech": "数词"
+        },
+        {
+          "word": "seven",
+          "phonetic_us": "[ˈsev(ə)n]",
+          "gloss_zh": [
+            "七"
+          ],
+          "part_of_speech": "数词"
+        },
+        {
+          "word": "eight",
+          "phonetic_us": "[eɪt]",
+          "gloss_zh": [
+            "八"
+          ],
+          "part_of_speech": "数词"
+        },
+        {
+          "word": "nine",
+          "phonetic_us": "[naɪn]",
+          "gloss_zh": [
+            "九"
+          ],
+          "part_of_speech": "数词"
+        },
+        {
+          "word": "ten",
+          "phonetic_us": "[ten]",
+          "gloss_zh": [
+            "十"
+          ],
+          "part_of_speech": "数词"
+        }
+      ]
+    },
+    {
+      "unit": "Unit 10",
+      "title": "Colors",
+      "totalWords": 11,
+      "words": [
+        {
+          "word": "color",
+          "phonetic_us": "[ˈkʌlər]",
+          "gloss_zh": [
+            "颜色"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "brown",
+          "phonetic_us": "[braʊn]",
+          "gloss_zh": [
+            "棕色",
+            "棕色的"
+          ],
+          "part_of_speech": "形容词/名词"
+        },
+        {
+          "word": "black",
+          "phonetic_us": "[blæk]",
+          "gloss_zh": [
+            "黑色",
+            "黑色的"
+          ],
+          "part_of_speech": "形容词/名词"
+        },
+        {
+          "word": "red",
+          "phonetic_us": "[red]",
+          "gloss_zh": [
+            "红色",
+            "红色的"
+          ],
+          "part_of_speech": "形容词/名词"
+        },
+        {
+          "word": "blue",
+          "phonetic_us": "[bluː]",
+          "gloss_zh": [
+            "蓝色",
+            "蓝色的"
+          ],
+          "part_of_speech": "形容词/名词"
+        },
+        {
+          "word": "green",
+          "phonetic_us": "[ɡriːn]",
+          "gloss_zh": [
+            "绿色",
+            "绿色的"
+          ],
+          "part_of_speech": "形容词/名词"
+        },
+        {
+          "word": "yellow",
+          "phonetic_us": "[ˈjeloʊ]",
+          "gloss_zh": [
+            "黄色",
+            "黄色的"
+          ],
+          "part_of_speech": "形容词/名词"
+        },
+        {
+          "word": "white",
+          "phonetic_us": "[waɪt]",
+          "gloss_zh": [
+            "白色",
+            "白色的"
+          ],
+          "part_of_speech": "形容词/名词"
+        },
+        {
+          "word": "many",
+          "phonetic_us": "[ˈmeni]",
+          "gloss_zh": [
+            "许多"
+          ],
+          "part_of_speech": "限定词/形容词"
+        },
+        {
+          "word": "thank you",
+          "phonetic_us": "[ˈθæŋk ju]",
+          "gloss_zh": [
+            "谢谢你"
+          ],
+          "part_of_speech": "固定短语"
+        },
+        {
+          "word": "tree",
+          "phonetic_us": "[triː]",
+          "gloss_zh": [
+            "树"
+          ],
+          "part_of_speech": "名词"
+        }
+      ]
+    },
+    {
+      "unit": "Unit 11",
+      "title": "I Can",
+      "totalWords": 17,
+      "words": [
+        {
+          "word": "can",
+          "phonetic_us": "[kæn]",
+          "gloss_zh": [
+            "能"
+          ],
+          "part_of_speech": "情态动词"
+        },
+        {
+          "word": "*climb",
+          "phonetic_us": "[klaɪm]",
+          "gloss_zh": [
+            "攀",
+            "爬"
+          ],
+          "part_of_speech": "动词"
+        },
+        {
+          "word": "see",
+          "phonetic_us": "[siː]",
+          "gloss_zh": [
+            "看见",
+            "看到"
+          ],
+          "part_of_speech": "动词"
+        },
+        {
+          "word": "our",
+          "phonetic_us": "[ˈaʊər]",
+          "gloss_zh": [
+            "我们的"
+          ],
+          "part_of_speech": "物主限定词"
+        },
+        {
+          "word": "house",
+          "phonetic_us": "[haʊs]",
+          "gloss_zh": [
+            "房屋"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "read",
+          "phonetic_us": "[riːd]",
+          "gloss_zh": [
+            "阅读"
+          ],
+          "part_of_speech": "动词"
+        },
+        {
+          "word": "run",
+          "phonetic_us": "[rʌn]",
+          "gloss_zh": [
+            "跑"
+          ],
+          "part_of_speech": "动词"
+        },
+        {
+          "word": "walk",
+          "phonetic_us": "[wɔːk]",
+          "gloss_zh": [
+            "走"
+          ],
+          "part_of_speech": "动词"
+        },
+        {
+          "word": "jump",
+          "phonetic_us": "[dʒʌmp]",
+          "gloss_zh": [
+            "跳"
+          ],
+          "part_of_speech": "动词"
+        },
+        {
+          "word": "speak",
+          "phonetic_us": "[spiːk]",
+          "gloss_zh": [
+            "说话"
+          ],
+          "part_of_speech": "动词"
+        },
+        {
+          "word": "but",
+          "phonetic_us": "[bʌt]",
+          "gloss_zh": [
+            "可是",
+            "但是"
+          ],
+          "part_of_speech": "连词"
+        },
+        {
+          "word": "listen",
+          "phonetic_us": "[ˈlɪs(ə)n]",
+          "gloss_zh": [
+            "听"
+          ],
+          "part_of_speech": "动词"
+        },
+        {
+          "word": "sing",
+          "phonetic_us": "[sɪŋ]",
+          "gloss_zh": [
+            "唱歌"
+          ],
+          "part_of_speech": "动词"
+        },
+        {
+          "word": "dance",
+          "phonetic_us": "[dæns]",
+          "gloss_zh": [
+            "跳舞"
+          ],
+          "part_of_speech": "动词"
+        },
+        {
+          "word": "draw",
+          "phonetic_us": "[drɔː]",
+          "gloss_zh": [
+            "画"
+          ],
+          "part_of_speech": "动词"
+        },
+        {
+          "word": "swim",
+          "phonetic_us": "[swɪm]",
+          "gloss_zh": [
+            "游泳"
+          ],
+          "part_of_speech": "动词"
+        },
+        {
+          "word": "write",
+          "phonetic_us": "[raɪt]",
+          "gloss_zh": [
+            "写"
+          ],
+          "part_of_speech": "动词"
+        }
+      ]
+    },
+    {
+      "unit": "Unit 12",
+      "title": "Review",
+      "totalWords": 4,
+      "words": [
+        {
+          "word": "please",
+          "phonetic_us": "[pliːz]",
+          "gloss_zh": [
+            "请"
+          ],
+          "part_of_speech": "副词/感叹词"
+        },
+        {
+          "word": "candy",
+          "phonetic_us": "[ˈkændi]",
+          "gloss_zh": [
+            "糖果"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "*cookies",
+          "phonetic_us": "[ˈkʊkiz]",
+          "gloss_zh": [
+            "饼干"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "monkey",
+          "phonetic_us": "[ˈmʌŋki]",
+          "gloss_zh": [
+            "猴子"
+          ],
+          "part_of_speech": "名词"
+        }
+      ]
+    }
+  ]
+}

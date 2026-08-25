@@ -1,0 +1,23 @@
+{
+  "module": "错词复习池",
+  "version": "V18.5 Stage15",
+  "priority": [
+    "错误次数最多",
+    "最近错误",
+    "长期未复习",
+    "未掌握新词"
+  ],
+  "wordState": {
+    "wrongCount": true,
+    "lastWrongTime": true,
+    "reviewCount": true,
+    "masterLevel": true
+  },
+  "reviewFlow": [
+    "学习失败",
+    "进入错词池",
+    "按优先级排序",
+    "重新挑战",
+    "掌握后降低优先级"
+  ]
+}

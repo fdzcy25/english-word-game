@@ -1,0 +1,23 @@
+{
+  "module": "背词蓄力",
+  "version": "V18.5 Stage10",
+  "features": {
+    "wordCard": true,
+    "showWord": true,
+    "showMeaning": true,
+    "showPhonetic": true,
+    "ttsPlay": true,
+    "masterButton": true,
+    "reviewButton": true,
+    "progressBar": true,
+    "energyAnimation": true
+  },
+  "flow": [
+    "读取当前Unit词库",
+    "展示单词卡片",
+    "播放标准发音",
+    "选择已掌握或再学习",
+    "更新学习进度",
+    "增加蓄力值和星星"
+  ]
+}

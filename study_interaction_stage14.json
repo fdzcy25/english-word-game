@@ -1,0 +1,28 @@
+{
+  "module": "背词蓄力",
+  "version": "V18.5 Stage14",
+  "interaction": {
+    "loadWordOneByOne": true,
+    "ttsPlay": true,
+    "masterButton": true,
+    "againButton": true,
+    "saveProgress": true,
+    "updateEnergy": true,
+    "updateStars": true,
+    "updateCoins": true
+  },
+  "wordFlow": [
+    "读取当前Unit单词",
+    "显示英文",
+    "显示中文释义",
+    "显示音标",
+    "播放发音",
+    "选择掌握或再学习",
+    "保存状态"
+  ],
+  "reward": {
+    "energy": 10,
+    "stars": 1,
+    "coins": 5
+  }
+}

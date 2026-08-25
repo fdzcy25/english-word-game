@@ -1,0 +1,855 @@
+{
+  "book": "四年级下册",
+  "version": "V18.5 Stage20 imported",
+  "units": [
+    {
+      "unit": "Unit 7",
+      "title": "At the Restaurant",
+      "totalWords": 15,
+      "words": [
+        {
+          "word": "*restaurant",
+          "phonetic_us": "[ˈrestrɑːnt]",
+          "gloss_zh": [
+            "饭店",
+            "餐馆"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "like",
+          "phonetic_us": "[laɪk]",
+          "gloss_zh": [
+            "喜欢"
+          ],
+          "part_of_speech": "动词"
+        },
+        {
+          "word": "here",
+          "phonetic_us": "[hɪr]",
+          "gloss_zh": [
+            "这里"
+          ],
+          "part_of_speech": "副词"
+        },
+        {
+          "word": "hungry",
+          "phonetic_us": "[ˈhʌŋɡri]",
+          "gloss_zh": [
+            "饥饿的"
+          ],
+          "part_of_speech": "形容词"
+        },
+        {
+          "word": "chicken",
+          "phonetic_us": "[ˈtʃɪkɪn]",
+          "gloss_zh": [
+            "鸡肉",
+            "小鸡"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "noodles",
+          "phonetic_us": "[ˈnuːdlz]",
+          "gloss_zh": [
+            "面条"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "*menu",
+          "phonetic_us": "[ˈmenjuː]",
+          "gloss_zh": [
+            "菜单"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "fried rice",
+          "phonetic_us": "[fraɪd raɪs]",
+          "gloss_zh": [
+            "炒米饭"
+          ],
+          "part_of_speech": "名词短语"
+        },
+        {
+          "word": "*hamburger",
+          "phonetic_us": "[ˈhæmbɜːrɡər]",
+          "gloss_zh": [
+            "汉堡包"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "French fries",
+          "phonetic_us": "[frentʃ fraɪz]",
+          "gloss_zh": [
+            "炸薯条"
+          ],
+          "part_of_speech": "名词短语"
+        },
+        {
+          "word": "bread",
+          "phonetic_us": "[bred]",
+          "gloss_zh": [
+            "面包"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "love",
+          "phonetic_us": "[lʌv]",
+          "gloss_zh": [
+            "爱",
+            "喜欢"
+          ],
+          "part_of_speech": "动词"
+        },
+        {
+          "word": "*dumplings",
+          "phonetic_us": "[ˈdʌmplɪŋz]",
+          "gloss_zh": [
+            "饺子"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "rice",
+          "phonetic_us": "[raɪs]",
+          "gloss_zh": [
+            "米饭"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "hot dog",
+          "phonetic_us": "[hɑːt dɔːɡ]",
+          "gloss_zh": [
+            "热狗"
+          ],
+          "part_of_speech": "名词短语"
+        }
+      ]
+    },
+    {
+      "unit": "Unit 8",
+      "title": "Friends from Afar",
+      "totalWords": 31,
+      "words": [
+        {
+          "word": "*talent",
+          "phonetic_us": "[ˈtælənt]",
+          "gloss_zh": [
+            "才能",
+            "天赋"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "*show",
+          "phonetic_us": "[ʃoʊ]",
+          "gloss_zh": [
+            "表演",
+            "展览"
+          ],
+          "part_of_speech": "名词/动词"
+        },
+        {
+          "word": "from",
+          "phonetic_us": "[frʌm]",
+          "gloss_zh": [
+            "来自"
+          ],
+          "part_of_speech": "介词"
+        },
+        {
+          "word": "China",
+          "phonetic_us": "[ˈtʃaɪnə]",
+          "gloss_zh": [
+            "中国"
+          ],
+          "part_of_speech": "专有名词"
+        },
+        {
+          "word": "where",
+          "phonetic_us": "[wer]",
+          "gloss_zh": [
+            "哪里"
+          ],
+          "part_of_speech": "副词/疑问词"
+        },
+        {
+          "word": "Ms",
+          "phonetic_us": "[mɪz]",
+          "gloss_zh": [
+            "女士"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "India",
+          "phonetic_us": "[ˈɪndiə]",
+          "gloss_zh": [
+            "印度"
+          ],
+          "part_of_speech": "专有名词"
+        },
+        {
+          "word": "how old",
+          "phonetic_us": "[haʊ oʊld]",
+          "gloss_zh": [
+            "多少岁"
+          ],
+          "part_of_speech": "疑问短语"
+        },
+        {
+          "word": "Mr",
+          "phonetic_us": "[ˈmɪstər]",
+          "gloss_zh": [
+            "先生"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "Australia",
+          "phonetic_us": "[ɔːˈstreɪliə]",
+          "gloss_zh": [
+            "澳大利亚"
+          ],
+          "part_of_speech": "专有名词"
+        },
+        {
+          "word": "wait",
+          "phonetic_us": "[weɪt]",
+          "gloss_zh": [
+            "等",
+            "等待"
+          ],
+          "part_of_speech": "动词"
+        },
+        {
+          "word": "minute",
+          "phonetic_us": "[ˈmɪnɪt]",
+          "gloss_zh": [
+            "一会儿",
+            "分钟"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "hear",
+          "phonetic_us": "[hɪr]",
+          "gloss_zh": [
+            "听到"
+          ],
+          "part_of_speech": "动词"
+        },
+        {
+          "word": "US",
+          "phonetic_us": "[juː ˈes]",
+          "gloss_zh": [
+            "美国"
+          ],
+          "part_of_speech": "专有名词"
+        },
+        {
+          "word": "year",
+          "phonetic_us": "[jɪr]",
+          "gloss_zh": [
+            "岁",
+            "年"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "UK",
+          "phonetic_us": "[juː ˈkeɪ]",
+          "gloss_zh": [
+            "英国"
+          ],
+          "part_of_speech": "专有名词"
+        },
+        {
+          "word": "Canada",
+          "phonetic_us": "[ˈkænədə]",
+          "gloss_zh": [
+            "加拿大"
+          ],
+          "part_of_speech": "专有名词"
+        },
+        {
+          "word": "thin",
+          "phonetic_us": "[θɪn]",
+          "gloss_zh": [
+            "瘦的"
+          ],
+          "part_of_speech": "形容词"
+        },
+        {
+          "word": "strong",
+          "phonetic_us": "[strɔːŋ]",
+          "gloss_zh": [
+            "强壮的"
+          ],
+          "part_of_speech": "形容词"
+        },
+        {
+          "word": "not bad",
+          "phonetic_us": "[nɑːt bæd]",
+          "gloss_zh": [
+            "不错",
+            "还可以"
+          ],
+          "part_of_speech": "形容词短语"
+        },
+        {
+          "word": "heavy",
+          "phonetic_us": "[ˈhevi]",
+          "gloss_zh": [
+            "重的"
+          ],
+          "part_of_speech": "形容词"
+        },
+        {
+          "word": "fast",
+          "phonetic_us": "[fæst]",
+          "gloss_zh": [
+            "快的"
+          ],
+          "part_of_speech": "形容词/副词"
+        },
+        {
+          "word": "tall",
+          "phonetic_us": "[tɔːl]",
+          "gloss_zh": [
+            "高的"
+          ],
+          "part_of_speech": "形容词"
+        },
+        {
+          "word": "great",
+          "phonetic_us": "[ɡreɪt]",
+          "gloss_zh": [
+            "很好的",
+            "极好的"
+          ],
+          "part_of_speech": "形容词"
+        },
+        {
+          "word": "easy",
+          "phonetic_us": "[ˈiːzi]",
+          "gloss_zh": [
+            "容易的"
+          ],
+          "part_of_speech": "形容词"
+        },
+        {
+          "word": "too",
+          "phonetic_us": "[tuː]",
+          "gloss_zh": [
+            "也"
+          ],
+          "part_of_speech": "副词"
+        },
+        {
+          "word": "now",
+          "phonetic_us": "[naʊ]",
+          "gloss_zh": [
+            "现在"
+          ],
+          "part_of_speech": "副词"
+        },
+        {
+          "word": "short",
+          "phonetic_us": "[ʃɔːrt]",
+          "gloss_zh": [
+            "矮的",
+            "短的"
+          ],
+          "part_of_speech": "形容词"
+        },
+        {
+          "word": "slow",
+          "phonetic_us": "[sloʊ]",
+          "gloss_zh": [
+            "慢的"
+          ],
+          "part_of_speech": "形容词"
+        },
+        {
+          "word": "old",
+          "phonetic_us": "[oʊld]",
+          "gloss_zh": [
+            "年老的",
+            "年长的",
+            "旧的"
+          ],
+          "part_of_speech": "形容词"
+        },
+        {
+          "word": "young",
+          "phonetic_us": "[jʌŋ]",
+          "gloss_zh": [
+            "年轻的",
+            "年幼的"
+          ],
+          "part_of_speech": "形容词"
+        }
+      ]
+    },
+    {
+      "unit": "Unit 9",
+      "title": "Hot Soup",
+      "totalWords": 19,
+      "words": [
+        {
+          "word": "hot",
+          "phonetic_us": "[hɑːt]",
+          "gloss_zh": [
+            "热的"
+          ],
+          "part_of_speech": "形容词"
+        },
+        {
+          "word": "soup",
+          "phonetic_us": "[suːp]",
+          "gloss_zh": [
+            "汤"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "*thirsty",
+          "phonetic_us": "[ˈθɜːrsti]",
+          "gloss_zh": [
+            "口渴的"
+          ],
+          "part_of_speech": "形容词"
+        },
+        {
+          "word": "tired",
+          "phonetic_us": "[ˈtaɪərd]",
+          "gloss_zh": [
+            "疲劳的",
+            "累的"
+          ],
+          "part_of_speech": "形容词"
+        },
+        {
+          "word": "want",
+          "phonetic_us": "[wɑːnt]",
+          "gloss_zh": [
+            "想要"
+          ],
+          "part_of_speech": "动词"
+        },
+        {
+          "word": "water",
+          "phonetic_us": "[ˈwɔːtər]",
+          "gloss_zh": [
+            "水"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "any",
+          "phonetic_us": "[ˈeni]",
+          "gloss_zh": [
+            "一点",
+            "一些"
+          ],
+          "part_of_speech": "代词/限定词"
+        },
+        {
+          "word": "milk",
+          "phonetic_us": "[mɪlk]",
+          "gloss_zh": [
+            "牛奶"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "*cola",
+          "phonetic_us": "[ˈkoʊlə]",
+          "gloss_zh": [
+            "可乐"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "healthy",
+          "phonetic_us": "[ˈhelθi]",
+          "gloss_zh": [
+            "（有益）健康的"
+          ],
+          "part_of_speech": "形容词"
+        },
+        {
+          "word": "juice",
+          "phonetic_us": "[dʒuːs]",
+          "gloss_zh": [
+            "果汁"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "idea",
+          "phonetic_us": "[aɪˈdiə]",
+          "gloss_zh": [
+            "想法",
+            "办法"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "home",
+          "phonetic_us": "[hoʊm]",
+          "gloss_zh": [
+            "家"
+          ],
+          "part_of_speech": "名词/副词"
+        },
+        {
+          "word": "tea",
+          "phonetic_us": "[tiː]",
+          "gloss_zh": [
+            "茶"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "favorite",
+          "phonetic_us": "[ˈfeɪvərɪt]",
+          "gloss_zh": [
+            "最喜爱的"
+          ],
+          "part_of_speech": "形容词/名词"
+        },
+        {
+          "word": "*fresh",
+          "phonetic_us": "[freʃ]",
+          "gloss_zh": [
+            "新鲜的"
+          ],
+          "part_of_speech": "形容词"
+        },
+        {
+          "word": "*ready",
+          "phonetic_us": "[ˈredi]",
+          "gloss_zh": [
+            "准备好的"
+          ],
+          "part_of_speech": "形容词"
+        },
+        {
+          "word": "cold",
+          "phonetic_us": "[koʊld]",
+          "gloss_zh": [
+            "凉的",
+            "冷的"
+          ],
+          "part_of_speech": "形容词"
+        },
+        {
+          "word": "feel",
+          "phonetic_us": "[fiːl]",
+          "gloss_zh": [
+            "感觉到",
+            "觉得"
+          ],
+          "part_of_speech": "动词"
+        }
+      ]
+    },
+    {
+      "unit": "Unit 10",
+      "title": "Mocky's Store",
+      "totalWords": 8,
+      "words": [
+        {
+          "word": "*store",
+          "phonetic_us": "[stɔːr]",
+          "gloss_zh": [
+            "商店"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "*hat",
+          "phonetic_us": "[hæt]",
+          "gloss_zh": [
+            "帽子"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "them",
+          "phonetic_us": "[ðem]",
+          "gloss_zh": [
+            "它们",
+            "他们",
+            "她们"
+          ],
+          "part_of_speech": "代词"
+        },
+        {
+          "word": "clock",
+          "phonetic_us": "[klɑːk]",
+          "gloss_zh": [
+            "时钟"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "storybook",
+          "phonetic_us": "[ˈstɔːribʊk]",
+          "gloss_zh": [
+            "故事书"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "*sell",
+          "phonetic_us": "[sel]",
+          "gloss_zh": [
+            "卖"
+          ],
+          "part_of_speech": "动词"
+        },
+        {
+          "word": "schoolbag",
+          "phonetic_us": "[ˈskuːlbæɡ]",
+          "gloss_zh": [
+            "书包"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "long",
+          "phonetic_us": "[lɔːŋ]",
+          "gloss_zh": [
+            "长的"
+          ],
+          "part_of_speech": "形容词"
+        }
+      ]
+    },
+    {
+      "unit": "Unit 11",
+      "title": "I Have a Cold",
+      "totalWords": 22,
+      "words": [
+        {
+          "word": "*illness",
+          "phonetic_us": "[ˈɪlnəs]",
+          "gloss_zh": [
+            "疾病"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "*tummy",
+          "phonetic_us": "[ˈtʌmi]",
+          "gloss_zh": [
+            "肚子"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "*hurt",
+          "phonetic_us": "[hɜːrt]",
+          "gloss_zh": [
+            "痛"
+          ],
+          "part_of_speech": "动词/名词"
+        },
+        {
+          "word": "hand",
+          "phonetic_us": "[hænd]",
+          "gloss_zh": [
+            "手"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "well",
+          "phonetic_us": "[wel]",
+          "gloss_zh": [
+            "健康的",
+            "正常的"
+          ],
+          "part_of_speech": "形容词"
+        },
+        {
+          "word": "body",
+          "phonetic_us": "[ˈbɑːdi]",
+          "gloss_zh": [
+            "身体"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "ear",
+          "phonetic_us": "[ɪr]",
+          "gloss_zh": [
+            "耳朵"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "head",
+          "phonetic_us": "[hed]",
+          "gloss_zh": [
+            "头"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "arm",
+          "phonetic_us": "[ɑːrm]",
+          "gloss_zh": [
+            "手臂"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "leg",
+          "phonetic_us": "[leɡ]",
+          "gloss_zh": [
+            "腿"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "hair",
+          "phonetic_us": "[her]",
+          "gloss_zh": [
+            "头发"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "eye",
+          "phonetic_us": "[aɪ]",
+          "gloss_zh": [
+            "眼睛"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "nose",
+          "phonetic_us": "[noʊz]",
+          "gloss_zh": [
+            "鼻子"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "mouth",
+          "phonetic_us": "[maʊθ]",
+          "gloss_zh": [
+            "嘴"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "foot",
+          "phonetic_us": "[fʊt]",
+          "gloss_zh": [
+            "脚"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "have a fever",
+          "phonetic_us": "[hæv ə ˈfiːvər]",
+          "gloss_zh": [
+            "发烧"
+          ],
+          "part_of_speech": "动词短语"
+        },
+        {
+          "word": "open",
+          "phonetic_us": "[ˈoʊpən]",
+          "gloss_zh": [
+            "张开",
+            "打开"
+          ],
+          "part_of_speech": "动词"
+        },
+        {
+          "word": "say",
+          "phonetic_us": "[seɪ]",
+          "gloss_zh": [
+            "说"
+          ],
+          "part_of_speech": "动词"
+        },
+        {
+          "word": "how",
+          "phonetic_us": "[haʊ]",
+          "gloss_zh": [
+            "怎么样"
+          ],
+          "part_of_speech": "副词/疑问词"
+        },
+        {
+          "word": "have a cold",
+          "phonetic_us": "[hæv ə koʊld]",
+          "gloss_zh": [
+            "感冒"
+          ],
+          "part_of_speech": "动词短语"
+        },
+        {
+          "word": "have a headache",
+          "phonetic_us": "[hæv ə ˈhedeɪk]",
+          "gloss_zh": [
+            "头疼"
+          ],
+          "part_of_speech": "动词短语"
+        },
+        {
+          "word": "have a toothache",
+          "phonetic_us": "[hæv ə ˈtuːθeɪk]",
+          "gloss_zh": [
+            "牙疼"
+          ],
+          "part_of_speech": "动词短语"
+        }
+      ]
+    },
+    {
+      "unit": "Unit 12",
+      "title": "Review",
+      "totalWords": 3,
+      "words": [
+        {
+          "word": "*ticket",
+          "phonetic_us": "[ˈtɪkɪt]",
+          "gloss_zh": [
+            "票"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "window",
+          "phonetic_us": "[ˈwɪndoʊ]",
+          "gloss_zh": [
+            "窗户"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "sit",
+          "phonetic_us": "[sɪt]",
+          "gloss_zh": [
+            "坐"
+          ],
+          "part_of_speech": "动词"
+        }
+      ]
+    }
+  ]
+}

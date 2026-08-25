@@ -1,0 +1,19 @@
+{
+  "levels": [
+    {
+      "level": 1,
+      "name": "初级勇者",
+      "needExp": 100
+    },
+    {
+      "level": 2,
+      "name": "单词冒险者",
+      "needExp": 300
+    },
+    {
+      "level": 3,
+      "name": "词汇勇者",
+      "needExp": 600
+    }
+  ]
+}

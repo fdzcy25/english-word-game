@@ -1,0 +1,20 @@
+{
+  "module": "勇者角色系统",
+  "version": "V18.5 Stage19",
+  "profile": {
+    "level": 1,
+    "experience": 0,
+    "coins": 0,
+    "stars": 0
+  },
+  "attributes": {
+    "learningPower": 0,
+    "memoryPower": 0,
+    "battlePower": 0
+  },
+  "equipmentSlots": [
+    "weapon",
+    "armor",
+    "accessory"
+  ]
+}

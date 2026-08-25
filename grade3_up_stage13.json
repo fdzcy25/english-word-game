@@ -1,0 +1,33 @@
+{
+  "book": "三年级上册",
+  "version": "V18.5 Stage13",
+  "units": [
+    {
+      "unit": "Unit 1",
+      "title": "Hello",
+      "words": [
+        {
+          "word": "hello",
+          "meaning": "你好",
+          "type": "core",
+          "learned": false,
+          "wrong": 0
+        },
+        {
+          "word": "name",
+          "meaning": "名字",
+          "type": "core",
+          "learned": false,
+          "wrong": 0
+        },
+        {
+          "word": "I",
+          "meaning": "我",
+          "type": "core",
+          "learned": false,
+          "wrong": 0
+        }
+      ]
+    }
+  ]
+}

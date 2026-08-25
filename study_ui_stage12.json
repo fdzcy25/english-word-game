@@ -1,0 +1,25 @@
+{
+  "module": "背词蓄力",
+  "version": "V18.5 Stage12",
+  "uiIntegration": {
+    "useV17Style": true,
+    "dynamicUnitWords": true,
+    "showEnergyBar": true,
+    "showStarReward": true,
+    "showCoinReward": true,
+    "showProgress": true
+  },
+  "pageFlow": [
+    "进入背词蓄力",
+    "读取当前教材Unit",
+    "显示真实单词卡片",
+    "完成学习",
+    "更新进度",
+    "解锁挑战"
+  ],
+  "unlock": {
+    "wordMonster": "unitComplete",
+    "readBridge": "unitComplete",
+    "bossChallenge": "unitComplete"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "module": "每日任务系统",
+  "version": "V18.5 Stage16",
+  "tasks": [
+    {
+      "id": "learn_words",
+      "name": "背词蓄力",
+      "target": 10,
+      "progress": 0
+    },
+    {
+      "id": "review_words",
+      "name": "错词复习",
+      "target": 10,
+      "progress": 0
+    },
+    {
+      "id": "read_words",
+      "name": "跟读训练",
+      "target": 5,
+      "progress": 0
+    }
+  ],
+  "rewards": {
+    "energy": true,
+    "stars": true,
+    "coins": true
+  }
+}

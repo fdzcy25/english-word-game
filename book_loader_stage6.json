@@ -1,0 +1,46 @@
+{
+  "version": "V18.5 Stage6 + 真实教材统一版_v8",
+  "description": "教材真实页面读取入口",
+  "books": [
+    {
+      "id": "grade3_up",
+      "name": "三年级上册",
+      "path": "data/books/grade3_up.json"
+    },
+    {
+      "id": "grade3_down",
+      "name": "三年级下册",
+      "path": "data/books/grade3_down.json"
+    },
+    {
+      "id": "grade4_up",
+      "name": "四年级上册",
+      "path": "data/books/grade4_up.json"
+    },
+    {
+      "id": "grade4_down",
+      "name": "四年级下册",
+      "path": "data/books/grade4_down.json"
+    },
+    {
+      "id": "grade5_up",
+      "name": "五年级上册",
+      "path": "data/books/grade5_up.json"
+    },
+    {
+      "id": "grade5_down",
+      "name": "五年级下册",
+      "path": "data/books/grade5_down.json"
+    },
+    {
+      "id": "grade6_up",
+      "name": "六年级上册",
+      "path": "data/books/grade6_up.json"
+    },
+    {
+      "id": "grade6_down",
+      "name": "六年级下册",
+      "path": "data/books/grade6_down.json"
+    }
+  ]
+}

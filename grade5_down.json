@@ -1,0 +1,714 @@
+{
+  "book": "五年級下冊",
+  "version": "V18.5 Stage20 imported",
+  "units": [
+    {
+      "unit": "Unit 7",
+      "title": "Days of the Week",
+      "totalWords": 17,
+      "words": [
+        {
+          "word": "day",
+          "phonetic_us": "[deɪ]",
+          "gloss_zh": [
+            "一天",
+            "一日"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "week",
+          "phonetic_us": "[wiːk]",
+          "gloss_zh": [
+            "星期",
+            "周"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "Wednesday",
+          "phonetic_us": "[ˈwenzdeɪ]",
+          "gloss_zh": [
+            "星期三"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "Thursday",
+          "phonetic_us": "[ˈθɜːrzdeɪ]",
+          "gloss_zh": [
+            "星期四"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "Monday",
+          "phonetic_us": "[ˈmʌndeɪ]",
+          "gloss_zh": [
+            "星期一"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "Sunday",
+          "phonetic_us": "[ˈsʌndeɪ]",
+          "gloss_zh": [
+            "星期日"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "Tuesday",
+          "phonetic_us": "[ˈtuːzdeɪ]",
+          "gloss_zh": [
+            "星期二"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "Friday",
+          "phonetic_us": "[ˈfraɪdeɪ]",
+          "gloss_zh": [
+            "星期五"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "Saturday",
+          "phonetic_us": "[ˈsætərdeɪ]",
+          "gloss_zh": [
+            "星期六"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "today",
+          "phonetic_us": "[təˈdeɪ]",
+          "gloss_zh": [
+            "今天",
+            "今日"
+          ],
+          "part_of_speech": "副词/名词"
+        },
+        {
+          "word": "every",
+          "phonetic_us": "[ˈevri]",
+          "gloss_zh": [
+            "每一个"
+          ],
+          "part_of_speech": "限定词/形容词"
+        },
+        {
+          "word": "*diary",
+          "phonetic_us": "[ˈdaɪəri]",
+          "gloss_zh": [
+            "日记",
+            "日记簿"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "*remember",
+          "phonetic_us": "[rɪˈmembər]",
+          "gloss_zh": [
+            "记住"
+          ],
+          "part_of_speech": "动词"
+        },
+        {
+          "word": "all",
+          "phonetic_us": "[ɔːl]",
+          "gloss_zh": [
+            "全部"
+          ],
+          "part_of_speech": "代词/形容词"
+        },
+        {
+          "word": "tomorrow",
+          "phonetic_us": "[təˈmɔːroʊ]",
+          "gloss_zh": [
+            "明天"
+          ],
+          "part_of_speech": "副词/名词"
+        },
+        {
+          "word": "visit",
+          "phonetic_us": "[ˈvɪzɪt]",
+          "gloss_zh": [
+            "拜访",
+            "看望"
+          ],
+          "part_of_speech": "动词/名词"
+        },
+        {
+          "word": "watch",
+          "phonetic_us": "[wɑːtʃ]",
+          "gloss_zh": [
+            "观看",
+            "注视"
+          ],
+          "part_of_speech": "动词"
+        }
+      ]
+    },
+    {
+      "unit": "Unit 8",
+      "title": "Time",
+      "totalWords": 8,
+      "words": [
+        {
+          "word": "time",
+          "phonetic_us": "[taɪm]",
+          "gloss_zh": [
+            "时间",
+            "钟点"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "... o'clock",
+          "phonetic_us": "[əˈklɑːk]",
+          "gloss_zh": [
+            "……点钟"
+          ],
+          "part_of_speech": "短语"
+        },
+        {
+          "word": "*hurry",
+          "phonetic_us": "[ˈhɜːri]",
+          "gloss_zh": [
+            "赶紧"
+          ],
+          "part_of_speech": "动词/名词"
+        },
+        {
+          "word": "early",
+          "phonetic_us": "[ˈɜːrli]",
+          "gloss_zh": [
+            "早的"
+          ],
+          "part_of_speech": "形容词/副词"
+        },
+        {
+          "word": "late",
+          "phonetic_us": "[leɪt]",
+          "gloss_zh": [
+            "晚的",
+            "迟到的"
+          ],
+          "part_of_speech": "形容词/副词"
+        },
+        {
+          "word": "know",
+          "phonetic_us": "[noʊ]",
+          "gloss_zh": [
+            "知道",
+            "了解"
+          ],
+          "part_of_speech": "动词"
+        },
+        {
+          "word": "*fix",
+          "phonetic_us": "[fɪks]",
+          "gloss_zh": [
+            "修理"
+          ],
+          "part_of_speech": "动词"
+        },
+        {
+          "word": "tell",
+          "phonetic_us": "[tel]",
+          "gloss_zh": [
+            "告诉",
+            "告知"
+          ],
+          "part_of_speech": "动词"
+        }
+      ]
+    },
+    {
+      "unit": "Unit 9",
+      "title": "Daily Life",
+      "totalWords": 19,
+      "words": [
+        {
+          "word": "night",
+          "phonetic_us": "[naɪt]",
+          "gloss_zh": [
+            "夜晚",
+            "夜间"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "afternoon",
+          "phonetic_us": "[ˌæftərˈnuːn]",
+          "gloss_zh": [
+            "下午",
+            "午后"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "evening",
+          "phonetic_us": "[ˈiːvnɪŋ]",
+          "gloss_zh": [
+            "傍晚",
+            "晚上"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "morning",
+          "phonetic_us": "[ˈmɔːrnɪŋ]",
+          "gloss_zh": [
+            "早晨",
+            "上午"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "*space",
+          "phonetic_us": "[speɪs]",
+          "gloss_zh": [
+            "太空"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "ask",
+          "phonetic_us": "[æsk]",
+          "gloss_zh": [
+            "问",
+            "询问"
+          ],
+          "part_of_speech": "动词"
+        },
+        {
+          "word": "him",
+          "phonetic_us": "[hɪm]",
+          "gloss_zh": [
+            "他"
+          ],
+          "part_of_speech": "代词"
+        },
+        {
+          "word": "*question",
+          "phonetic_us": "[ˈkwestʃən]",
+          "gloss_zh": [
+            "问题"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "when",
+          "phonetic_us": "[wen]",
+          "gloss_zh": [
+            "什么时候"
+          ],
+          "part_of_speech": "副词/连词"
+        },
+        {
+          "word": "get up",
+          "phonetic_us": "[ɡet ʌp]",
+          "gloss_zh": [
+            "起床"
+          ],
+          "part_of_speech": "动词短语"
+        },
+        {
+          "word": "always",
+          "phonetic_us": "[ˈɔːlweɪz]",
+          "gloss_zh": [
+            "总是"
+          ],
+          "part_of_speech": "副词"
+        },
+        {
+          "word": "often",
+          "phonetic_us": "[ˈɔːfn]",
+          "gloss_zh": [
+            "经常",
+            "时常"
+          ],
+          "part_of_speech": "副词"
+        },
+        {
+          "word": "breakfast",
+          "phonetic_us": "[ˈbrekfəst]",
+          "gloss_zh": [
+            "早餐"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "sometimes",
+          "phonetic_us": "[ˈsʌmtaɪmz]",
+          "gloss_zh": [
+            "有时",
+            "不时"
+          ],
+          "part_of_speech": "副词"
+        },
+        {
+          "word": "*meat",
+          "phonetic_us": "[miːt]",
+          "gloss_zh": [
+            "肉"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "*newspaper",
+          "phonetic_us": "[ˈnuːzpeɪpər]",
+          "gloss_zh": [
+            "报纸"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "exercise",
+          "phonetic_us": "[ˈeksərsaɪz]",
+          "gloss_zh": [
+            "运动",
+            "锻炼"
+          ],
+          "part_of_speech": "名词/动词"
+        },
+        {
+          "word": "lunch",
+          "phonetic_us": "[lʌntʃ]",
+          "gloss_zh": [
+            "午餐"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "*never",
+          "phonetic_us": "[ˈnevər]",
+          "gloss_zh": [
+            "从不",
+            "从未"
+          ],
+          "part_of_speech": "副词"
+        }
+      ]
+    },
+    {
+      "unit": "Unit 10",
+      "title": "Activities and Transport",
+      "totalWords": 19,
+      "words": [
+        {
+          "word": "*activity",
+          "phonetic_us": "[ækˈtɪvəti]",
+          "gloss_zh": [
+            "活动"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "*museum",
+          "phonetic_us": "[mjuˈziːəm]",
+          "gloss_zh": [
+            "博物馆"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "*dinosaur",
+          "phonetic_us": "[ˈdaɪnəsɔːr]",
+          "gloss_zh": [
+            "恐龙"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "film",
+          "phonetic_us": "[fɪlm]",
+          "gloss_zh": [
+            "电影",
+            "影片"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "*shall",
+          "phonetic_us": "[ʃæl]",
+          "gloss_zh": [
+            "……好吗（表示提出或征求意见）"
+          ],
+          "part_of_speech": "情态动词"
+        },
+        {
+          "word": "let's",
+          "phonetic_us": "[lets]",
+          "gloss_zh": [
+            "让我们……吧"
+          ],
+          "part_of_speech": "短语"
+        },
+        {
+          "word": "*homework",
+          "phonetic_us": "[ˈhoʊmwɜːrk]",
+          "gloss_zh": [
+            "家庭作业",
+            "功课"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "*group",
+          "phonetic_us": "[ɡruːp]",
+          "gloss_zh": [
+            "组",
+            "群"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "about",
+          "phonetic_us": "[əˈbaʊt]",
+          "gloss_zh": [
+            "关于"
+          ],
+          "part_of_speech": "介词"
+        },
+        {
+          "word": "*enough",
+          "phonetic_us": "[ɪˈnʌf]",
+          "gloss_zh": [
+            "足够的",
+            "充足的"
+          ],
+          "part_of_speech": "形容词/副词"
+        },
+        {
+          "word": "*free",
+          "phonetic_us": "[friː]",
+          "gloss_zh": [
+            "免费的"
+          ],
+          "part_of_speech": "形容词"
+        },
+        {
+          "word": "by bus",
+          "phonetic_us": "[baɪ bʌs]",
+          "gloss_zh": [
+            "乘公共汽车"
+          ],
+          "part_of_speech": "短语"
+        },
+        {
+          "word": "close",
+          "phonetic_us": "[kloʊz]",
+          "gloss_zh": [
+            "关门",
+            "歇业"
+          ],
+          "part_of_speech": "动词"
+        },
+        {
+          "word": "by bike",
+          "phonetic_us": "[baɪ baɪk]",
+          "gloss_zh": [
+            "骑自行车"
+          ],
+          "part_of_speech": "短语"
+        },
+        {
+          "word": "buy",
+          "phonetic_us": "[baɪ]",
+          "gloss_zh": [
+            "买",
+            "购买"
+          ],
+          "part_of_speech": "动词"
+        },
+        {
+          "word": "*robot",
+          "phonetic_us": "[ˈroʊbɑːt]",
+          "gloss_zh": [
+            "机器人"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "by car",
+          "phonetic_us": "[baɪ kɑːr]",
+          "gloss_zh": [
+            "乘小轿车"
+          ],
+          "part_of_speech": "短语"
+        },
+        {
+          "word": "on foot",
+          "phonetic_us": "[ɑːn fʊt]",
+          "gloss_zh": [
+            "步行"
+          ],
+          "part_of_speech": "短语"
+        },
+        {
+          "word": "by taxi",
+          "phonetic_us": "[baɪ ˈtæksi]",
+          "gloss_zh": [
+            "乘出租车"
+          ],
+          "part_of_speech": "短语"
+        }
+      ]
+    },
+    {
+      "unit": "Unit 11",
+      "title": "Weather",
+      "totalWords": 14,
+      "words": [
+        {
+          "word": "weather",
+          "phonetic_us": "[ˈweðər]",
+          "gloss_zh": [
+            "天气",
+            "气象"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "*rainy",
+          "phonetic_us": "[ˈreɪni]",
+          "gloss_zh": [
+            "阴雨的"
+          ],
+          "part_of_speech": "形容词"
+        },
+        {
+          "word": "sunny",
+          "phonetic_us": "[ˈsʌni]",
+          "gloss_zh": [
+            "阳光充足的"
+          ],
+          "part_of_speech": "形容词"
+        },
+        {
+          "word": "cloudy",
+          "phonetic_us": "[ˈklaʊdi]",
+          "gloss_zh": [
+            "多云的",
+            "阴天的"
+          ],
+          "part_of_speech": "形容词"
+        },
+        {
+          "word": "*snowy",
+          "phonetic_us": "[ˈsnoʊi]",
+          "gloss_zh": [
+            "下雪的"
+          ],
+          "part_of_speech": "形容词"
+        },
+        {
+          "word": "farm",
+          "phonetic_us": "[fɑːrm]",
+          "gloss_zh": [
+            "农场"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "*dark",
+          "phonetic_us": "[dɑːrk]",
+          "gloss_zh": [
+            "深色的",
+            "黑暗的"
+          ],
+          "part_of_speech": "形容词"
+        },
+        {
+          "word": "*cloud",
+          "phonetic_us": "[klaʊd]",
+          "gloss_zh": [
+            "云",
+            "云朵"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "rain",
+          "phonetic_us": "[reɪn]",
+          "gloss_zh": [
+            "下雨"
+          ],
+          "part_of_speech": "动词/名词"
+        },
+        {
+          "word": "weather report",
+          "phonetic_us": "[ˈweðər rɪˈpɔːrt]",
+          "gloss_zh": [
+            "天气预报"
+          ],
+          "part_of_speech": "名词短语"
+        },
+        {
+          "word": "*scared",
+          "phonetic_us": "[skerd]",
+          "gloss_zh": [
+            "害怕的"
+          ],
+          "part_of_speech": "形容词"
+        },
+        {
+          "word": "*fun",
+          "phonetic_us": "[fʌn]",
+          "gloss_zh": [
+            "有趣的",
+            "逗乐的"
+          ],
+          "part_of_speech": "形容词/名词"
+        },
+        {
+          "word": "windy",
+          "phonetic_us": "[ˈwɪndi]",
+          "gloss_zh": [
+            "风大的",
+            "多风的"
+          ],
+          "part_of_speech": "形容词"
+        },
+        {
+          "word": "warm",
+          "phonetic_us": "[wɔːrm]",
+          "gloss_zh": [
+            "暖和的",
+            "温暖的"
+          ],
+          "part_of_speech": "形容词"
+        }
+      ]
+    },
+    {
+      "unit": "Unit 12",
+      "title": "Clothes and Accessories",
+      "totalWords": 2,
+      "words": [
+        {
+          "word": "coat",
+          "phonetic_us": "[koʊt]",
+          "gloss_zh": [
+            "大衣",
+            "外套"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "*sunglasses",
+          "phonetic_us": "[ˈsʌnɡlæsɪz]",
+          "gloss_zh": [
+            "太阳镜",
+            "墨镜"
+          ],
+          "part_of_speech": "名词"
+        }
+      ]
+    }
+  ]
+}

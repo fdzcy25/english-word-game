@@ -1,0 +1,10 @@
+{
+  "currentBook": "",
+  "currentUnit": "",
+  "learnedWords": [],
+  "wrongWords": [],
+  "reviewQueue": [],
+  "energy": 0,
+  "stars": 0,
+  "unitCompleted": {}
+}

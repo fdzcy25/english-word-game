@@ -1,0 +1,849 @@
+{
+  "book": "六年级上册",
+  "version": "V18.5 Stage20 imported",
+  "units": [
+    {
+      "unit": "Unit 1",
+      "title": "Spaceship",
+      "totalWords": 13,
+      "words": [
+        {
+          "word": "*spaceship",
+          "phonetic_us": "[ˈspeɪsʃɪp]",
+          "gloss_zh": [
+            "宇宙飞船"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "moon",
+          "phonetic_us": "[muːn]",
+          "gloss_zh": [
+            "月亮",
+            "月球"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "*astronaut",
+          "phonetic_us": "[ˈæstrənɔːt]",
+          "gloss_zh": [
+            "宇航员"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "have/has (had)",
+          "phonetic_us": "[hæv/hæz (hæd)]",
+          "gloss_zh": [
+            "有"
+          ],
+          "part_of_speech": "动词"
+        },
+        {
+          "word": "*dream",
+          "phonetic_us": "[driːm]",
+          "gloss_zh": [
+            "梦"
+          ],
+          "part_of_speech": "名词/动词"
+        },
+        {
+          "word": "last night",
+          "phonetic_us": "[læst naɪt]",
+          "gloss_zh": [
+            "昨夜"
+          ],
+          "part_of_speech": "名词短语"
+        },
+        {
+          "word": "am/is (was)",
+          "phonetic_us": "[æm/ɪz (wʌz)]",
+          "gloss_zh": [
+            "是"
+          ],
+          "part_of_speech": "be动词"
+        },
+        {
+          "word": "are (were)",
+          "phonetic_us": "[ɑːr (wɜːr)]",
+          "gloss_zh": [
+            "是"
+          ],
+          "part_of_speech": "be动词"
+        },
+        {
+          "word": "*air",
+          "phonetic_us": "[er]",
+          "gloss_zh": [
+            "空气"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "*friendly",
+          "phonetic_us": "[ˈfrendli]",
+          "gloss_zh": [
+            "友好的"
+          ],
+          "part_of_speech": "形容词"
+        },
+        {
+          "word": "*Earth",
+          "phonetic_us": "[ɜːrθ]",
+          "gloss_zh": [
+            "地球"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "yesterday",
+          "phonetic_us": "[ˈjestərdeɪ]",
+          "gloss_zh": [
+            "昨天"
+          ],
+          "part_of_speech": "名词/副词"
+        },
+        {
+          "word": "swimming pool",
+          "phonetic_us": "[ˈswɪmɪŋ puːl]",
+          "gloss_zh": [
+            "游泳池"
+          ],
+          "part_of_speech": "名词短语"
+        }
+      ]
+    },
+    {
+      "unit": "Unit 2",
+      "title": "Activities",
+      "totalWords": 17,
+      "words": [
+        {
+          "word": "clean (cleaned)",
+          "phonetic_us": "[kliːn (kliːnd)]",
+          "gloss_zh": [
+            "清洁",
+            "打扫"
+          ],
+          "part_of_speech": "动词"
+        },
+        {
+          "word": "film",
+          "phonetic_us": "[fɪlm]",
+          "gloss_zh": [
+            "电影"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "visit (visited)",
+          "phonetic_us": "[ˈvɪzɪt (ˈvɪzɪtɪd)]",
+          "gloss_zh": [
+            "拜访",
+            "看望"
+          ],
+          "part_of_speech": "动词"
+        },
+        {
+          "word": "go (went)",
+          "phonetic_us": "[ɡoʊ (went)]",
+          "gloss_zh": [
+            "走",
+            "去"
+          ],
+          "part_of_speech": "动词"
+        },
+        {
+          "word": "*slowly",
+          "phonetic_us": "[ˈsloʊli]",
+          "gloss_zh": [
+            "缓慢地"
+          ],
+          "part_of_speech": "副词"
+        },
+        {
+          "word": "want (wanted)",
+          "phonetic_us": "[wɑːnt (ˈwɑːntɪd)]",
+          "gloss_zh": [
+            "要",
+            "想要"
+          ],
+          "part_of_speech": "动词"
+        },
+        {
+          "word": "*pass (passed)",
+          "phonetic_us": "[pæs (pæst)]",
+          "gloss_zh": [
+            "传",
+            "递"
+          ],
+          "part_of_speech": "动词"
+        },
+        {
+          "word": "eat (ate)",
+          "phonetic_us": "[iːt (et)]",
+          "gloss_zh": [
+            "吃"
+          ],
+          "part_of_speech": "动词"
+        },
+        {
+          "word": "*quickly",
+          "phonetic_us": "[ˈkwɪkli]",
+          "gloss_zh": [
+            "迅速地"
+          ],
+          "part_of_speech": "副词"
+        },
+        {
+          "word": "*another",
+          "phonetic_us": "[əˈnʌðər]",
+          "gloss_zh": [
+            "另一",
+            "又一"
+          ],
+          "part_of_speech": "代词/限定词"
+        },
+        {
+          "word": "*suddenly",
+          "phonetic_us": "[ˈsʌdənli]",
+          "gloss_zh": [
+            "突然"
+          ],
+          "part_of_speech": "副词"
+        },
+        {
+          "word": "look (looked)",
+          "phonetic_us": "[lʊk (lʊkt)]",
+          "gloss_zh": [
+            "看起来",
+            "看似"
+          ],
+          "part_of_speech": "动词"
+        },
+        {
+          "word": "*sick",
+          "phonetic_us": "[sɪk]",
+          "gloss_zh": [
+            "不适的",
+            "生病的"
+          ],
+          "part_of_speech": "形容词"
+        },
+        {
+          "word": "*cough (coughed)",
+          "phonetic_us": "[kɔːf (kɔːft)]",
+          "gloss_zh": [
+            "咳嗽"
+          ],
+          "part_of_speech": "动词/名词"
+        },
+        {
+          "word": "*everywhere",
+          "phonetic_us": "[ˈevriwer]",
+          "gloss_zh": [
+            "处处",
+            "到处"
+          ],
+          "part_of_speech": "副词"
+        },
+        {
+          "word": "help (helped)",
+          "phonetic_us": "[help (helpt)]",
+          "gloss_zh": [
+            "帮助",
+            "帮忙"
+          ],
+          "part_of_speech": "动词/名词"
+        },
+        {
+          "word": "*careful",
+          "phonetic_us": "[ˈkerfʊl]",
+          "gloss_zh": [
+            "小心的"
+          ],
+          "part_of_speech": "形容词"
+        }
+      ]
+    },
+    {
+      "unit": "Unit 3",
+      "title": "Competition",
+      "totalWords": 21,
+      "words": [
+        {
+          "word": "first",
+          "phonetic_us": "[fɜːrst]",
+          "gloss_zh": [
+            "第一"
+          ],
+          "part_of_speech": "数词/副词"
+        },
+        {
+          "word": "second",
+          "phonetic_us": "[ˈsekənd]",
+          "gloss_zh": [
+            "第二"
+          ],
+          "part_of_speech": "数词/副词"
+        },
+        {
+          "word": "third",
+          "phonetic_us": "[θɜːrd]",
+          "gloss_zh": [
+            "第三"
+          ],
+          "part_of_speech": "数词/副词"
+        },
+        {
+          "word": "fourth",
+          "phonetic_us": "[fɔːrθ]",
+          "gloss_zh": [
+            "第四"
+          ],
+          "part_of_speech": "数词/副词"
+        },
+        {
+          "word": "fifth",
+          "phonetic_us": "[fɪfθ]",
+          "gloss_zh": [
+            "第五"
+          ],
+          "part_of_speech": "数词/副词"
+        },
+        {
+          "word": "run (ran)",
+          "phonetic_us": "[rʌn (ræn)]",
+          "gloss_zh": [
+            "跑步",
+            "赛跑"
+          ],
+          "part_of_speech": "动词"
+        },
+        {
+          "word": "*race",
+          "phonetic_us": "[reɪs]",
+          "gloss_zh": [
+            "赛跑",
+            "速度比赛"
+          ],
+          "part_of_speech": "名词/动词"
+        },
+        {
+          "word": "*meter",
+          "phonetic_us": "[ˈmiːtər]",
+          "gloss_zh": [
+            "米"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "*win (won)",
+          "phonetic_us": "[wɪn (wʌn)]",
+          "gloss_zh": [
+            "获胜",
+            "赢"
+          ],
+          "part_of_speech": "动词"
+        },
+        {
+          "word": "*excited",
+          "phonetic_us": "[ɪkˈsaɪtɪd]",
+          "gloss_zh": [
+            "兴奋的",
+            "激动的"
+          ],
+          "part_of_speech": "形容词"
+        },
+        {
+          "word": "*last",
+          "phonetic_us": "[læst]",
+          "gloss_zh": [
+            "最后"
+          ],
+          "part_of_speech": "形容词/副词"
+        },
+        {
+          "word": "*prize",
+          "phonetic_us": "[praɪz]",
+          "gloss_zh": [
+            "奖品"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "sad",
+          "phonetic_us": "[sæd]",
+          "gloss_zh": [
+            "伤心的"
+          ],
+          "part_of_speech": "形容词"
+        },
+        {
+          "word": "*decide (decided)",
+          "phonetic_us": "[dɪˈsaɪd (dɪˈsaɪdɪd)]",
+          "gloss_zh": [
+            "决定"
+          ],
+          "part_of_speech": "动词"
+        },
+        {
+          "word": "high",
+          "phonetic_us": "[haɪ]",
+          "gloss_zh": [
+            "高的"
+          ],
+          "part_of_speech": "形容词/副词"
+        },
+        {
+          "word": "happy",
+          "phonetic_us": "[ˈhæpi]",
+          "gloss_zh": [
+            "高兴的"
+          ],
+          "part_of_speech": "形容词"
+        },
+        {
+          "word": "sixth",
+          "phonetic_us": "[sɪksθ]",
+          "gloss_zh": [
+            "第六"
+          ],
+          "part_of_speech": "数词"
+        },
+        {
+          "word": "seventh",
+          "phonetic_us": "[ˈsevənθ]",
+          "gloss_zh": [
+            "第七"
+          ],
+          "part_of_speech": "数词"
+        },
+        {
+          "word": "eighth",
+          "phonetic_us": "[eɪtθ]",
+          "gloss_zh": [
+            "第八"
+          ],
+          "part_of_speech": "数词"
+        },
+        {
+          "word": "ninth",
+          "phonetic_us": "[naɪnθ]",
+          "gloss_zh": [
+            "第九"
+          ],
+          "part_of_speech": "数词"
+        },
+        {
+          "word": "tenth",
+          "phonetic_us": "[tenθ]",
+          "gloss_zh": [
+            "第十"
+          ],
+          "part_of_speech": "数词"
+        }
+      ]
+    },
+    {
+      "unit": "Unit 4",
+      "title": "Seasons",
+      "totalWords": 22,
+      "words": [
+        {
+          "word": "birthday",
+          "phonetic_us": "[ˈbɜːrθdeɪ]",
+          "gloss_zh": [
+            "生日"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "June",
+          "phonetic_us": "[dʒuːn]",
+          "gloss_zh": [
+            "六月"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "May",
+          "phonetic_us": "[meɪ]",
+          "gloss_zh": [
+            "五月"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "September",
+          "phonetic_us": "[sepˈtembər]",
+          "gloss_zh": [
+            "九月"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "November",
+          "phonetic_us": "[noʊˈvembər]",
+          "gloss_zh": [
+            "十一月"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "July",
+          "phonetic_us": "[dʒuˈlaɪ]",
+          "gloss_zh": [
+            "七月"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "spring",
+          "phonetic_us": "[sprɪŋ]",
+          "gloss_zh": [
+            "春季"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "March",
+          "phonetic_us": "[mɑːrtʃ]",
+          "gloss_zh": [
+            "三月"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "*check (checked)",
+          "phonetic_us": "[tʃek (tʃekt)]",
+          "gloss_zh": [
+            "核查",
+            "检查"
+          ],
+          "part_of_speech": "动词/名词"
+        },
+        {
+          "word": "autumn",
+          "phonetic_us": "[ˈɔːtəm]",
+          "gloss_zh": [
+            "秋季"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "*either",
+          "phonetic_us": "[ˈiːðər]",
+          "gloss_zh": [
+            "（用于否定）都不",
+            "也不"
+          ],
+          "part_of_speech": "副词/代词"
+        },
+        {
+          "word": "call (called)",
+          "phonetic_us": "[kɔːl (kɔːld)]",
+          "gloss_zh": [
+            "打电话"
+          ],
+          "part_of_speech": "动词"
+        },
+        {
+          "word": "talk (talked)",
+          "phonetic_us": "[tɔːk (tɔːkt)]",
+          "gloss_zh": [
+            "谈话",
+            "交谈"
+          ],
+          "part_of_speech": "动词"
+        },
+        {
+          "word": "December",
+          "phonetic_us": "[dɪˈsembər]",
+          "gloss_zh": [
+            "十二月"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "summer",
+          "phonetic_us": "[ˈsʌmər]",
+          "gloss_zh": [
+            "夏季"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "October",
+          "phonetic_us": "[ɑːkˈtoʊbər]",
+          "gloss_zh": [
+            "十月"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "January",
+          "phonetic_us": "[ˈdʒænjueri]",
+          "gloss_zh": [
+            "一月"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "February",
+          "phonetic_us": "[ˈfebrueri]",
+          "gloss_zh": [
+            "二月"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "April",
+          "phonetic_us": "[ˈeɪprəl]",
+          "gloss_zh": [
+            "四月"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "August",
+          "phonetic_us": "[ˈɔːɡəst]",
+          "gloss_zh": [
+            "八月"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "winter",
+          "phonetic_us": "[ˈwɪntər]",
+          "gloss_zh": [
+            "冬季"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "season",
+          "phonetic_us": "[ˈsiːzən]",
+          "gloss_zh": [
+            "季节"
+          ],
+          "part_of_speech": "名词"
+        }
+      ]
+    },
+    {
+      "unit": "Unit 5",
+      "title": "Measurements",
+      "totalWords": 19,
+      "words": [
+        {
+          "word": "*height",
+          "phonetic_us": "[haɪt]",
+          "gloss_zh": [
+            "身高"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "*weight",
+          "phonetic_us": "[weɪt]",
+          "gloss_zh": [
+            "体重",
+            "重量"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "*centimeter",
+          "phonetic_us": "[ˈsentɪmiːtər]",
+          "gloss_zh": [
+            "厘米"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "*weigh",
+          "phonetic_us": "[weɪ]",
+          "gloss_zh": [
+            "重量是……"
+          ],
+          "part_of_speech": "动词"
+        },
+        {
+          "word": "*kilogram",
+          "phonetic_us": "[ˈkɪləɡræm]",
+          "gloss_zh": [
+            "千克"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "take (took)",
+          "phonetic_us": "[teɪk (tʊk)]",
+          "gloss_zh": [
+            "带（走）"
+          ],
+          "part_of_speech": "动词"
+        },
+        {
+          "word": "*center",
+          "phonetic_us": "[ˈsentər]",
+          "gloss_zh": [
+            "中心"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "tall (taller/tallest)",
+          "phonetic_us": "[tɔːl (ˈtɔːlər/ˈtɔːlɪst)]",
+          "gloss_zh": [
+            "有……高",
+            "高的"
+          ],
+          "part_of_speech": "形容词"
+        },
+        {
+          "word": "short (shorter/shortest)",
+          "phonetic_us": "[ʃɔːrt (ˈʃɔːrtər/ˈʃɔːrtɪst)]",
+          "gloss_zh": [
+            "矮的",
+            "短的"
+          ],
+          "part_of_speech": "形容词"
+        },
+        {
+          "word": "*than",
+          "phonetic_us": "[ðæn]",
+          "gloss_zh": [
+            "（用于比较）比"
+          ],
+          "part_of_speech": "连词/介词"
+        },
+        {
+          "word": "heavy (heavier/heaviest)",
+          "phonetic_us": "[ˈhevi (ˈheviər/ˈheviɪst)]",
+          "gloss_zh": [
+            "重的",
+            "沉重的"
+          ],
+          "part_of_speech": "形容词"
+        },
+        {
+          "word": "*something",
+          "phonetic_us": "[ˈsʌmθɪŋ]",
+          "gloss_zh": [
+            "某物（事）"
+          ],
+          "part_of_speech": "代词"
+        },
+        {
+          "word": "wrong",
+          "phonetic_us": "[rɔːŋ]",
+          "gloss_zh": [
+            "错误的"
+          ],
+          "part_of_speech": "形容词"
+        },
+        {
+          "word": "big (bigger/biggest)",
+          "phonetic_us": "[bɪɡ (ˈbɪɡər/ˈbɪɡɪst)]",
+          "gloss_zh": [
+            "大的"
+          ],
+          "part_of_speech": "形容词"
+        },
+        {
+          "word": "small (smaller/smallest)",
+          "phonetic_us": "[smɔːl (ˈsmɔːlər/ˈsmɔːlɪst)]",
+          "gloss_zh": [
+            "小的"
+          ],
+          "part_of_speech": "形容词"
+        },
+        {
+          "word": "long (longer/longest)",
+          "phonetic_us": "[lɔːŋ (ˈlɔːŋɡər/ˈlɔːŋɡɪst)]",
+          "gloss_zh": [
+            "长的"
+          ],
+          "part_of_speech": "形容词"
+        },
+        {
+          "word": "young (younger/youngest)",
+          "phonetic_us": "[jʌŋ (ˈjʌŋɡər/ˈjʌŋɡɪst)]",
+          "gloss_zh": [
+            "年轻的",
+            "年幼的"
+          ],
+          "part_of_speech": "形容词"
+        },
+        {
+          "word": "old (older/oldest)",
+          "phonetic_us": "[oʊld (ˈoʊldər/ˈoʊldɪst)]",
+          "gloss_zh": [
+            "年老的",
+            "年长的",
+            "旧的"
+          ],
+          "part_of_speech": "形容词"
+        },
+        {
+          "word": "thin (thinner/thinnest)",
+          "phonetic_us": "[θɪn (ˈθɪnər/ˈθɪnɪst)]",
+          "gloss_zh": [
+            "瘦的"
+          ],
+          "part_of_speech": "形容词"
+        }
+      ]
+    },
+    {
+      "unit": "Unit 6",
+      "title": "Universe",
+      "totalWords": 5,
+      "words": [
+        {
+          "word": "*date",
+          "phonetic_us": "[deɪt]",
+          "gloss_zh": [
+            "日期"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "*around",
+          "phonetic_us": "[əˈraʊnd]",
+          "gloss_zh": [
+            "围绕"
+          ],
+          "part_of_speech": "介词/副词"
+        },
+        {
+          "word": "*planet",
+          "phonetic_us": "[ˈplænɪt]",
+          "gloss_zh": [
+            "行星"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "sun",
+          "phonetic_us": "[sʌn]",
+          "gloss_zh": [
+            "太阳"
+          ],
+          "part_of_speech": "名词"
+        },
+        {
+          "word": "American",
+          "phonetic_us": "[əˈmerɪkən]",
+          "gloss_zh": [
+            "美国的"
+          ],
+          "part_of_speech": "形容词/名词"
+        }
+      ]
+    }
+  ]
+}

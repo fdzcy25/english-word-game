@@ -1,0 +1,15 @@
+{
+  "module": "背词蓄力",
+  "features": {
+    "showWord": true,
+    "showMeaning": true,
+    "showPhonetic": true,
+    "ttsButton": true,
+    "learnButton": true,
+    "masterButton": true
+  },
+  "reward": {
+    "energyPerWord": 10,
+    "starPerMaster": 1
+  }
+}

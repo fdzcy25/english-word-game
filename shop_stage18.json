@@ -1,0 +1,21 @@
+{
+  "module": "勇者商店",
+  "items": [
+    {
+      "id": "basic_equipment",
+      "name": "初级勇者装备",
+      "price": 100,
+      "attribute": {
+        "battlePower": 1
+      }
+    },
+    {
+      "id": "memory_book",
+      "name": "记忆强化书",
+      "price": 200,
+      "attribute": {
+        "memoryPower": 1
+      }
+    }
+  ]
+}
